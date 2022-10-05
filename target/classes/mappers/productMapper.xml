@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sopoom.mappers.product">
+<!-- 게시물 목록 보기 -->
+<select id="list" parameterType="HashMap" resultType="com.sopoom.dto.ProductVO">
+	select * from product
+</select>
+
+<!-- 전체 게시물 갯수 계산 -->
+<select id="totalCount" parameterType="HashMap" resultType="int">
+	select count(*) from tbl_board 
+		<choose>
+			<when test='searchType.equals("mtitle")'>
+				where mtitle like '%'||#{keyword}||'%' 
+			</when>
+			
+			<when test='searchType.equals("mcontent")'>
+				where mcontent like '%'||#{keyword}||'%' 
+			</when>	
+
+			<when test='searchType.equals("mtitle_mcontent")'>
+				where mcontent like '%'||#{keyword}||'%' or mtitle like '%'||#{keyword}||'%' 
+			</when>	
+			
+			<when test='searchType.equals("mwriter")'>
+				where mwriter like '%'||#{keyword}||'%'
+			</when>
+		</choose>			
+</select> 
+
+<!-- 게시물 내용 보기 -->
+<select id="view" parameterType="int" resultType="com.sopoom.dto.ProductVO">
+	select seqno,userid,mtitle,mwriter,to_char(mregdate,'YYYY-MM-DD HH24:MI:SS') as mregdate,
+		mcontent,likecnt,dislikecnt from tbl_board where seqno = #{seqno}
+</select>
+
+<!-- 게시물 등록 -->
+<insert id="write" parameterType="com.sopoom.dto.ProductVO">
+	insert into tbl_board (seqno,mwriter,mtitle,mcontent,mregdate,userid) 
+		values (#{seqno},#{mwriter},#{mtitle},#{mcontent},sysdate,#{userid})
+</insert>
+
+<!-- 게시물 번호 구하기 - 시퀀스의 Last Number 사용 -->
+<select id="getSeqnoWithLastNumber" resultType="int">
+	select (last_number-1) as last_number from all_sequences where sequence_name = 'TBL_BOARD_SEQ' 
+		and sequence_owner = 'SPRINGDEV'
+</select>
+
+<!-- 게시물 번호 구하기 - 시퀀스의 nexval 사용 -->
+<select id="getSeqnoWithNextval" resultType="int">
+	select tbl_board_seq.nextval as seqno from dual
+</select>
+
+<!-- 게시물 이전 보기 -->
+<select id="pre_seqno" parameterType="HashMap" resultType="int">
+
+	<![CDATA[		
+		select nvl(max(seqno),'0') as seqno from tbl_board where seqno < #{seqno}
+	]]>	
+		<choose>
+			<when test='searchType.equals("mtitle")'>
+				where mtitle like '%'||#{keyword}||'%' 
+			</when>
+			
+			<when test='searchType.equals("mcontent")'>
+				where mcontent like '%'||#{keyword}||'%' 
+			</when>	
+
+			<when test='searchType.equals("mtitle_mcontent")'>
+				where mcontent like '%'||#{keyword}||'%' or mtitle like '%'||#{keyword}||'%' 
+			</when>	
+			
+			<when test='searchType.equals("mwriter")'>
+				where mwriter like '%'||#{keyword}||'%'
+			</when>
+		</choose>				
+</select>
+
+<!-- 게시물 다음 보기 -->
+<select id="next_seqno" parameterType="HashMap" resultType="int">
+
+	<![CDATA[		
+		select nvl(max(seqno),'0') as seqno from tbl_board where seqno > #{seqno}
+	]]>	
+	
+		<choose>
+			<when test='searchType.equals("mtitle")'>
+				where mtitle like '%'||#{keyword}||'%' 
+			</when>
+			
+			<when test='searchType.equals("mcontent")'>
+				where mcontent like '%'||#{keyword}||'%' 
+			</when>	
+
+			<when test='searchType.equals("mtitle_mcontent")'>
+				where mcontent like '%'||#{keyword}||'%' or mtitle like '%'||#{keyword}||'%' 
+			</when>	
+			
+			<when test='searchType.equals("mwriter")'>
+				where mwriter like '%'||#{keyword}||'%'
+			</when>
+		</choose>	
+
+</select>
+
+<!-- 파일 업로드 정보 등록 -->
+<insert id="fileInfoRegistry" parameterType="HashMap">
+	insert into tbl_file (fileseqno,seqno,userid,org_filename,stored_filename,filesize,checkfile) 
+		values(tbl_file_seq.nextval,#{seqno},#{userid},#{org_filename},
+		#{stored_filename},#{filesize},'Y')
+</insert>
+
+<!-- 게시물 내용 보기에서 업로드된 파일 목록 보기 -->
+<select id="fileListView" parameterType="int" resultType="com.sopoom.dto.FileVO">
+	select fileseqno, org_filename, filesize from tbl_file where seqno = #{seqno}
+</select>
+
+<!-- 게시물 수정 -->
+<update id="modify" parameterType="com.sopoom.dto.ProductVO">
+	update tbl_board set mtitle=#{mtitle},mcontent=#{mcontent} where seqno=#{seqno}
+</update>
+
+<!-- 게시물 삭제 -->
+<delete id="delete" parameterType="int">
+	delete from tbl_board where seqno = #{seqno}
+</delete>
+
+</mapper>
+
