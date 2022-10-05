@@ -249,7 +249,7 @@ else {
 	<div class = "menu-backgroud-color"></div>
 	<div class="left">
 		<a href="/Landing/index.jsp"> <img class="logo"
-			src="resources/img/logo.png" alt="logo" width="100">
+			src="/resources/img/logo.png" alt="logo" width="100">
 		</a>
 	</div>
 	<div class="center"></div>
