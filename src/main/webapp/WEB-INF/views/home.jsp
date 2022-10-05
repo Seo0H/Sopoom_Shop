@@ -1,14 +1,62 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-<h1>
-	Hello world!  
-</h1>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@page import="java.text.DecimalFormat"%>
 
-<P>  The time on the server is ${serverTime}. </P>
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+<script>
+	var myIndex = 0;
+	carousel();
+
+	function carousel() {
+		var i;
+		var x = document.getElementsByClassName("mySlides");
+		for (i = 0; i < x.length; i++) {
+			x[i].setAttribute("style", "display:none");
+		}
+		myIndex++;
+		if (myIndex > x.length) {
+			myIndex = 1
+		}
+		x[myIndex - 1].setAttribute("style", "display:block");
+		setTimeout(carousel, 2000); // Change image every 2 seconds
+	}
+</script>
+
+<link rel="stylesheet" href="/css/index_style.css">
+<title>소품샵프로젝트</title>
+</head>
+
+<body>
+	<%@include file="./top.jsp"%>
+	<div class="body">
+		<div class="content" align="center">
+
+			<div class="w3-content slideContent">
+				<img class="mySlides" src="./img/Frame 51.png"> <img
+					class="mySlides" src="./img/Frame 52.png"> <img
+					class="mySlides" src="./img/Frame 53.png">
+			</div>
+
+			<div class="products">
+
+				<div class="section">
+				<c:forEach items="${list}" var="list">
+					<a href="/Category/product.jsp?id=${list.p_id}"> <img
+						src="/upload/${list.p_fileName}"><br> <b><span
+							id="productName">${list.p_name}</span></b><br> <br>
+						<b><span id="productPrice">${list.p_unitPrice}원</span></b>
+					</a>
+				</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%@include file="./footer.jsp"%>
 </body>
 </html>
