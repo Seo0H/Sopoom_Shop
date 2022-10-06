@@ -71,4 +71,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.addrSearch(startPoint, endPoint, addrSearch);
 	}
 
+	@Override
+	public List<MemberVO> allMemberInfoView() {
+		return dao.allMemberInfoView();
+	}
+
 }

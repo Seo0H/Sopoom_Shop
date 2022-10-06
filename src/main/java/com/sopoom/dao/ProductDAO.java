@@ -29,8 +29,11 @@ public interface ProductDAO {
 	//게시물 다음 보기
 	public int next_seqno(int seqno,String searchType, String keyword) throws Exception;
 	
-	//게시물 등록
-	public void write(ProductVO board) throws Exception;
+	//admin - 상품 등록
+	public void productReg(ProductVO board) throws Exception;
+	
+	//admin - 중복 상품 이름 체크
+	public int pidCheck(String p_id) throws Exception;
 	
 	//파일 업로드 정보 등록
 	public void fileInfoRegistry(Map<String,Object> fileInfo) throws Exception;

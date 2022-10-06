@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sopoom.mappers.admin.Product">
+<!-- 게시물 등록 -->
+<insert id="productReg" parameterType="com.sopoom.dto.ProductVO">
+	insert into product(p_id, p_name, p_unitPrice, p_description, p_category, p_manufacturer, p_unitsInStock, p_condition, p_fileName) 
+	values (#{p_id},#{p_name},#{p_unitPrice},#{p_description},#{p_category},#{p_manufacturer},#{p_unitsInStock},#{p_condition},#{p_fileName})
+</insert>
+
+<!-- 중복 상품 아이디 체크 -->
+<select id="pidCheck" parameterType="String" resultType="int">
+	select count(*) as id_count from product where p_id=#{p_id}
+</select>
+
+<!-- 게시물 수정 -->
+<update id="modify" parameterType="com.sopoom.dto.ProductVO">
+	update tbl_board set mtitle=#{mtitle},mcontent=#{mcontent} where seqno=#{seqno}
+</update>
+
+<!-- 게시물 삭제 -->
+<delete id="delete" parameterType="int">
+	delete from tbl_board where seqno = #{seqno}
+</delete>
+
+</mapper>
+

@@ -9,70 +9,9 @@
 <meta charset="UTF-8">
 
 <head>
-<!-- 경로 맞춰서 다시 적용하기 -->
-<!-- <link rel="stylesheet" href="css/index_style.css"> -->
+
+<link rel="stylesheet" href="/resources/css/index_style.css">
 <title>소품샵프로젝트</title>
-<style>
-.mySlides {
-	display: none;
-	width: 1200px;
-	height: 417.81px;
-}
-
-.w3-content slideContent {
-	width: 1887px !important;
-	height: 657px;
-	margin: auto;
-}
-
-.products {
-	width: 960px;
-	height: auto;
-}
-
-.section {
-	width: 280px;
-	margin: auto;
-	margin-left: 40px !important;
-	float: left;
-}
-
-.section img {
-	width: 280px;
-	height: 385px;
-}
-
-.section img:hover {
-	filter: opacity(0.8);
-}
-
-.section a {
-	text-decoration-line: none;
-	color: inherit;
-}
-
-.section a:hover {
-	cursor: pointer;
-}
-
-#productName {
-	margin-top: 1.2em;
-	color: #555555;
-	font-family: Pretendard;
-	font-weight: 600;
-	letter-spacing: -0.05em;
-	white-space: nowrap;
-}
-
-#productPrice {
-	color: #747474;
-	font-size: 12px;
-	font-family: Pretendard;
-	font-weight: 700t;
-	letter-spacing: 0em;
-}
-</style>
-
 </head>
 
 <body>

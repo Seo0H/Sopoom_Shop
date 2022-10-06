@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sopoom.dto.AddressVO;
 import com.sopoom.dto.MemberVO;
+import com.sopoom.dto.ProductVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
@@ -18,7 +19,7 @@ public class MemberDAOImpl implements MemberDAO{
 	@Autowired
 	SqlSession sql;
 	
-	private static String namespace = "com.sopoom.mappers.member";
+	private static String namespace = "com.sopoom.mappers.admin.member";
 	
 	//아이디 확인
 	@Override
@@ -79,5 +80,9 @@ public class MemberDAOImpl implements MemberDAO{
       
       return sql.selectList(namespace + ".addrSearch", data);
    }
+
+	public List<MemberVO> allMemberInfoView() {
+		return sql.selectList(namespace + ".allMemberInfoView"); 
+	}
 
 }

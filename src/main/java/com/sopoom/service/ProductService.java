@@ -35,9 +35,12 @@ public interface ProductService {
 	//게시글 내에서 업로드된 파일 목록 보기
 	public List<FileVO> fileListView(int seqno) throws Exception;
 	
-	//게시물 등록
-	public void write(ProductVO board) throws Exception;
+	//admin - 상품 등록
+	public void productReg(ProductVO board) throws Exception;
 	
+	//admin - 중복 상품 아이디 체크
+	public int pidCheck(String p_id) throws Exception;
+
 	//게시물 수정
 	public void modify(ProductVO board) throws Exception;
 	

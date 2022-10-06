@@ -36,10 +36,16 @@ public class ProductServiceImpl implements ProductService {
 		return dao.view(seqno);
 	}
 
-	//게시물 등록 
+	//admin - 상품 등록 
 	@Override
-	public void write(ProductVO board) throws Exception {
-		dao.write(board);		
+	public void productReg(ProductVO board) throws Exception {
+		dao.productReg(board);		
+	}
+	
+	//admin - 상품 이름 중복 체크 
+	@Override
+	public int pidCheck(String p_id) throws Exception{
+		return dao.pidCheck(p_id);
 	}
 
 	//게시물 번호 구하기 - 시퀀스의 Last Number 사용

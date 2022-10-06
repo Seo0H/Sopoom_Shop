@@ -37,10 +37,7 @@
 </select>
 
 <!-- 게시물 등록 -->
-<insert id="write" parameterType="com.sopoom.dto.ProductVO">
-	insert into tbl_board (seqno,mwriter,mtitle,mcontent,mregdate,userid) 
-		values (#{seqno},#{mwriter},#{mtitle},#{mcontent},sysdate,#{userid})
-</insert>
+
 
 <!-- 게시물 번호 구하기 - 시퀀스의 Last Number 사용 -->
 <select id="getSeqnoWithLastNumber" resultType="int">

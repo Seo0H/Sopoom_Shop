@@ -27,18 +27,15 @@
 
 <%
 String userid = (String)session.getAttribute("userID");
-
 List<CartDTO> cartList = CartDAO.getDAO().selectAllCartList(userid);
 List<ProductDTO> productList = new ArrayList<ProductDTO>();
 List<Integer> qtyList = new ArrayList<Integer>();
-
 for (CartDTO cart : cartList) {
    String p_id = cart.getp_id();
    ProductDTO product = ProductDAO.getDAO().selectProduct(p_id);
    productList.add(product);
    qtyList.add(cart.getQuantitiy());
 	}
-
 %>
 
 <head>
@@ -56,7 +53,6 @@ for (CartDTO cart : cartList) {
 <body>
 <%@include file="/top.jsp"%>
 <%DecimalFormat df = new DecimalFormat("###,###");
-
 	 if (userid == null) { %>
 	<script>
 		alert("로그인이 필요한 서비스입니다.");
@@ -173,7 +169,6 @@ for (CartDTO cart : cartList) {
 	str = String(I);
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');	
 	}
-
    $("document").ready(function(){
 		
 	   //시작하자마자 제품 가격 띄워주는 부분
@@ -182,7 +177,6 @@ for (CartDTO cart : cartList) {
 	   var vis_price_location = document.getElementById("vis_price<%=i %>");
 	   var hidden_price = document.getElementById("price<%=i%>").value;
 	  	$("#vis_price<%=i%>").val(commaInsurt(hidden_price));
-
 	   
 	   //시작하자마자 제품 가격 x 수량 띄워주는 부분 
 	   var vis_total_location = document.getElementById("vis_total<%=i %>");
@@ -200,7 +194,6 @@ for (CartDTO cart : cartList) {
         
         $("#selectedTotal").val(total);
         $("#vis_selectedTotal").val(commaInsurt(total));
-
       //수량 증가-감소 버튼
       $(document).on('click','button[name="countBtn"]',function(e){
          e.stopPropagation();
@@ -213,12 +206,9 @@ for (CartDTO cart : cartList) {
          let totalInput = row.find('input[name=total]');
          
          let vis_totalLocation = row.find('input[name=vis_total]');
-
-
          //upBtn 일 경우
          if($(this).hasClass("upBtn")){
             count++
-
          //downBtn 일 경우
          } else{
             count--;
@@ -245,20 +235,14 @@ for (CartDTO cart : cartList) {
             if(checkItem.prop("checked")){
                total += Number(document.getElementsByName("total")[<%=j%>].value);
             }
-
          <%}%>
          
          
          $('#selectedTotal').val(total);
          $('#vis_selectedTotal').val(commaInsurt(total)+"");
-
-
-
       });
-
          //전체 체크
          $(document).on('change', '#allCheck', function(e) {
-
             if($(this).prop("checked")) {
                <%for(int i=0; i<productList.size(); i++){%>
                   var checkItem = $("input[name=checkP<%=i%>]");
@@ -280,15 +264,12 @@ for (CartDTO cart : cartList) {
             $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
             
          });
-
-
       //개별 체크
       //체크박스가 선택되어 있는 부분의 전체 가격의 합계
       <%for(int i=0; i<productList.size(); i++){%>
          $(document).on('change','input[name=checkP<%=i%>]',function(e){
             let totalPrice = parseInt(document.getElementById("selectedTotal").value);
             console.log("original totalPrice : " + totalPrice + "\n");
-
             if($(this).prop("checked")) {
                totalPrice += parseInt(document.getElementById("total<%=i%>").value);
                console.log("if : " + document.getElementById("total<%=i%>").value);
@@ -297,7 +278,6 @@ for (CartDTO cart : cartList) {
                console.log("else : " + document.getElementById("total<%=i%>").value);
             }
             //document.getElementById("sum").value = totalPrice;
-
             //totalPrice.empty();
             //totalPrice.html(p_totalPrice);
             console.log("changed totalPrice : " + totalPrice + "\n");
@@ -306,38 +286,27 @@ for (CartDTO cart : cartList) {
             $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
          });
       <%}%>
-
-
-
          //개별 선택 삭제
           $("#removeSelectBtn").click(function(e) {
          	  e.stopPropagation();
               e.preventDefault();
-
 			  let checkp_id = [] ;
 			  <%for(int i=0; i<productList.size(); i++){%>
             	if ($('input[name=checkP<%=i%>]').is(':checked')) {
             		checkp_id[<%=i%>]= document.getElementsByName('checkP<%=i%>')[0].value;
             		}
-
 			  	<%}%>
-
                if(window.confirm("선택 상품을 삭제하시겠습니까?")) {
                   location.href="cart_delete.jsp?p_id="+checkp_id;
                }
-
 		});
-
-
          //전체 삭제
           $("#removeAllBtn").click(function() {
                if(window.confirm("장바구니를 비우시겠습니까?")) {
                   location.href="cart_clear.jsp";
                }
          });
-
       });
-
 </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 
 <head>
-<link rel="stylesheet" href="/css/index_style.css">
+<link rel="stylesheet" href="/resources/css/index_style.css">
 <title>소품샵프로젝트</title>
 </head>
 
@@ -29,7 +29,7 @@
 				<div class="section">
 				<c:forEach items="${list}" var="list">
 					<a href="/Category/product.jsp?id=${list.p_id}"> <img
-						src="resources/upload/${list.p_fileName}"><br> <b><span
+						src="/resources/upload/${list.p_fileName}"><br> <b><span
 							id="productName">${list.p_name}</span></b><br> <br>
 						<b><span id="productPrice">${list.p_unitPrice}원</span></b>
 					</a>

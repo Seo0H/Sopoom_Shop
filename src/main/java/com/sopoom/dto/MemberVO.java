@@ -2,119 +2,102 @@ package com.sopoom.dto;
 
 import java.time.LocalDateTime;
 
+//Admin - 회원 목록 보기 구현
 public class MemberVO {
 
-	private String userid;
-	private String username;
+	private String userID;
 	private String password;
+	private String username;
+	private String postcode;
+	private String address;
+	private String detailAddress;
+	private String extraAddress;
 	private String telno;
 	private String email;
-	private String zipcode;
-	private String address;
-	private LocalDateTime regdate;
-	private String lastlogindate;
-	private String lastlogoutdate;
-	private LocalDateTime lastpwdate;
-	private int pwcheck;
-	private String role;
-	private String org_filename;
-	private String stored_filename;
-	private long filesize;
-	public String getUserid() {
-		return userid;
-	}
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
+
+	public MemberVO(String userID, String password, String username, String postcode, String address,
+			String detailAddress, String extraAddress, String telno, String email) {
+		this.userID = userID;
+		this.password = password;
 		this.username = username;
+		this.postcode = postcode;
+		this.address = address;
+		this.detailAddress = detailAddress;
+		this.extraAddress = extraAddress;
+		this.telno = telno;
+		this.email = email;
 	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getTelno() {
-		return telno;
+
+	public String getUsername() {
+		return username;
 	}
-	public void setTelno(String telno) {
-		this.telno = telno;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public String getEmail() {
-		return email;
+
+	public String getPostcode() {
+		return postcode;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
-	public String getZipcode() {
-		return zipcode;
-	}
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public LocalDateTime getRegdate() {
-		return regdate;
+
+	public String getDetailAddress() {
+		return detailAddress;
 	}
-	public void setRegdate(LocalDateTime regdate) {
-		this.regdate = regdate;
+
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
 	}
-	public String getLastlogindate() {
-		return lastlogindate;
+
+	public String getExtraAddress() {
+		return extraAddress;
 	}
-	public void setLastlogindate(String lastlogindate) {
-		this.lastlogindate = lastlogindate;
+
+	public void setExtraAddress(String extraAddress) {
+		this.extraAddress = extraAddress;
 	}
-	public String getLastlogoutdate() {
-		return lastlogoutdate;
+
+	public String getTelno() {
+		return telno;
 	}
-	public void setLastlogoutdate(String lastlogoutdate) {
-		this.lastlogoutdate = lastlogoutdate;
+
+	public void setTelno(String telno) {
+		this.telno = telno;
 	}
-	public LocalDateTime getLastpwdate() {
-		return lastpwdate;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setLastpwdate(LocalDateTime lastpwdate) {
-		this.lastpwdate = lastpwdate;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public int getPwcheck() {
-		return pwcheck;
-	}
-	public void setPwcheck(int pwcheck) {
-		this.pwcheck = pwcheck;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public String getOrg_filename() {
-		return org_filename;
-	}
-	public void setOrg_filename(String org_filename) {
-		this.org_filename = org_filename;
-	}
-	public String getStored_filename() {
-		return stored_filename;
-	}
-	public void setStored_filename(String stored_filename) {
-		this.stored_filename = stored_filename;
-	}
-	public long getFilesize() {
-		return filesize;
-	}
-	public void setFilesize(long filesize) {
-		this.filesize = filesize;
-	}
-	
-}	
+
+}

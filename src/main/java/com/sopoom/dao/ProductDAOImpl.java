@@ -76,11 +76,15 @@ public class ProductDAOImpl implements ProductDAO {
 		return sql.selectOne(namespace + ".next_seqno", data);
 	}
 	
-	//게시물 등록
+	//admin - 상품 등록
 	@Override
-	public void write(ProductVO board) throws Exception {
-		
-		sql.insert(namespace + ".write", board);
+	public void productReg(ProductVO board) throws Exception {
+		sql.insert("com.sopoom.mappers.admin.Product" + ".productReg", board);
+	}
+	
+	//admin - 중복 상품 이름 체크
+	public int pidCheck(String p_id) throws Exception {	
+		return sql.selectOne("com.sopoom.mappers.admin.Product" + ".pidCheck", p_id);
 	}
 
 	//파일 업로드 정보 등록

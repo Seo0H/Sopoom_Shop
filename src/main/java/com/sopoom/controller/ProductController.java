@@ -21,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,30 +64,25 @@ public class ProductController {
 	}
 	
 	//게시물 등록 화면 보기
-	@GetMapping("/board/write")
-	public void GetWrite() { }
+	@GetMapping("/admin/Product/productReg")
+	public void GetProductReg() { }
 	
-	//첨부 파일 있는 게시물 등록
-	@PostMapping("/board/writeWithFile")
-	public String PostWriteWithFile(ProductVO board, HttpServletRequest request) throws Exception{
+	//admin - 첨부 파일 없는 상품 등록
+	@PostMapping("/admin/Product/productReg")
+	public String PostProductReg(ProductVO board) throws Exception{
 		
-		log.info("<-------------- 첨부 파일 있음 ------------------->");
-		service.write(board);
+		log.info("<-------------- 첨부 파일 없음인데 사진도 넣음.. 수정필요 ------------------->");
+		service.productReg(board);
 		
-		return "redirect:/board/list?page=1";
+		return "redirect:/product/list";
+	}
+	
+	//상품 이름 중복 체크
+	@GetMapping("/admin/Product/pidCheck")
+	public void GetpidCheck(Model model, @RequestParam("p_id") String p_id) throws Exception{
+		model.addAttribute("pidCheck", service.pidCheck(p_id));
 	}
 
-	//첨부 파일 없는 게시물 등록
-	@PostMapping("/board/write")
-	public String PostWrite(ProductVO board) throws Exception{
-		
-		log.info("<-------------- 첨부 파일 없음 ------------------->");
-		
-		service.write(board);
-		
-		return "redirect:/board/list?page=1";
-	}
-	
 	//파일 업로드
 	@ResponseBody
 	@PostMapping("/board/fileUpload")

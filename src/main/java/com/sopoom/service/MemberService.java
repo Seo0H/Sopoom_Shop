@@ -38,5 +38,7 @@ public interface MemberService {
 	//주소 검색
 	public List<AddressVO> addrSearch(int startPoint, int endPoint, String addrSearch);
 	
+	//사용자 전부 목록 가져오기
+	public List<MemberVO> allMemberInfoView();
 	
 }
