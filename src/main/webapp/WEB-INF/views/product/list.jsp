@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<%@include file="top.jsp"%>
+	<%@include file="/WEB-INF/views/top.jsp"%>
 	<div class="body">
 		<div class="content" align="center">
 
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 
-	<%@include file="./footer.jsp"%>
+	<%@include file="/WEB-INF/views/footer.jsp"%>
 
 	<script>
 		var myIndex = 0;

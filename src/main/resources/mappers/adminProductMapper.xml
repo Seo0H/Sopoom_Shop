@@ -13,16 +13,5 @@
 <select id="pidCheck" parameterType="String" resultType="int">
 	select count(*) as id_count from product where p_id=#{p_id}
 </select>
-
-<!-- 게시물 수정 -->
-<update id="modify" parameterType="com.sopoom.dto.ProductVO">
-	update tbl_board set mtitle=#{mtitle},mcontent=#{mcontent} where seqno=#{seqno}
-</update>
-
-<!-- 게시물 삭제 -->
-<delete id="delete" parameterType="int">
-	delete from tbl_board where seqno = #{seqno}
-</delete>
-
 </mapper>
 

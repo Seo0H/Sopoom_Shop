@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.sopoom.service.MemberService;
 
 @Controller
-public class MemberController {
+public class AdminMemberController {
 
 	@Autowired
 	MemberService service; //의존성 주입
 	
-	Logger log = LoggerFactory.getLogger(MemberController.class);
+	Logger log = LoggerFactory.getLogger(AdminMemberController.class);
 	
 	//사용자 목록 보기
 	@GetMapping("/admin/member/allMemberInfoView")
