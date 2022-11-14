@@ -17,6 +17,9 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	String url ="jdbc:mariadb://localhost:3306/inventory?user=root&password=1234";
+	
+	@RequestMapping(value = "/NewFile", method = RequestMethod.GET)
+	   public void localPath() {}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {

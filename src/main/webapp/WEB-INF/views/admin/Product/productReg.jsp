@@ -42,10 +42,10 @@
 		
 		//drag 영역 클릭시 파일 선택창
 		objDragAndDrop.on('click', function(e) {
-			$("#p_fileName").trigger('click');
+			$("#file").trigger('click');
 		});
 
-		$("#p_fileName").on('change', function(e) {
+		$("#file").on('change', function(e) {
 			var files = e.originalEvent.target.files;
 			imageView(files, objDragAndDrop);
 		});
@@ -114,11 +114,11 @@
 		<h1 class="editTitle">상품 등록</h1>
 		<br>
 
-		<form id="WriteForm" class="WriteForm" method="POST">
+		<form id="WriteForm" class="WriteForm" method="POST" enctype="multipart/form-data">
 
 			<div class="row">
 				<label class="title"><p class="mustIn">*</p> 상품이미지</label> <input type="file"
-					name="p_fileName" id="p_fileName" style="display: none;" />
+					name="file" id="file" style="display: none;" />
 					<div class="ImageRegistration" id="ImageRegistration">클릭해서 사진을 등록해 주세요.</div>
 			</div>
 
