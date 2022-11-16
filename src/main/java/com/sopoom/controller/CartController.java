@@ -25,10 +25,10 @@ public class CartController {
 	@Autowired
 	CartService service;
 	
-	@GetMapping("/ShopC/shoppingCart")
+	@GetMapping("/ShopC/testJstl")
 	public void getShoppingCart(Model model,HttpSession session) throws Exception{
 		//String userid = session.getId();
-		String userid = "sss1";
+		String userid = "seo123";
 		List<CartVO> cartlist = service.selectCart(userid);
 		
 		ArrayList<String> p_idList = new ArrayList<>();

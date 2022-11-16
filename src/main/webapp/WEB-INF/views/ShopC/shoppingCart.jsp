@@ -11,7 +11,7 @@
 
 <%@page import="java.text.DecimalFormat"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <%
 //String userid = (String)session.getAttribute("userID");
@@ -60,7 +60,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	<%
    } else {
    %>
-	<form id="cartForm" class="cartTable" method="post" action="/Purchase/purchase.jsp">
+	<form id="cartForm" class="cartTable" th:object="${cartList},${cartProductInfo}" method="post" action="/Purchase/purchase.jsp">
 		<table class="cart-table-container">
                 <tr>
                     <th><input type="checkbox" id="allCheck" name="allcheck" checked class="checkabox-container" style="text-align: left" > </th>
