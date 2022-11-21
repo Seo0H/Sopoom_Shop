@@ -25,7 +25,7 @@ public class CartController {
 	@Autowired
 	CartService service;
 	
-	@GetMapping("/ShopC/testJstl")
+	@GetMapping("/ShopC/shoppingCart")
 	public void getShoppingCart(Model model,HttpSession session) throws Exception{
 		//String userid = session.getId();
 		String userid = "seo123";
@@ -34,18 +34,19 @@ public class CartController {
 		ArrayList<String> p_idList = new ArrayList<>();
 		for(int i=0; i< cartlist.size(); i++) {
 			
-			log.info(i+"번째 카트 p_id :" + cartlist.get(i).getP_id());
+//			log.info(i+"번째 카트 p_id :" + cartlist.get(i).getP_id());
 			p_idList.add(cartlist.get(i).getP_id());			
 		}
 		
-		List<ProductVO> cartProductInfo = service.selectCartProductInfo(p_idList);
+		List<ProductVO> productVO = service.selectCartProductInfo(p_idList);
+		List<CartVO> cartVO = service.selectCart(userid);
 		
 		int totalCount = cartlist.size();		
-		log.info("카트 totalCount :" + totalCount);
-		log.info("카트에 담긴 제품 :" + cartProductInfo.get(0).getP_name());
+//		log.info("카트 totalCount :" + totalCount);
+//		log.info("카트에 담긴 제품 :" + productVO.get(0).getP_name());
 
-		model.addAttribute("cartProductInfo", cartProductInfo);
-		model.addAttribute("cartList", service.selectCart(userid));
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("cartVO", cartVO);
 		model.addAttribute("totalCount", totalCount);
 	}
 }

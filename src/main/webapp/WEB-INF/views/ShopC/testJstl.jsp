@@ -16,10 +16,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:forEach items="${cartProductInfo}" var="cartProductInfo" varStatus="status" >
+<c:forEach items="${productVO}" var="cartProductInfo" varStatus="status" >
 <p> P_fileName : ${status.current.getP_fileName()}</p>
-<a class="name" name="pname" value="${status.current.getP_name()}" readonly="readonly" href="/product.jsp?id=${p_id}"> ${status.current.getP_name()} </a>
+<a value="${status.current.getP_name()}" readonly="readonly" > ${status.current.getP_name()} </a>
+<a value="${status.current.getP_name()}" readonly="readonly" > ${status.current.getP_id()} </a>
 </c:forEach>
+
 
 </body>
 </html>

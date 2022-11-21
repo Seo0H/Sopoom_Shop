@@ -11,7 +11,8 @@
 	
 	<!-- product table 에서 Cart table에 담긴 상품 종류 정보 가져오기 -->
 	<select id="selectCartProductInfo" parameterType="List" resultType="com.sopoom.dto.ProductVO">
-		select * from product WHERE p_id in
+		select p_id, p_name, p_unitPrice, p_description, p_category, p_manufacturer, p_unitsInStock,
+		 p_condition, p_fileName from product WHERE p_id in
 			<foreach collection="p_idList" item="p_id"  open="(" close=")" separator=",">
 			#{p_id}
 			</foreach>
