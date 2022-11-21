@@ -7,5 +7,21 @@
 <select id="inventoryList" parameterType="HashMap" resultType="com.sopoom.dto.InventoryVO">
 	select * from product
 </select>
+
+<!-- 게시물 정보 보기 -->
+<select id="view" parameterType="String" resultType="com.sopoom.dto.InventoryVO">
+	select * from product where p_id=#{p_id}
+</select>
+
+<!-- 게시물 수정 -->
+<update id="modifyInventoryInfo" parameterType="com.sopoom.dto.InventoryVO">
+	update product set p_unitsInStock=#{p_unitsInStock} where p_id=#{p_id}
+</update>
+
+<!-- 게시물 삭제 -->
+<delete id="deleteInventory" parameterType="String">
+	delete from product where p_id = #{p_id}
+</delete>
+
 </mapper>
 

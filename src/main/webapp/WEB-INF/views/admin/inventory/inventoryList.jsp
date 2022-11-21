@@ -46,7 +46,7 @@ window.onload = function() {
 					<tr>
 					<td class="tdId">${inventoryList.p_id}</td>
 					<td class="tdName"><a id="hypertext"
-						href="/Admin/Inventory/inventoryInfo.jsp?p_id=${inventoryList.p_id}"
+						href="/admin/inventory/inventoryInfo?p_id=${inventoryList.p_id}"
 						onMouseover="this.style.textDecoration='underline'"
 						onmouseout="this.style.textDecoration='none'">${inventoryList.p_name}</a></td>
 						
