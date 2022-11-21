@@ -18,5 +18,16 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> allMemberInfoView() {
 		return dao.allMemberInfoView();
 	}
+	
+	//사용자 개인 정보 보기
+	@Override
+	public MemberVO memberInfoView(String userID){
+		return dao.memberInfoView(userID);
+	}
+	
+	//회원 탈퇴 처리
+	public void deleteMember(String userID){
+		dao.deleteMember(userID);
+	}
 
 }

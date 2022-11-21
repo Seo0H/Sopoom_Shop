@@ -41,7 +41,7 @@
 				<tr>
 					<td class="tdIndex"><%=idx++%></td>
 					<td class="tdId"><a id="hypertext"
-						href="/Admin/Member/edit_memberInfo.jsp?userID=${allMemberInfoView.userID}"
+						href="/admin/member/memberInfoView?userID=${allMemberInfoView.userID}"
 						onMouseover='this.style.textDecoration="underline"'
 						onmouseout="this.style.textDecoration='none';">${allMemberInfoView.userID}</a></td>
 					<td class="tdName">${allMemberInfoView.username}</td>

@@ -46,7 +46,7 @@ function deleteInventory(){
 	<form id="ModifyForm" name="ModifyForm" method="POST">
 		<div class="row">
 				<label class="title">상품이미지</label> 
-				<input type="image" src='<c:url value="/resources/upload/${view.p_fileName}"/>' alt="상품이미지" class="p_image" id="p_image" disabled>
+				<input type="image" src="/resources/upload/${view.p_fileName}" alt="상품이미지" class="p_image" id="p_image" disabled>
 		</div>
 		<div class="row">
 				<label class="title">상품코드</label> 

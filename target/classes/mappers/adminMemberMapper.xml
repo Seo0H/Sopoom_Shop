@@ -8,4 +8,14 @@
 <select id="allMemberInfoView" parameterType="HashMap" resultType="com.sopoom.dto.MemberVO">
 	select * from user
 </select>
+
+<!-- 사용자 정보 보기 -->
+<select id="memberInfoView" parameterType="String" resultType="com.sopoom.dto.MemberVO">
+	select * from user where userID=#{userID}
+</select>
+
+<!-- 사용자 정보 삭제 -->
+<delete id="deleteMember" parameterType="String">
+	delete from user where userID = #{userID}
+</delete>
 </mapper>

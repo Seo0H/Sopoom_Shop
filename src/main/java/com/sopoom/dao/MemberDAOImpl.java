@@ -18,5 +18,15 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<MemberVO> allMemberInfoView() {
 		return sql.selectList(namespace + ".allMemberInfoView"); 
 	}
+	
+	//사용자 개인 정보 보기
+	public MemberVO memberInfoView(String userID) {
+		return sql.selectOne(namespace + ".memberInfoView", userID);
+	}
+	
+	//회원 탈퇴 처리
+	public void deleteMember(String userID){
+		sql.update(namespace + ".deleteMember", userID);
+	}
 
 }
