@@ -97,9 +97,9 @@
 			$("#p_unitPrice").focus();
 			return false;
 		}
-		if ($("#p_amount").val() == "") {
+		if ($("#p_unitsInStock").val() == "") {
 			alert("재고 수량을 입력하세요");
-			$("#p_amount").focus();
+			$("#p_unitsInStock").focus();
 			return false;
 		}
 		$('#WriteForm').attr('action', '/admin/Product/productReg')
@@ -160,7 +160,7 @@
 			</div>
 
 			<div class="row">
-				<label class="title"><p class="mustIn">*</p> 재고 수</label> <input type="text"
+				<label class="title"><p class="mustIn">*</p> 재고 수</label> <input type="number"
 					class="p_amount" id=p_unitsInStock name="p_unitsInStock">
 			</div>
 
