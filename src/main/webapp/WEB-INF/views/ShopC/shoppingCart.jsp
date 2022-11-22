@@ -80,7 +80,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                 <tbody>
                 <tr>
                     <td class="tdId checkabox-container">
-                        <input type="checkbox" name="checkP${status.index}" value="${status.current.getP_id()}" class="check" checked>
+                        <input type="checkbox" class="checkP" name="checkP${status.index}" value="${status.current.getP_id()}" class="check" checked>
                    		<input type="hidden" name="p_id" value="${status.current.getP_id()}">
                     </td>
                     <td class="tdId img"  style="cursor: pointer;">
@@ -143,6 +143,8 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 
 	<script>
+	
+	//숫자 3자리마다 콤마 넣는 함수
 	function commaInsurt(I) {
 	str = String(I);
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');	
@@ -240,30 +242,38 @@ int totalCount = (Integer)request.getAttribute("totalCount");
             console.log("totalPrice : " + totalPrice);
             console.log("vis_selectedTotal : " + commaInsurt(totalPrice));
             
+          //바뀐 금액으로 결제 예정 금액 변경
             $('#vis_selectedTotal').val(commaInsurt(totalPrice));
-            $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
+            $('#selectedTotal').val(totalPrice); 
             
          });
       //개별 체크
       //체크박스가 선택되어 있는 부분의 전체 가격의 합계
-      console.log($("input[name^=checkP]").is(':checked').length)
-      for(let i=0; i<$("input[name^=checkP]").is(':checked').length; i++){
-    	  let checkItemBox = $("input[name=checkP]"+i);
-         $(document).on('change',checkItemBox,function(e){
-            let totalPrice = parseInt(document.getElementById("selectedTotal").value);
-            console.log("original totalPrice : " + totalPrice + "\n");
+      console.log($("input:checkbox[name^=checkP]:checked").length)
+      
+      for(let i=0; i<($("input:checkbox[name^=checkP]:checked").length); i++){
+    	  let checkItemBox = $("input:checkbox[name=checkP]"+i);
+    	  
+    	  $(document).on("change","input:checkbox[name=checkP]",function(e){
+      	  	let totalPrice = parseInt(document.getElementById("selectedTotal").value);
+      	  	let stockPrice = parseInt(document.getElementById("total"+i).value);
+      	  	
+            console.log("original totalPrice : " + totalPrice);
+            console.log("stockPrice : " + stockPrice);
+            
             if($(this).prop("checked")) {
-               totalPrice += parseInt(document.getElementById("total"+i).value);
-               console.log("if : " + document.getElementById("total"+i).value);
+            	totalPrice += stockPrice;
+            	console.log("체크됨 : " + totalPrice);
             } else {
-               totalPrice -= parseInt(document.getElementById("total"+i).value);
-               console.log("else : " + document.getElementById("total"+i).value);
+                totalPrice -= stockPrice;
+           		console.log("체크풀림 : " + totalPrice);
             }
+            
             //document.getElementById("sum").value = totalPrice;
             //totalPrice.empty();
             //totalPrice.html(p_totalPrice);
             //console.log("changed totalPrice : " + totalPrice + "\n");
-            console.log(totalPrice);
+
             
             $('#vis_selectedTotal').val(commaInsurt(totalPrice));
             $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경

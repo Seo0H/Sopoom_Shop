@@ -28,7 +28,7 @@ public class CartController {
 	@GetMapping("/ShopC/shoppingCart")
 	public void getShoppingCart(Model model,HttpSession session) throws Exception{
 		//String userid = session.getId();
-		String userid = "seo123";
+		String userid = "admin";
 		List<CartVO> cartlist = service.selectCart(userid);
 		
 		ArrayList<String> p_idList = new ArrayList<>();
