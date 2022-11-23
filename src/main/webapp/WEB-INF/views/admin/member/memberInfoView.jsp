@@ -19,13 +19,11 @@
 
 <script>
 
-function registerForm(){
-	$("#WriteForm").attr("action", "proc_memberInfo.jsp?userID=${memberInfoView.userID}").submit();
+function modifyForm(){
+	$("#ModifyForm").attr("action", "/admin/member/modifyMember").submit();
 	}
 	
 function deleteMember(){
-	alert("${memberInfoView.userID} check");
-	
 	if(confirm('탈퇴처리하시겠습니까?')==true){
 		document.location.href = '/admin/member/deleteMember?userID=${memberInfoView.userID}';
 	}
@@ -92,8 +90,13 @@ function execDaumPostcode() {
 					</div>
 				</div>
 
-				<form id="WriteForm" class="WriteForm" method="POST">
+				<form id="ModifyForm" class="ModifyForm" method="POST">
 					<div class="left-container">
+						<div class="row">
+							<label class="title">이름</label> <input type="text"
+								name="username" id="username" class="field"
+								value="${memberInfoView.username}">
+						</div>
 						<div class="row">
 							<label class="title">로그인 아이디</label> <input type="text"
 								name="userID" id="userID" class="field" readonly="readonly"
@@ -103,11 +106,7 @@ function execDaumPostcode() {
 							<label class="title">회원 이메일</label> <input type="text"
 								name="email" id="email" class="field" value="${memberInfoView.email}">
 						</div>
-						<div class="row">
-							<label class="title">비밀 번호</label> <input type="text"
-								name="password" id="password" class="field"
-								value="${memberInfoView.password}">
-						</div>
+			
 						<div class="row">
 							<label class="title">휴대폰 번호</label> <input type="text"
 								name="telno" id="telno" class="field" value="${memberInfoView.telno}">
@@ -115,11 +114,7 @@ function execDaumPostcode() {
 					</div>
 
 					<div class="right-container">
-						<div class="row">
-							<label class="title">이름</label> <input type="text"
-								name="username" id="username" class="field"
-								value="${memberInfoView.username}">
-						</div>
+				
 						<div class="row">
 							<label class="title" id="postcodeTitle">우편 번호</label> 
 							<input type="button" id="btn_address" onclick="execDaumPostcode()" value="우편번호 찾기">
@@ -151,9 +146,9 @@ function execDaumPostcode() {
 		</div>
 		
 			<div style="text-align: center; width: 960px; margin:auto;">
-				<button id="btn_modify" class="button" onclick="registerForm()">수정</button>
-				<button id="btn_delete" class="button"
-					onclick="deleteMember()">탈퇴</button>
+				<input type=button id="btn_modify" class="button" onclick="modifyForm()" value="수정">
+				<input type=button id="btn_delete" class="button" value="탈퇴"
+					onclick="deleteMember()">
 				<br>
 				<button id="btn_list" class="button" id="btn_list"
 					onclick="location.href='/admin/member/allMemberInfoView?page=1'">목록</button>

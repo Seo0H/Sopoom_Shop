@@ -18,4 +18,11 @@
 <delete id="deleteMember" parameterType="String">
 	delete from user where userID = #{userID}
 </delete>
+
+<!-- 사용자 정보 수정 -->
+<update id="modifyMember" parameterType="com.sopoom.dto.MemberVO">
+	update user set username=#{username}, postcode=#{postcode}, address=#{address}, detailAddress=#{detailAddress},extraAddress=#{extraAddress},telno=#{telno},email=#{email} where userID=#{userID}
+</update>
+
+
 </mapper>

@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sopoom.service.MemberService;
+import com.sopoom.dto.InventoryVO;
+import com.sopoom.dto.MemberVO;
+import com.sopoom.service.AdminMemberService;
 
 @Controller
 public class AdminMemberController {
 
 	@Autowired
-	MemberService service; //의존성 주입
+	AdminMemberService service; //의존성 주입
 	
 	Logger log = LoggerFactory.getLogger(AdminMemberController.class);
 	
@@ -40,8 +42,15 @@ public class AdminMemberController {
 
 		service.deleteMember(userID);
 		
-		log.info("check " + userID + " emd");
-		
 		return "redirect:/admin/member/allMemberInfoView";
 	}
+	
+	//회원 정보 수정
+	@PostMapping("/admin/member/modifyMember")
+	public String PostModifyMemberInfo(MemberVO member) throws Exception{
+		
+		service.modifyMemberInfo(member);
+		return "redirect:/admin/member/memberInfoView?userID="+ member.getUserID();
+	}
+	
 }

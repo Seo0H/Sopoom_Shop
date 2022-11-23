@@ -5,7 +5,7 @@ import java.util.List;
 import com.sopoom.dto.MemberVO;
 
 
-public interface MemberService {
+public interface AdminMemberService {
 
 	//사용자 전부 목록 가져오기
 	public List<MemberVO> allMemberInfoView();
@@ -15,4 +15,7 @@ public interface MemberService {
 	
 	//회원 탈퇴 처리
 	public void deleteMember(String userID);
+	
+	//사용자 정보 수정
+	public void modifyMemberInfo(MemberVO member);
 }

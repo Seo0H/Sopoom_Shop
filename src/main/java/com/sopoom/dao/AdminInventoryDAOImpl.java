@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sopoom.dto.InventoryVO;
 
 @Repository
-public class InventoryDAOImpl implements InventoryDAO {
+public class AdminInventoryDAOImpl implements AdminInventoryDAO {
 
 	@Autowired
 	private SqlSession sql;

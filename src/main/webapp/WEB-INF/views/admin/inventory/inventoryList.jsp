@@ -18,7 +18,7 @@
 <script>
 
 window.onload = function() {
-	var rows = document.getElementsByName('tdPrice');
+	var rows = document.getElementsByClassName('tdPrice');
 	
 	for(var i=0; i<rows.length; i++){		rows[i].innerText = rows[i].innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}					
@@ -50,7 +50,7 @@ window.onload = function() {
 						onMouseover="this.style.textDecoration='underline'"
 						onmouseout="this.style.textDecoration='none'">${inventoryList.p_name}</a></td>
 						
-						<td class="tdPrice" id="tdPrice" name="tdPrice">￦ ${inventoryList.p_unitPrice}</td>
+						<td class="tdPrice" id="tdPrice">￦ ${inventoryList.p_unitPrice}</td>
 					<td class="tdStock">${inventoryList.p_unitsInStock}</td>
 				</tr>
 				</c:forEach>

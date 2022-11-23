@@ -7,6 +7,6 @@ import com.sopoom.dto.ShippingVO;
 public interface AdminShippingDAO {
 
 	//배송 목록보기
-		public List<ShippingVO> shippingList() throws Exception;
+	public List<ShippingVO> shippingList() throws Exception;
 	
 }

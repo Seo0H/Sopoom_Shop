@@ -4,14 +4,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sopoom.dao.InventoryDAO;
+import com.sopoom.dao.AdminInventoryDAO;
 import com.sopoom.dto.InventoryVO;
 
 @Service
-public class InventoryServiceImpl implements InventoryService {
+public class AdminInventoryServiceImpl implements AdminInventoryService {
 
 	@Autowired
-	InventoryDAO dao; 
+	AdminInventoryDAO dao; 
 	
 	//게시물 목록 보기
 	@Override

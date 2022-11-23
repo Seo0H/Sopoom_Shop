@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sopoom.dao.MemberDAO;
+import com.sopoom.dao.AdminMemberDAO;
 import com.sopoom.dto.MemberVO;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class AdminMemberServiceImpl implements AdminMemberService {
 
 	@Autowired
-	MemberDAO dao; 
+	AdminMemberDAO dao; 
 	
 	@Override
 	public List<MemberVO> allMemberInfoView() {
@@ -29,5 +29,9 @@ public class MemberServiceImpl implements MemberService {
 	public void deleteMember(String userID){
 		dao.deleteMember(userID);
 	}
-
+	
+	//회원 정보 수정
+	public void modifyMemberInfo(MemberVO member){
+		dao.modifyMember(member);
+	}
 }

@@ -1,12 +1,9 @@
-package com.sopoom.dao;
+package com.sopoom.service;
 
 import java.util.List;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.sopoom.dto.InventoryVO;
 
-public interface InventoryDAO {
+public interface AdminInventoryService {
 
 	//게시물 목록보기
 	public List<InventoryVO> inventoryList() throws Exception;

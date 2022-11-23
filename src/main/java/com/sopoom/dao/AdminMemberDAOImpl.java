@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sopoom.dto.MemberVO;
 
 @Repository
-public class MemberDAOImpl implements MemberDAO{
+public class AdminMemberDAOImpl implements AdminMemberDAO{
 
 	@Autowired
 	SqlSession sql;
@@ -29,4 +29,8 @@ public class MemberDAOImpl implements MemberDAO{
 		sql.update(namespace + ".deleteMember", userID);
 	}
 
+	//회원 정보 수정
+	public void modifyMember(MemberVO member){
+		sql.update(namespace + ".modifyMember", member);
+	}
 }

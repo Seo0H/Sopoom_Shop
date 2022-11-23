@@ -25,7 +25,6 @@
 function statusModify(ship_id, idx) {
 	   
 	   var statusSelect = document.getElementById('statusSelect'+idx).value;
-	   console.log("ChEKC === " + idx + " status === " +statusSelect);
 	   location.href = 'modify_shipping.jsp?ship_id=' + ship_id + '&statusSelect=' + statusSelect;
 }
 
