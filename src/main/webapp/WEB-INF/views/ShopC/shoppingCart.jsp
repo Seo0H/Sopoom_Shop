@@ -62,7 +62,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	<form id="cartForm" class="cartTable" method="post" action="/Purchase/purchase.jsp">
 		<table class="cart-table-container">
                 <tr>
-                    <th><input type="checkbox" id="allCheck" name="allcheck" checked class="checkabox-container" style="text-align: left; transform : scale(1.5);" > </th>
+                    <th><input type="checkbox" id="allCheck" name="allcheck" checked class="checkabox-container" style="text-align: left;" > </th>
                     <!-- <th style="text-align: left"></th> -->
                     <th style="text-align: center;" colspan="2">상품 정보</th>
                     <th>수량</th>
@@ -70,13 +70,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                     <th>전체 가격</th>
                 </tr>
 
-            <c:forEach items="${productVO}" var="cartProductInfo" varStatus="status" >
-            
-<%--            <c:set var="p_id" value="${cartList.get(i).getP_id()}" /> --%>
-<%--             <c:set var="P_fileName" value="${cartProductInfo.get(i).getP_fileName()}" /> --%>
-<%--             <c:set var="p_name" value="${cartProductInfo.get(i).getp_name()}" /> --%>
-<%--             <c:set var="p_price" value="${cartProductInfo.get(i).getP_price()}" /> --%>
-<%--             <c:set var="quantity" value="${cartProductInfo.get(i).getQuantity()}" /> --%>
+            <c:forEach items="${productVO}" var="cartProductInfo" varStatus="status">
                 <tbody>
                 <tr>
                     <td class="tdId checkabox-container">
@@ -86,7 +80,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                     <td class="tdId img"  style="cursor: pointer;">
                     	<!-- 사진 누르면 상품 넘어가기 구현  -->
                    		<%-- <a href="/product.jsp?id=<%=cartList.get(i).getP_id()%>"> --%>
-                        <input type="image" src=" /resources/upload/${status.current.p_fileName}" width="100px" alt="어디갔니..."/>
+                        <input type="image" src=" /resources/upload/${status.current.p_fileName}" width="100px" alt="img"/>
                         <input type="hidden" name="fileName" id="fileName" value="${status.current.getP_fileName()}" width="100px" />	
                     </td>
                     <td class="tdId Pname" >
@@ -108,9 +102,9 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                         <input id="vis_price${status.index}" class="price" name="vis_price" value="${status.current.getP_unitPrice()}" readonly="readonly"> 
                         <input type="hidden" id="price${status.index}" class="price" name="price" value="${status.current.getP_unitPrice()}" readonly="readonly">
                     </td>
-                    <td class="tdId  P-price">
+                    <td class="tdId  P-price" id="P-price">
                      	<input id="vis_total${status.index}" class="total" name="vis_total" value="${status.current.getP_unitPrice() * cartVO[status.index].getquantity()}" readonly="readonly">
-                        <input type="hidden" id="total${status.index}" class="total" value="${status.current.getP_unitPrice() * cartVO[status.index].getquantity()}" name="total" readonly="readonly">
+                        <input type="hidden"  name="total" id="total${status.index}" class="total" value="${status.current.getP_unitPrice() * cartVO[status.index].getquantity()}" readonly="readonly">
                     </td>
                     </tr>
                 </tbody>
@@ -245,40 +239,58 @@ int totalCount = (Integer)request.getAttribute("totalCount");
           //바뀐 금액으로 결제 예정 금액 변경
             $('#vis_selectedTotal').val(commaInsurt(totalPrice));
             $('#selectedTotal').val(totalPrice); 
-            
          });
+         
       //개별 체크
       //체크박스가 선택되어 있는 부분의 전체 가격의 합계
-      console.log($("input:checkbox[name^=checkP]:checked").length)
+      //체크박스 변화 감지 -> 결제예정금액 변화
+      //체크되어있는 부분만 더하기
+      //
+      console.log($("input[name=p_id]").length)
+      let checkItemBox = $("input:checkbox[name=checkP]");
+       $(document).on('click',$("input[name=p_id]"),function(e){
+    	   let checkboxPrice = $(this).val();
+    	   console.log(checkboxPrice);
+    	   debugger;
+    	   
+//     	   if($(this).prop("checked")) {
+//            	totalPrice += stockPrice;
+//            	console.log("체크됨 : " + totalPrice);
+//            } else {
+//                totalPrice -= stockPrice;
+//           		console.log("체크풀림 : " + totalPrice);
+//            }
+    	   
+    	   
+//     	   $('#vis_selectedTotal').val(commaInsurt(totalPrice));
+//            $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
+    	   
+       });
+ 
+    
       
-      if($("input:checkbox[name^=checkP]").prop("checked")) {
-            	totalPrice += stockPrice;
-            	console.log("체크됨 : " + totalPrice);
-            } else {
-                totalPrice -= stockPrice;
-           		console.log("체크풀림 : " + totalPrice);
-	}
-      
-      for(let i=0; i<($("input:checkbox[name^=checkP]:checked").length); i++){
-    	  let checkItemBox = $("input:checkbox[name=checkP]"+i);
-    	  
-    	  $(document).on("change","input:checkbox[name=checkP]",function(e){
-      	  	let totalPrice = parseInt(document.getElementById("selectedTotal").value);
-      	  	let stockPrice = parseInt(document.getElementById("total"+i).value);
-      	  	
-            console.log("original totalPrice : " + totalPrice);
-            console.log("stockPrice : " + stockPrice);
+//       for(let i=0; i<($("input[name=p_id]").length); i++){
+//     	  let checkItemBox = $("input:checkbox[name=checkP]"+i);
+//     	  let totalPrice = parseInt(document.getElementById("selectedTotal").value);
+//     	  let stockPrice = parseInt(document.getElementById("total"+i).value);
+ 
+//     	  $(document).on('click',checkItemBox,function(e){
+//             console.log("original totalPrice : " + totalPrice);
+//             console.log("stockPrice : " + stockPrice);
             
-            //document.getElementById("sum").value = totalPrice;
-            //totalPrice.empty();
-            //totalPrice.html(p_totalPrice);
-            //console.log("changed totalPrice : " + totalPrice + "\n");
+//             if($(this).prop("checked")) {
+//             	totalPrice += stockPrice;
+//             	console.log("체크됨 : " + totalPrice);
+//             } else {
+//                 totalPrice -= stockPrice;
+//            		console.log("체크풀림 : " + totalPrice);
+//             }
 
-            
-            $('#vis_selectedTotal').val(commaInsurt(totalPrice));
-            $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
-         });
-      }
+//             $('#vis_selectedTotal').val(commaInsurt(totalPrice));
+//             $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
+//          });
+//       }
+      
          //개별 선택 삭제
           $("#removeSelectBtn").click(function(e) {
          	  e.stopPropagation();

@@ -54,7 +54,7 @@ table {
   }
 
 .tdId {
-	width: auto;
+	width: 0 auto;
 }
 
 .btn {
@@ -81,7 +81,6 @@ table {
 
 .checkabox-container {
     font-size: 0px !important;
-	width: 10% !important;
 	border-bottom: 1px solid #a8a8a8;
 }
 
