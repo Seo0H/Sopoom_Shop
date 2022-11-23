@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	String url ="jdbc:mariadb://localhost:3306/inventory?user=root&password=1234";
+	String url ="jdbc:mariadb://localhost:3306/sw_miniproject?user=root&password=0000";
 	
 	@RequestMapping(value = "/NewFile", method = RequestMethod.GET)
 	   public void localPath() {}
