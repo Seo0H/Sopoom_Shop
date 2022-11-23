@@ -251,6 +251,14 @@ int totalCount = (Integer)request.getAttribute("totalCount");
       //체크박스가 선택되어 있는 부분의 전체 가격의 합계
       console.log($("input:checkbox[name^=checkP]:checked").length)
       
+      if($("input:checkbox[name^=checkP]").prop("checked")) {
+            	totalPrice += stockPrice;
+            	console.log("체크됨 : " + totalPrice);
+            } else {
+                totalPrice -= stockPrice;
+           		console.log("체크풀림 : " + totalPrice);
+	}
+      
       for(let i=0; i<($("input:checkbox[name^=checkP]:checked").length); i++){
     	  let checkItemBox = $("input:checkbox[name=checkP]"+i);
     	  
@@ -260,14 +268,6 @@ int totalCount = (Integer)request.getAttribute("totalCount");
       	  	
             console.log("original totalPrice : " + totalPrice);
             console.log("stockPrice : " + stockPrice);
-            
-            if($(this).prop("checked")) {
-            	totalPrice += stockPrice;
-            	console.log("체크됨 : " + totalPrice);
-            } else {
-                totalPrice -= stockPrice;
-           		console.log("체크풀림 : " + totalPrice);
-            }
             
             //document.getElementById("sum").value = totalPrice;
             //totalPrice.empty();
