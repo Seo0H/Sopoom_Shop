@@ -14,9 +14,16 @@ public class MemberDAOImpl implements MemberDAO{
 	SqlSession sql;
 	
 	private static String namespace = "com.sopoom.mappers.admin.member";
+	private static String mypageNamespace = "com.sopoom.mappers.mypage.member";
 
 	public List<MemberVO> allMemberInfoView() {
 		return sql.selectList(namespace + ".allMemberInfoView"); 
+	}
+	
+	//사용자 정보 가져오기
+	@Override
+	public MemberVO userInfoView(String userId) {
+		return sql.selectOne(mypageNamespace + ".userInfoView", userId);
 	}
 
 }
