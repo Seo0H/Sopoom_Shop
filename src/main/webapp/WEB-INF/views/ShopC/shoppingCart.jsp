@@ -177,9 +177,13 @@ int totalCount = (Integer)request.getAttribute("totalCount");
          e.stopPropagation();
          e.preventDefault(); //버블 방지
          
-         let countBox = $(this).closest('.count-box'); //가장 가까운 (위에서 아래로) 체크박스
-         let row = countBox.closest('tr');//가장 가까운 (위에서 아래로) tr(row)
-         let countInput = countBox.find('input[name=countInput]');//가장 가까운 체크박스를 찾은 곳에서 name이 countInput인 값을 찾아라
+         //가장 가까운 (위에서 아래로) 체크박스
+         let countBox = $(this).closest('.count-box'); 
+         //가장 가까운 (위에서 아래로) tr(row)
+         let row = countBox.closest('tr');
+         //가장 가까운 체크박스를 찾은 곳에서 name이 countInput인 값을 찾아라
+         let countInput = countBox.find('input[name=countInput]');
+         
          let count = parseInt(countInput.val());
          let price = row.find('input[name=price]').val();
          let totalInput = row.find('input[name=total]');
@@ -200,19 +204,20 @@ int totalCount = (Integer)request.getAttribute("totalCount");
          
          //변경 수량*가격 변수
          let totalinput_mul = count * price;
+         console.log("변경 수량*가격 : " + totalinput_mul);
          
-         //전체 가격 수정
+         //변경 수량*가격 수정(hidden , vis 둘다)
          totalInput.val(totalinput_mul);
-         
-         //제품 수량 X 가격 수정
          vis_totalLocation.val(commaInsurt(totalinput_mul));
          
-         var total = Number(0);
-         
+         //결제예정금액 수정
+         let total = 0;
          for(let j=0; j<totalCount; j++){
-            var checkItem = $("input[name=checkP]"+j);
+            let checkItem = $("input[name^=checkP]");
+            console.log(checkItem.val());
             if(checkItem.prop("checked")){
-               total += Number(document.getElementsByName("total")[j].value);
+            	total += parseInt($("input[name=total]").eq(j).val());
+            	console.log(j + "번째 물건 가격:" +total);
             }
          }
          
