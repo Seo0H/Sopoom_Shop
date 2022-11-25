@@ -74,7 +74,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                 <tbody>
                 <tr>
                     <td class="tdId checkabox-container">
-                        <input type="checkbox" class="checkP" name="checkP${status.index}" value="${status.current.getP_id()}" class="check" checked>
+                        <input type="checkbox" class="checkP" name="checkP${status.index}" value="${status.index}" class="check" checked>
                    		<input type="hidden" name="p_id" value="${status.current.getP_id()}">
                     </td>
                     <td class="tdId img"  style="cursor: pointer;">
@@ -144,10 +144,12 @@ int totalCount = (Integer)request.getAttribute("totalCount");
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');	
 	}
 	
+	//장바구니 물건 개수
+	const totalCount = <c:out value="${totalCount}"/>;
+	
    $(function(){
 		
 	   //시작하자마자 제품 가격 띄워주는 부분
-	   const totalCount = <c:out value="${totalCount}"/>;
 	   for (let i=0;i<totalCount; i++){
 	   var vis_price_location = document.getElementById("vis_price"+i);
 	   var hidden_price = document.getElementById("price"+i).value;
@@ -168,7 +170,8 @@ int totalCount = (Integer)request.getAttribute("totalCount");
         
         $("#selectedTotal").val(total);
         $("#vis_selectedTotal").val(commaInsurt(total));
-        
+   });
+   
       //수량 증가-감소 버튼
       $(document).on('click','button[name="countBtn"]',function(e){
          e.stopPropagation();
@@ -245,51 +248,33 @@ int totalCount = (Integer)request.getAttribute("totalCount");
       //체크박스가 선택되어 있는 부분의 전체 가격의 합계
       //체크박스 변화 감지 -> 결제예정금액 변화
       //체크되어있는 부분만 더하기
-      //
-      console.log($("input[name=p_id]").length)
-      let checkItemBox = $("input:checkbox[name=checkP]");
-       $(document).on('click',$("input[name=p_id]"),function(e){
-    	   let checkboxPrice = $(this).val();
-    	   console.log(checkboxPrice);
-    	   debugger;
-    	   
-//     	   if($(this).prop("checked")) {
-//            	totalPrice += stockPrice;
-//            	console.log("체크됨 : " + totalPrice);
-//            } else {
-//                totalPrice -= stockPrice;
-//           		console.log("체크풀림 : " + totalPrice);
-//            }
-    	   
-    	   
-//     	   $('#vis_selectedTotal').val(commaInsurt(totalPrice));
-//            $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
-    	   
-       });
- 
-    
       
-//       for(let i=0; i<($("input[name=p_id]").length); i++){
-//     	  let checkItemBox = $("input:checkbox[name=checkP]"+i);
-//     	  let totalPrice = parseInt(document.getElementById("selectedTotal").value);
-//     	  let stockPrice = parseInt(document.getElementById("total"+i).value);
- 
-//     	  $(document).on('click',checkItemBox,function(e){
-//             console.log("original totalPrice : " + totalPrice);
-//             console.log("stockPrice : " + stockPrice);
+      //console.log($("input[name=p_id]").length)
+      
+      //개별 체크
+      //체크박스가 선택되어 있는 부분의 전체 가격의 합계
+      for(let i=0; i<totalCount; i++){
+    	  
+         $(document).on('click','input:checkbox[name^="checkP"]',function(e){
+        	 
+            let totalPrice = parseInt(document.getElementById("selectedTotal").value);
             
-//             if($(this).prop("checked")) {
-//             	totalPrice += stockPrice;
-//             	console.log("체크됨 : " + totalPrice);
-//             } else {
-//                 totalPrice -= stockPrice;
-//            		console.log("체크풀림 : " + totalPrice);
-//             }
-
-//             $('#vis_selectedTotal').val(commaInsurt(totalPrice));
-//             $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
-//          });
-//       }
+            console.log($(this).val()+'번째 물건');
+            //console.log("original totalPrice : " + totalPrice + "\n");
+            
+            if($(this).prop("checked")) {
+               totalPrice += parseInt(document.getElementById("total"+$(this).val()).value);
+            } else {
+               totalPrice -= parseInt(document.getElementById("total"+$(this).val()).value);
+            }
+            
+            console.log("changed totalPrice : " + totalPrice + "\n");
+            
+            $('#vis_selectedTotal').val(commaInsurt(totalPrice));
+            $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
+         });
+         break;
+      }
       
          //개별 선택 삭제
           $("#removeSelectBtn").click(function(e) {
@@ -305,13 +290,14 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                   location.href="cart_delete.jsp?p_id="+checkp_id;
                }
 		});
+         
          //전체 삭제
           $("#removeAllBtn").click(function() {
                if(window.confirm("장바구니를 비우시겠습니까?")) {
                   location.href="cart_clear.jsp";
                }
          });
-      });
+      
 </script>
 </body>
 </html>
