@@ -49,8 +49,8 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                     <span class="mainTitle">장바구니</span>
                 </div>
             </div>
+            
 	<!-- 있으면 목록 출력, 없으면 비어있음 표시 -->
-	
 	<c:if test="${totalCount==0}">
 	<div class="emty">
 		<a>장바구니가 비어 있습니다.</a>
@@ -58,7 +58,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	</c:if>
 	
 	<c:if test="${totalCount!=0}">
-	<form id="cartForm" class="cartTable" method="post" action="/Purchase/purchase.jsp">
+	<form id="cartForm" class="cartTable" method="post" action="/Purchase/purchase">
 		<table class="cart-table-container">
                 <tr>
                     <th><input type="checkbox" id="allCheck" name="allcheck" checked class="checkabox-container" style="text-align: left;" > </th>
@@ -121,7 +121,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                 	<div> </div>
                     <input type="hidden" class="title-price" id="selectedTotal" name="selectedTotal" readonly="readonly" value="">
                     <input class="title-price" id="vis_selectedTotal" name="vis_selectedTotal" readonly="readonly" value=""> 원<br>
-                    <input type="submit" id="submitAllBin" class="submit-btn" value="주문하기">
+                    <input type="submit" class="submit-btn" value="주문하기">
                 </div>
             </div>
 
@@ -133,11 +133,8 @@ int totalCount = (Integer)request.getAttribute("totalCount");
        </c:if>
           
 </div>
-<div>
-	<%@include file="/WEB-INF/views/footer.jsp"%>
-	</div>
-
-	<script>
+<%@include file="/WEB-INF/views/footer.jsp"%>
+<script>
 	
 	//숫자 3자리마다 콤마 넣는 함수
 	function commaInsurt(I) {
@@ -294,7 +291,8 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	    	selectDel(checkp_id);	
 	    	}
 	    });
-	   
+	 
+	
 	//전체 삭제
 	 $("#removeAllBtn").click(function() {
 	      if(window.confirm("장바구니를 비우시겠습니까?")) {
@@ -314,6 +312,8 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	      }
 	});
 	
+	
+	//선택삭제
 	function selectDel (checkp_id) {
 		
 		let queryString = {

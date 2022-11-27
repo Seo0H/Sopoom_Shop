@@ -13,6 +13,21 @@ public class ShippingVO {
 	private String userID;
 	private String username;
 	private int idx;
+	
+	public ShippingVO() {}	
+
+	public ShippingVO(String shipID, String orderID, String name, String postcode, String address, String detailAddress,
+			String extraAddress, String telno, String userID) {
+		this.shipID = shipID;
+		this.orderID = orderID;
+		this.name = name;
+		this.postcode = postcode;
+		this.address = address;
+		this.detailAddress = detailAddress;
+		this.extraAddress = extraAddress;
+		this.telno = telno;
+		this.userID = userID;
+	}
 
 	public int getIdx() {
 		return idx;

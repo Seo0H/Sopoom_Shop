@@ -85,9 +85,4 @@ public class CartController {
 		service.allDel(userid);
 		
 	}
-	
-	
-	
-	
-	
 }
