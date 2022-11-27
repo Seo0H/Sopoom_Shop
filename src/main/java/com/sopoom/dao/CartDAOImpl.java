@@ -3,6 +3,7 @@ package com.sopoom.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,18 @@ public class CartDAOImpl implements CartDAO {
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("p_idList", p_idList);
 		return sql.selectList(namespace+ ".selectCartProductInfo" , data);
+	}
+
+	//카트 선택 상품 삭제
+	@Override
+	public void selectDel(Map<String,Object> data) throws Exception {
+		sql.delete(namespace+".selectDel", data);
+	}
+
+	//유저 카트 비우기
+	@Override
+	public void allDel(String userid) throws Exception {
+		sql.delete(namespace+".allDel", userid);
 	}
 	
 }

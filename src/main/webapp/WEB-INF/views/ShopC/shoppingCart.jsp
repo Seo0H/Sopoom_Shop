@@ -50,15 +50,14 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                 </div>
             </div>
 	<!-- 있으면 목록 출력, 없으면 비어있음 표시 -->
-	<%
-   if (totalCount == 0) {
-   %>
+	
+	<c:if test="${totalCount==0}">
 	<div class="emty">
 		<a>장바구니가 비어 있습니다.</a>
 	</div>
-	<%
-   } else {
-   %>
+	</c:if>
+	
+	<c:if test="${totalCount!=0}">
 	<form id="cartForm" class="cartTable" method="post" action="/Purchase/purchase.jsp">
 		<table class="cart-table-container">
                 <tr>
@@ -131,10 +130,12 @@ int totalCount = (Integer)request.getAttribute("totalCount");
             </div>
 		</form>
         </div>
-        <%} %>
+       </c:if>
           
 </div>
+<div>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
+	</div>
 
 	<script>
 	
@@ -147,6 +148,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	//장바구니 물건 개수
 	const totalCount = <c:out value="${totalCount}"/>;
 	
+	//page on
    $(function(){
 		
 	   //시작하자마자 제품 가격 띄워주는 부분
@@ -173,136 +175,166 @@ int totalCount = (Integer)request.getAttribute("totalCount");
    });
    
       //수량 증가-감소 버튼
-      $(document).on('click','button[name="countBtn"]',function(e){
-         e.stopPropagation();
-         e.preventDefault(); //버블 방지
-         
-         //가장 가까운 (위에서 아래로) 체크박스
-         let countBox = $(this).closest('.count-box'); 
-         //가장 가까운 (위에서 아래로) tr(row)
-         let row = countBox.closest('tr');
-         //가장 가까운 체크박스를 찾은 곳에서 name이 countInput인 값을 찾아라
-         let countInput = countBox.find('input[name=countInput]');
-         
-         let count = parseInt(countInput.val());
-         let price = row.find('input[name=price]').val();
-         let totalInput = row.find('input[name=total]');
-         
-         let vis_totalLocation = row.find('input[name=vis_total]');
-         
-         //upBtn 일 경우
-         if($(this).hasClass("upBtn")){
-            count++
-         //downBtn 일 경우
-         } else{
-            count--;
-            if (count < 1) return;
-         }
-         
-         //변경 수량 적용
-         countInput.val(count);
-         
-         //변경 수량*가격 변수
-         let totalinput_mul = count * price;
-         console.log("변경 수량*가격 : " + totalinput_mul);
-         
-         //변경 수량*가격 수정(hidden , vis 둘다)
-         totalInput.val(totalinput_mul);
-         vis_totalLocation.val(commaInsurt(totalinput_mul));
-         
-         //결제예정금액 수정
-         let total = 0;
-         for(let j=0; j<totalCount; j++){
-            let checkItem = $("input[name^=checkP]");
-            console.log(checkItem.val());
-            if(checkItem.prop("checked")){
-            	total += parseInt($("input[name=total]").eq(j).val());
-            	console.log(j + "번째 물건 가격:" +total);
-            }
-         }
-         
-         $('#selectedTotal').val(total);
-         $('#vis_selectedTotal').val(commaInsurt(total)+"");
-      });
+	$(document).on('click','button[name="countBtn"]',function(e){
+		e.stopPropagation();
+		e.preventDefault(); //버블 방지
+		
+		//가장 가까운 (위에서 아래로) 체크박스
+		let countBox = $(this).closest('.count-box'); 
+		//가장 가까운 (위에서 아래로) tr(row)
+		let row = countBox.closest('tr');
+		//가장 가까운 체크박스를 찾은 곳에서 name이 countInput인 값을 찾아라
+		let countInput = countBox.find('input[name=countInput]');
+		
+		let count = parseInt(countInput.val());
+		let price = row.find('input[name=price]').val();
+		let totalInput = row.find('input[name=total]');
+		
+		let vis_totalLocation = row.find('input[name=vis_total]');
+		
+		//upBtn 일 경우
+		if($(this).hasClass("upBtn")){
+		   count++
+		//downBtn 일 경우
+		} else{
+		   count--;
+		   if (count < 1) return;
+		}
+		
+		//변경 수량 적용
+		countInput.val(count);
+		
+		//변경 수량*가격 변수
+		let totalinput_mul = count * price;
+		console.log("변경 수량*가격 : " + totalinput_mul);
+		
+		//변경 수량*가격 수정(hidden , vis 둘다)
+		totalInput.val(totalinput_mul);
+		vis_totalLocation.val(commaInsurt(totalinput_mul));
+		
+		//결제예정금액 수정
+		let total = 0;
+		for(let j=0; j<totalCount; j++){
+		   let checkItem = $("input[name^=checkP]");
+		   console.log(checkItem.val());
+		   if(checkItem.prop("checked")){
+		   	total += parseInt($("input[name=total]").eq(j).val());
+		   	console.log(j + "번째 물건 가격:" +total);
+		   }
+		}
+		
+		$('#selectedTotal').val(total);
+		$('#vis_selectedTotal').val(commaInsurt(total)+"");
+	});
       
          //전체 체크
-         $(document).on('change', '#allCheck', function(e) {
-            if($(this).prop("checked")) {
-               for(let i=0; i<totalCount; i++){
-                  var checkItem = $("input[name=checkP]"+i);
-                  checkItem.prop("checked",true);
-                  totalPrice += parseInt(document.getElementById("total"+i).value);
-               }
-            } else {
-               for(let i=0; i<totalCount; i++){
-               var checkItem = $("input[name=checkP]"+i);
-               checkItem.prop("checked",false);
-               totalPrice = 0;
-            	}
-            }
-            
-            console.log("totalPrice : " + totalPrice);
-            console.log("vis_selectedTotal : " + commaInsurt(totalPrice));
-            
-          //바뀐 금액으로 결제 예정 금액 변경
-            $('#vis_selectedTotal').val(commaInsurt(totalPrice));
-            $('#selectedTotal').val(totalPrice); 
-         });
-         
-      //개별 체크
-      //체크박스가 선택되어 있는 부분의 전체 가격의 합계
-      //체크박스 변화 감지 -> 결제예정금액 변화
-      //체크되어있는 부분만 더하기
+	$(document).on('change', '#allCheck', function(e) {
+	   if($(this).prop("checked")) {
+	      for(let i=0; i<totalCount; i++){
+	         var checkItem = $("input[name=checkP]"+i);
+	         checkItem.prop("checked",true);
+	         totalPrice += parseInt(document.getElementById("total"+i).value);
+	      }
+	   } else {
+	      for(let i=0; i<totalCount; i++){
+	      var checkItem = $("input[name=checkP]"+i);
+	      checkItem.prop("checked",false);
+	      totalPrice = 0;
+	   	}
+	   }
+	   
+	   console.log("totalPrice : " + totalPrice);
+	   console.log("vis_selectedTotal : " + commaInsurt(totalPrice));
+	   
+	 //바뀐 금액으로 결제 예정 금액 변경
+	   $('#vis_selectedTotal').val(commaInsurt(totalPrice));
+	   $('#selectedTotal').val(totalPrice); 
+	});
+               
+	//개별 체크
+	//체크박스가 선택되어 있는 부분의 전체 가격의 합계
+	for(let i=0; i<totalCount; i++){
+		  
+	   $(document).on('click','input:checkbox[name^="checkP"]',function(e){
+	  	 
+	      let totalPrice = parseInt(document.getElementById("selectedTotal").value);
+	      
+	      console.log($(this).val()+'번째 물건');
+	      //console.log("original totalPrice : " + totalPrice + "\n");
+	      
+	      if($(this).prop("checked")) {
+	         totalPrice += parseInt(document.getElementById("total"+$(this).val()).value);
+	      } else {
+	         totalPrice -= parseInt(document.getElementById("total"+$(this).val()).value);
+	      }
+	      
+	      console.log("changed totalPrice : " + totalPrice + "\n");
+	      $('#vis_selectedTotal').val(commaInsurt(totalPrice));
+	      $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
+	   });
+	   break;
+	}
       
-      //console.log($("input[name=p_id]").length)
-      
-      //개별 체크
-      //체크박스가 선택되어 있는 부분의 전체 가격의 합계
-      for(let i=0; i<totalCount; i++){
-    	  
-         $(document).on('click','input:checkbox[name^="checkP"]',function(e){
-        	 
-            let totalPrice = parseInt(document.getElementById("selectedTotal").value);
-            
-            console.log($(this).val()+'번째 물건');
-            //console.log("original totalPrice : " + totalPrice + "\n");
-            
-            if($(this).prop("checked")) {
-               totalPrice += parseInt(document.getElementById("total"+$(this).val()).value);
-            } else {
-               totalPrice -= parseInt(document.getElementById("total"+$(this).val()).value);
-            }
-            
-            console.log("changed totalPrice : " + totalPrice + "\n");
-            
-            $('#vis_selectedTotal').val(commaInsurt(totalPrice));
-            $('#selectedTotal').val(totalPrice); //바뀐 금액으로 결제 예정 금액 변경
-         });
-         break;
-      }
-      
-         //개별 선택 삭제
-          $("#removeSelectBtn").click(function(e) {
-         	  e.stopPropagation();
-              e.preventDefault();
-			  let checkp_id = [] ;
-			  for(let i=0; i<totalCount; i++){
-            	if (checkItemBox.is(':checked')) {
-            		checkp_id[i]= document.getElementsByName('checkP'+i)[0].value;
-            		}
-			  	}
-               if(window.confirm("선택 상품을 삭제하시겠습니까?")) {
-                  location.href="cart_delete.jsp?p_id="+checkp_id;
-               }
+	//개별 선택 삭제
+	$("#removeSelectBtn").click(function(e) {
+	  let checkp_id = [] ;
+	  let checkItemBox= $('input:checkbox[name="checkP"]');
+	  let checkIndex = $('.checkP:checked').prop("value");
+	  //console.log($('.checkP:checked').prop("value"));
+	  
+	  for(let i=0; i<totalCount; i++){
+		  console.log($('input[name^="checkP"]').eq(i).val());
+	  	if ($('input[name^="checkP"]').eq(i).is(':checked')) {
+	  		checkp_id.push(document.getElementsByName('p_id')[i].value);
+	  		}
+	  	}
+	  console.log(checkp_id.toString());
+	  
+	    if(window.confirm(checkp_id.toString()+"선택 상품을 삭제하시겠습니까?")) {
+	    	selectDel(checkp_id);	
+	    	}
+	    });
+	   
+	//전체 삭제
+	 $("#removeAllBtn").click(function() {
+	      if(window.confirm("장바구니를 비우시겠습니까?")) {
+	    	  $.ajax({
+	  			url: "/ShopC/allDel",
+	  			 method: 'POST',
+	  			 traditional : true,
+	  			 data:{ userid: "<%=userid %>"},
+	  		     success: function() {
+	  		    	console.log("통신 성공");
+	  		    	 document.location.href = document.location.href;
+	  		     },
+	  		     error : function(jqXHR, textStatus, errorThrown){
+	  		         console.log("jqXHR : " +jqXHR +"textStatus : " + textStatus + "errorThrown : " + errorThrown);
+	  		     }
+	  		});
+	      }
+	});
+	
+	function selectDel (checkp_id) {
+		
+		let queryString = {
+				userid:  "<%=userid %>",
+				p_id: checkp_id };
+		
+		$.ajax({
+			url: "/ShopC/selectDel",
+			 method: 'POST',
+			 traditional : true,
+			 data: queryString,
+		     success: function() {
+		    	console.log("통신 성공");
+		    	 document.location.href = document.location.href;
+		     },
+		     error : function(jqXHR, textStatus, errorThrown){
+		         console.log("jqXHR : " +jqXHR +"textStatus : " + textStatus + "errorThrown : " + errorThrown);
+		     }
 		});
-         
-         //전체 삭제
-          $("#removeAllBtn").click(function() {
-               if(window.confirm("장바구니를 비우시겠습니까?")) {
-                  location.href="cart_clear.jsp";
-               }
-         });
-      
+	}
+	
 </script>
 </body>
 </html>

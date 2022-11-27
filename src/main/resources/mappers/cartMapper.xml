@@ -12,23 +12,25 @@
 	<!-- product table 에서 Cart table에 담긴 상품 종류 정보 가져오기 -->
 	<select id="selectCartProductInfo" parameterType="List" resultType="com.sopoom.dto.ProductVO">
 		select * from product WHERE p_id in
-			<foreach collection="p_idList" item="p_id"  open="(" close=")" separator=",">
-			#{p_id}
-			</foreach>
+		<foreach collection="p_idList" item="p_id"  open="(" close=")" separator=",">
+		#{p_id}
+		</foreach>
 	</select>
 	
+	<!-- 카트 선택상품 삭제 -->
+	<delete id="selectDel" parameterType="java.util.HashMap" >
+		DELETE FROM cart 
+		where userid=#{userid} AND cart.p_id in
+		<foreach collection= "p_idList" item="arr" index="i" open="(" close=")" separator=",">
+		#{arr}
+		</foreach>
+	</delete>
 	
-	<!-- 카트에 상품 추가 -->
-	<insert id="addCart">
-		insert into CART(userid, productid, Quantity)
-		VALUES(#{userid},#{productid},#{Quantity})
-	</insert>
-
-	<!-- 카트 업데이트 -->
-	<update id="updateCart" parameterType="com.sopoom.dto.CartVO">
-		update cart set userid= #{userid}, quantity = #{quantity} where p_id =#{p_id}
-	</update>
-
+	<!-- 유저 카트 비우기 -->
+	<delete id="allDel" parameterType="String">
+		DELETE FROM cart where userid=#{userid}
+	</delete>
+	
 </mapper>
 
     

@@ -2,6 +2,7 @@ package com.sopoom.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,20 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<ProductVO> selectCartProductInfo(ArrayList<String> p_idList) throws Exception {
 		return dao.selectCartProductInfo(p_idList);
+	}
+	
+	//카트 선택 상품 삭제
+	@Override
+	public void selectDel(Map<String,Object> data) throws Exception {
+		dao.selectDel(data);
+		
+	}
+	
+	//유저 카트 비우기
+	@Override
+	public void allDel(String userid) throws Exception {
+		dao.allDel(userid);
+		
 	}
 
 }
