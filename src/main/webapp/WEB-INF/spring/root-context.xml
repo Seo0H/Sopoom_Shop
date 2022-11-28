@@ -12,14 +12,14 @@
 	<!--  HikariCp Config -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 	   <property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
-	   <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/sw_miniproject"></property>
+	   <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/inventory"></property>
 	   <property name="username" value="root"></property>
-	   <property name="password" value="0000"></property>
+	   <property name="password" value="1234"></property>
 	</bean>
 	
 	<!-- MultipartResolver 설정 --> 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
-		 <property name="defaultEncoding" value="utf-8"/>
+		<property name="defaultEncoding" value="utf-8"/>
 		<property name="maxUploadSize" value="1073700000" /> 
 		<property name="maxInMemorySize" value="104857600" />
 	</bean> 
