@@ -20,4 +20,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductVO> list() throws Exception {
 		return sql.selectList(namespace + ".list"); 
 	}
+	
+	// 제품 상세 보기
+	@Override
+	public ProductVO product(String p_id) throws Exception {
+		return sql.selectOne(namespace + ".product", p_id);
+	}
 }

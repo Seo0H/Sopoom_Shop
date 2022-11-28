@@ -7,5 +7,10 @@
 <select id="list" parameterType="HashMap" resultType="com.sopoom.dto.ProductVO">
 	select * from product
 </select>
+
+<!-- 제품 상세 보기 -->
+<select id="product" resultType="com.sopoom.dto.ProductVO">
+	select * from product where p_id=#{p_id}
+</select>
 </mapper>
 

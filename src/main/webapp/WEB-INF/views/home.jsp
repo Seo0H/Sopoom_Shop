@@ -28,7 +28,7 @@
 
 				<div class="section">
 				<c:forEach items="${list}" var="list">
-					<a href="/Category/product.jsp?id=${list.p_id}"> <img
+					<a href="/Category/product?id=${list.p_id}"> <img
 						src="/resources/upload/${list.p_fileName}"><br> <b><span
 							id="productName">${list.p_name}</span></b><br> <br>
 						<b><span id="productPrice">${list.p_unitPrice}원</span></b>

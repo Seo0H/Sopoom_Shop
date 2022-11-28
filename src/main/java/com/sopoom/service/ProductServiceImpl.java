@@ -19,4 +19,11 @@ public class ProductServiceImpl implements ProductService {
 		
 		return dao.list();
 	}
+	
+	//제품 상세 보기
+	@Override
+	public ProductVO product(String p_id) throws Exception {
+		
+		return dao.product(p_id);
+	}
 }
