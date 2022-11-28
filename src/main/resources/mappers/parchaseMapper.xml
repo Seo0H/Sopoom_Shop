@@ -20,9 +20,18 @@
 
 <!-- 배송 데이터 저장 -->
 <insert id="saveShipping" parameterType="com.sopoom.dto.ShippingVO">
-	insert into `shipping`
+	insert into `shipping`(shipID,orderID,name, postcode, address, detailAddress, extraAddress, telno, status)
 	values (#{shipID},#{orderID},#{name},#{postcode},#{address},
-	#{detailAddress},#{extraAddress},#{telno},#{status},#{username},#{idx})
+	#{detailAddress},#{extraAddress},#{telno},#{status})
 </insert>
+
+<!-- 주문 상품 삭제 -->
+<delete id="delOrderCart" parameterType="java.util.HashMap" >
+	DELETE FROM `cart` 
+		where userid=#{userid} AND p_id in
+		<foreach collection= "p_idList" item="arr" index="i" open="(" close=")" separator=",">
+		#{arr}
+		</foreach>
+</delete>
 
 </mapper>

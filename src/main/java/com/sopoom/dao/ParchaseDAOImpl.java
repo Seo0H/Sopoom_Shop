@@ -1,6 +1,7 @@
 package com.sopoom.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,12 @@ public class ParchaseDAOImpl implements ParchaseDAO {
 		public void saveShipping(ShippingVO shpiipingVO) {
 			sql.insert(namespace+ ".saveShipping", shpiipingVO);
 			
+		}
+		
+		//주문 상품 삭제
+		@Override
+		public void delOrderCart(Map<String, Object> data) throws Exception {
+			sql.delete(namespace+".delOrderCart", data);
 		}
 
 }

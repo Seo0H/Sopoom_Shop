@@ -121,13 +121,11 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                 	<div> </div>
                     <input type="hidden" class="title-price" id="selectedTotal" name="selectedTotal" readonly="readonly" value="">
                     <input class="title-price" id="vis_selectedTotal" name="vis_selectedTotal" readonly="readonly" value=""> 원<br>
-                    <input type="submit" class="submit-btn" value="주문하기">
+                    <input type="submit" class="submit-btn" id="submit-btn" value="주문하기">
                 </div>
             </div>
-
-            <div class="btn-container">
-
-            </div>
+            <input type="hidden" name="checkp_id" id="checkp_id" value="" />
+            <input type="hidden" name="checkpname" id="checkpname" value="" />
 		</form>
         </div>
        </c:if>
@@ -224,7 +222,7 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 		$('#vis_selectedTotal').val(commaInsurt(total)+"");
 	});
       
-         //전체 체크
+     //전체 체크
 	$(document).on('change', '#allCheck', function(e) {
 	   if($(this).prop("checked")) {
 	      for(let i=0; i<totalCount; i++){
@@ -334,6 +332,25 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 		     }
 		});
 	}
+	
+	//주문 버튼
+	
+	$("#submit-btn").click(function(){
+		
+		let checkp_id = [];
+		let checkpname = [];
+		for(let i=0; i<totalCount; i++){
+			  console.log($('input[name^="checkP"]').eq(i).val());
+		  	if ($('input[name^="checkP"]').eq(i).is(':checked')) {
+		  		checkp_id.push(document.getElementsByName('p_id')[i].value);
+		  		checkpname.push(document.getElementsByName('pname')[i].value);
+		  		}
+		  	}
+		
+		$('#checkp_id').val(checkp_id);
+		$('#checkpname').val(checkpname);
+		
+	});
 	
 </script>
 </body>

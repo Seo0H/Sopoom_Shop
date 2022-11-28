@@ -1,3 +1,4 @@
+<%@page import="java.io.Console"%>
 <%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -77,12 +78,14 @@
 	DecimalFormat df = new DecimalFormat("###,###");
 
 	//shopping.jsp 에서 받아온 값들
-	String[] pName = request.getParameterValues("pname"); //제품이름
+	String[] pName = request.getParameter("pname").split(","); //제품이름
 	String[] pPrice = request.getParameterValues("price"); //제품 낱개 가격
 	String[] count = request.getParameterValues("countInput");//제품 수량
 	String[] pPriceTotal = request.getParameterValues("total");// 1개 가격 x 수량 = 제품 총 주문 가격
-	String[] pID = request.getParameterValues("p_id"); //product id
 	String[] fileName = request.getParameterValues("fileName"); //img name
+	String[] pID = request.getParameter("checkp_id").split(","); //product id
+	
+	System.out.println(Arrays.toString(pID));
 	
 
 
@@ -211,7 +214,7 @@
 		 	$("#postcode").attr("disabled", false);
 		 	$("#address").attr("disabled", false);
 		 	$("#extraAddress").attr("disabled", false);
-			$("#purchaseForm").attr("action","/Purchase/purchaseVerify").submit();	
+			$("#purchaseForm").attr("action","/Purchase/purchaseVerify").submit();
 		});
 	});
 	

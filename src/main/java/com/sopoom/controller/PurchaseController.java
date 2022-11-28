@@ -2,6 +2,8 @@ package com.sopoom.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,14 +25,15 @@ public class PurchaseController {
 	ParchaseService service;
 	
 	@PostMapping("/Purchase/purchase")
-	public void postPurchase() {}
+	public void postPurchase() {
+	}
 	
 	@PostMapping("/Purchase/purchaseFine")
 	public void postPurchaseFine() {}
 	
 	@PostMapping("/Purchase/purchaseVerify")
-	public void postPurchaseVerify (HttpSession session, HttpServletRequest request,
-			OrderVO orderVO, OrderedItemVO orderedItemVO, ShippingVO shippingVO) throws IOException {
+	public String postPurchaseVerify (HttpSession session, HttpServletRequest request,
+			OrderVO orderVO, OrderedItemVO orderedItemVO, ShippingVO shippingVO) throws Exception {
 		
 		String userid = "admin";
 		request.setCharacterEncoding("utf-8");
@@ -47,6 +50,8 @@ public class PurchaseController {
 
 		String[] pID = request.getParameterValues("p_id");
 		String[] count = request.getParameterValues("count");
+		
+		String status = "주문 완료";
 		
 		
 
@@ -109,8 +114,16 @@ public class PurchaseController {
 		shippingVO.setExtraAddress(extraAddress);
 		shippingVO.setTelno(telno);
 		shippingVO.setUserID(userid);
-
+		shippingVO.setStatus(status);
+		service.saveShipping(shippingVO);
 		
+		//카트 초기화 부분
+		Map<String, Object> data = new HashMap<>();
+		data.put("userid", userid);
+		data.put("p_idList", pID);
+		service.delOrderCart(data);
+		
+		return "redirect:/";
 	}
 
 }

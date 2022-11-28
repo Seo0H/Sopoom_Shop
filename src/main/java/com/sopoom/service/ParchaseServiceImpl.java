@@ -1,5 +1,7 @@
 package com.sopoom.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,12 @@ public class ParchaseServiceImpl implements ParchaseService {
 	@Override
 	public void saveShipping(ShippingVO shpiipingVO) {
 		dao.saveShipping(shpiipingVO);
+	}
+	
+	//주문 상품 삭제
+	@Override
+	public void delOrderCart(Map<String,Object> data) throws Exception {
+		dao.delOrderCart(data);
 	}
 
 }

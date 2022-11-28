@@ -1,5 +1,7 @@
 package com.sopoom.dao;
 
+import java.util.Map;
+
 import com.sopoom.dto.OrderVO;
 import com.sopoom.dto.OrderedItemVO;
 import com.sopoom.dto.ShippingVO;
@@ -21,6 +23,7 @@ public interface ParchaseDAO  {
 		//배송 데이터 저장(주문번호==배송id?, 이름, 우편번호, 주소, 번호, status)
 		public void saveShipping(ShippingVO shpiipingVO);
 		
-		//카트 초기화
+		//주문 상품 삭제
+		public void delOrderCart(Map<String,Object> data) throws Exception;
 
 }
