@@ -36,7 +36,7 @@ public class PurchaseController {
 	public String postPurchaseVerify (HttpSession session, HttpServletRequest request,
 			OrderVO orderVO, OrderedItemVO orderedItemVO, ShippingVO shippingVO) throws Exception {
 		
-		String userid = "admin";
+		String userid = (String)session.getAttribute("userID");
 		request.setCharacterEncoding("utf-8");
 				
 		String name = request.getParameter("name");
@@ -54,8 +54,6 @@ public class PurchaseController {
 		
 		String status = "주문 완료";
 		
-		
-
 		//getParameterValues NULL보정 부분
 		String dummy1 = "";
 		String dummy2 = "";
@@ -140,9 +138,6 @@ public class PurchaseController {
 		
 	
 	@PostMapping("/Purchase/purchase_fin")
-	public void postPurchaseFine(Model model,HttpSession session, HttpServletRequest request) {
-		
-
-	}
+	public void postPurchaseFine() {}
 
 }

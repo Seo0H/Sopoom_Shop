@@ -14,8 +14,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <%
-//String userid = (String)session.getAttribute("userID");
-String userid = "admin";
+String userid = (String)session.getAttribute("userID");
 int totalCount = (Integer)request.getAttribute("totalCount");
 %>
 
@@ -83,18 +82,22 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                         <input type="hidden" name="fileName" id="fileName" value="${status.current.getP_fileName()}" width="100px" />	
                     </td>
                     <td class="tdId Pname" >
-                        <a class="name" name="pname" value="${status.current.getP_name()}" 
-                        readonly="readonly" href="/product.jsp?id=${p_id}"> ${status.current.getP_name()} </a>
+                        <a class="name" value="${status.current.getP_name()}" readonly="readonly" href="/product.jsp?id=${p_id}"> ${status.current.getP_name()} </a>
                         <input type="hidden" id="name${status.index} " class="name" name="pname" value="${status.current.getP_name()}" >
                     </td>
                     <td class="tdId quantity" id="quantity${status.index}" class="quantity">
                         <div class="count-box">
-                            <div class="btn"> <button type="button" name="countBtn" class="upBtn">
-                            <img src="/resources/img/+btn.png" width="30px"></button> </div>
+                        
+                            <div class="btn">
+                            <button type="button" name="countBtn" class="upBtn">
+                            <img src="/resources/img/+btn.png" width="30px">
+                            </button>
+                            </div>
                             <div class="btn"><input class="countInput" type="text" class="countInput" id="quantity" name="countInput" value="${cartVO[status.index].getquantity()}" 
                             	readonly="readonly" style="margin-top: 7px"></div>
                             <div class="btn"><button type="button" name="countBtn" class="downBtn">
-                            <img src="/resources/img/-btn.png" width="30px"> </button></div>
+                            <img src="/resources/img/-btn.png" width="30px"> </button>
+                            </div>
                         </div>
                     </td>
                     <td class="tdId P-one-price">
@@ -124,8 +127,8 @@ int totalCount = (Integer)request.getAttribute("totalCount");
                     <input type="submit" class="submit-btn" id="submit-btn" value="주문하기">
                 </div>
             </div>
-            <input type="hidden" name="checkp_id" id="checkp_id" value="" />
-            <input type="hidden" name="checkpname" id="checkpname" value="" />
+            <input type="hidden" name="checkp_id" id="checkp_id" value=" " >
+            <input type="hidden" name="checkPname" id="checkPname" value=" " >
 		</form>
         </div>
        </c:if>
@@ -340,15 +343,17 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 		let checkp_id = [];
 		let checkpname = [];
 		for(let i=0; i<totalCount; i++){
-			  console.log($('input[name^="checkP"]').eq(i).val());
 		  	if ($('input[name^="checkP"]').eq(i).is(':checked')) {
 		  		checkp_id.push(document.getElementsByName('p_id')[i].value);
 		  		checkpname.push(document.getElementsByName('pname')[i].value);
 		  		}
-		  	}
+		  }
+		console.log("checkp_id: "+ checkp_id.toString);
+		console.log("pname: "+ checkpname.toString);
+		debugger;
 		
 		$('#checkp_id').val(checkp_id);
-		$('#checkpname').val(checkpname);
+		$('#checkPname').val(checkpname);
 		
 	});
 	

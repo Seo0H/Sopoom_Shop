@@ -28,8 +28,7 @@ public class CartController {
 
 	@GetMapping(value ="/ShopC/shoppingCart")
 	public void getShoppingCart(Model model, HttpSession session) throws Exception {
-		// String userid = session.getId();
-		String userid = "admin";
+		String userid = (String)session.getAttribute("userID");
 		List<CartVO> cartlist = service.selectCart(userid);
 		
 		//장바구니에 담긴 제품 품목 개수
@@ -39,7 +38,7 @@ public class CartController {
 			totalCount = 0;
 		}else {
 		
-			//장바구니에 물건이 있을때만 실행
+		//장바구니에 물건이 있을때만 실행
 		ArrayList<String> p_idList = new ArrayList<>();
 		
 		for (int i = 0; i < cartlist.size(); i++) {

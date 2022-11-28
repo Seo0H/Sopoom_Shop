@@ -12,9 +12,7 @@
 
 <%
 	//user 정보 받아오기
-
-	//String userid = (String)session.getAttribute("userID");
-	String userid = "admin";
+	String userid = (String)session.getAttribute("userID");
 
 	String userName = "";
 	String userTelno = "";
@@ -78,7 +76,7 @@
 	DecimalFormat df = new DecimalFormat("###,###");
 
 	//shopping.jsp 에서 받아온 값들
-	String[] pName = request.getParameter("pname").split(","); //제품이름
+	String[] pName = request.getParameter("checkPname").split(","); //제품이름
 	String[] pPrice = request.getParameterValues("price"); //제품 낱개 가격
 	String[] count = request.getParameterValues("countInput");//제품 수량
 	String[] pPriceTotal = request.getParameterValues("total");// 1개 가격 x 수량 = 제품 총 주문 가격
@@ -86,6 +84,7 @@
 	String[] pID = request.getParameter("checkp_id").split(","); //product id
 	
 	System.out.println(Arrays.toString(pID));
+	System.out.println(Arrays.toString(pName));
 	
 
 

@@ -8,10 +8,10 @@ if (session_id == null){
 	+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
     +"<div class='dropdown-container' id='dropdown-container'>"
         +"<ul class='dropdown-class' style='margin-left: 0px;'>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME.jsp'>[FRAME]</a></li>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT.jsp'>[OBJECT]</a></li>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE.jsp'>[HOMEWARE]</a></li>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE.jsp'>[TEXTILE]</a></li>"
+            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME'>[FRAME]</a></li>"
+            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT'>[OBJECT]</a></li>"
+            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE'>[HOMEWARE]</a></li>"
+            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE'>[TEXTILE]</a></li>"
         +"</ul>"
     +"</div>"
     +"</li>";
@@ -26,10 +26,10 @@ else if(session_id.equals("admin")){
 			+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
 		    +"<div class='dropdown-container' id='dropdown-container'>"
 		        +"<ul class='dropdown-class' style='margin-left: 0px;'>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME.jsp'>[FRAME]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT.jsp'>[OBJECT]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE.jsp'>[HOMEWARE]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE.jsp'>[TEXTILE]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME'>[FRAME]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT'>[OBJECT]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE'>[HOMEWARE]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE'>[TEXTILE]</a></li>"
 		        +"</ul>"
 		    +"</div>"
 		    +"</li>"
@@ -48,16 +48,16 @@ else {
 			+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
 		    +"<div class='dropdown-container' id='dropdown-container'>"
 		        +"<ul class='dropdown-class' style='margin-left: 0px;'>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME.jsp'>[FRAME]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT.jsp'>[OBJECT]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE.jsp'>[HOMEWARE]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE.jsp'>[TEXTILE]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME'>[FRAME]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT'>[OBJECT]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE'>[HOMEWARE]</a></li>"
+		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE'>[TEXTILE]</a></li>"
 		        +"</ul>"
 		    +"</div>"
 		    +"</li>";
    innerUser =  "<li class='userItem' align='center'><a href=/login/logout><span class='material-symbols-outlined'>logout</span></a></li>"
-          + "<li class='userItem' align='center'><a href=/Mypage/userMain.jsp><span class='material-symbols-outlined'>person</span></a></li>"
-          + "<li class='userItem' align='center'><a href=/ShopC/shoppingCart.jsp><span class='material-symbols-outlined'>shopping_cart</span></a></li>";
+          + "<li class='userItem' align='center'><a href=/myPage/userMain><span class='material-symbols-outlined'>person</span></a></li>"
+          + "<li class='userItem' align='center'><a href=/ShopC/shoppingCart><span class='material-symbols-outlined'>shopping_cart</span></a></li>";
 }
 %>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />

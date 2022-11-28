@@ -19,8 +19,7 @@ Logger log = Logger.getLogger(CartController.class);
 	
 	@GetMapping("/myPage/userMain")
 	public void getUserMain (Model model,HttpSession session) {
-		//String userid = session.getId();
-		String userid = "admin";
+		String userid = (String)session.getAttribute("userID");
 		MemberVO member = service.userInfoView(userid);
 		member.setUserID(userid);
 		model.addAttribute("memberVO",member);
