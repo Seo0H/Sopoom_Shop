@@ -1,13 +1,9 @@
 <%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.text.DecimalFormat"%>
 <!DOCTYPE html>
 <html>
-
-<%
-String totalPrice = (String) session.getAttribute("strTotal");
-String orderCode = (String) session.getAttribute("orderCode");
-%>
-
+<% DecimalFormat df = new DecimalFormat("###,###"); %>
 <style>
 .wrap {
 	margin: auto;
@@ -86,19 +82,19 @@ h3 {
 			<div id="infoMsg">주문이 성공적으로 완료되었습니다.</div>
 			<div class="row">
 				<span class="label">주문 번호</span>
-				<%=orderCode%></div>
+				${orderCode}</div>
 			<div class="row">
 				<span class="label">입금 계좌</span> 새싹은행 000000-00-000000 (예금주 : 소품샵)
 			</div>
 			<div class="row">
 				<span class="label">결제 금액</span>
-				<%=totalPrice%>
+				${totalPrice}
 				원
 			</div>
 		</div>
 		<div align="center">
 			<br>
-			<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='/Landing/index.jsp'">
+			<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='/'">
 			<br>
 		</div>
 	</div>

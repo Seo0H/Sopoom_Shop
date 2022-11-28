@@ -1,6 +1,7 @@
 package com.sopoom.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sopoom.dto.OrderVO;
 import com.sopoom.dto.OrderedItemVO;
@@ -27,9 +31,6 @@ public class PurchaseController {
 	@PostMapping("/Purchase/purchase")
 	public void postPurchase() {
 	}
-	
-	@PostMapping("/Purchase/purchaseFine")
-	public void postPurchaseFine() {}
 	
 	@PostMapping("/Purchase/purchaseVerify")
 	public String postPurchaseVerify (HttpSession session, HttpServletRequest request,
@@ -123,7 +124,25 @@ public class PurchaseController {
 		data.put("p_idList", pID);
 		service.delOrderCart(data);
 		
-		return "redirect:/";
+		return "redirect:/Purchase/purchase_fin?orderCode="+orderID+"&totalPrice="+intPrice;
+	}
+	
+	@GetMapping("/Purchase/purchase_fin")
+	public void getPurchaseFine(Model model,
+			@RequestParam String orderCode,@RequestParam int totalPrice) {		
+		
+		DecimalFormat df = new DecimalFormat("###,###");
+		System.out.println(orderCode+" / "+df.format(totalPrice)+"원");
+		
+		model.addAttribute("orderCode", orderCode);
+		model.addAttribute("totalPrice", df.format(totalPrice));
+	}
+		
+	
+	@PostMapping("/Purchase/purchase_fin")
+	public void postPurchaseFine(Model model,HttpSession session, HttpServletRequest request) {
+		
+
 	}
 
 }
