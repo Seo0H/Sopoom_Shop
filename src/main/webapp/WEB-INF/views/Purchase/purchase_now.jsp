@@ -413,7 +413,7 @@ input:focus{
 <title>JSP미니 프로젝트</title>
 </head>
 <body>
-	<%@include file="/top.jsp"%>
+	<%@include file="/WEB-INF/views/top.jsp"%>
 	<form name="purchaseForm" id="purchaseForm" method="post">
 	<div id="innerForm">
 	<div id="innerForm2">
@@ -502,5 +502,5 @@ input:focus{
 		</div>
 	</div>
 	</form>
-	<%@include file="/footer.jsp"%>
+	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
