@@ -45,8 +45,14 @@ public class LoginDAOImpl implements LoginDAO{
 
 	@Override
 	public void findPWtempPW(MemberVO member) {
-		sql.update(namespace+".findPWtempPW", member);
+		sql.update(namespace + ".findPWtempPW", member);
+		
 	}
-
+	
+	//사용자 아이디 찾기
+	@Override
+	public String searchID(MemberVO member) {
+		return sql.selectOne(namespace + ".searchID", member);
+	}
 
 }

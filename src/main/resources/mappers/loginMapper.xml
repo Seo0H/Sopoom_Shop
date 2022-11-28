@@ -35,5 +35,11 @@ insert into user (userID, password, username, postcode, address, detailAddress, 
 	update user set password=#{password} where userid=#{userID}
 </update>
 
+<!-- 사용자 아이디 찾기 -->
+<select id="searchID" parameterType="com.sopoom.dto.MemberVO" resultType="string">
+	select userid from user where username=#{username} and email=#{email}
+</select>
+
+
 
 </mapper>
