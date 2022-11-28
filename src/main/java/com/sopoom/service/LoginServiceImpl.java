@@ -1,6 +1,7 @@
 package com.sopoom.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,18 @@ public class LoginServiceImpl implements LoginService {
 	public void memberInfoRegistry(MemberVO member) {
 		dao.memberInfoRegistry(member);
 	}
-
-	//사용자 아이디 찾기
+	
+	//사용자 비밀번호 찾기 - 정보와 일치하는 사용자 찾기
 	@Override
-	public String searchPW(MemberVO member) {
-		return dao.searchPW(member);
+	public int findPWfindUser(MemberVO member) {
+		return dao.findPWfindUser(member);
 	}
+
+	@Override
+	public void findPWtempPW(MemberVO member) {
+		// TODO Auto-generated method stub		
+		dao.findPWtempPW(member);
+	}
+
+	
 }

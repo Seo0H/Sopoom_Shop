@@ -2,7 +2,9 @@ package com.sopoom.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -98,30 +100,49 @@ public class LoginController {
 		return "redirect:../";
 	}
 	
-	//사용자 아이디 찾기 보기
-	@RequestMapping(value="/searchID",method=RequestMethod.GET)
-	public void getSearchID() { } 
+	//사용자 비밀번호 찾기 보기
+	@RequestMapping(value="/findPW",method=RequestMethod.GET)
+	public void getfindPW() { } 
 	
-	//사용자 아이디 찾기 
-	@RequestMapping(value="/searchID",method=RequestMethod.POST)
-	public String postSearchID(MemberVO member, RedirectAttributes rttr) { 
+	//사용자 비밀번호 찾기 (변경하기) 
+	@RequestMapping(value="/findPW",method=RequestMethod.POST)
+	public String postSearchPW(MemberVO member, RedirectAttributes rttr) { 
 		
-		String userid = service.searchPW(member);
-				
-		//조건에 해당하는 사용자가 아닐 경우 
-		if(userid == null ) { 
-			rttr.addFlashAttribute("msg", "ID_NOT_FOUND");
-			return "redirect:/member/searchID"; 
+		//조건에 해당하는 사용자가 아닐 경우
+		if(service.findPWfindUser(member) == 0) {
+			rttr.addFlashAttribute("msg", "USER_NOT_FOUND");
+			return "redirect:/login/findPW";
+			
 		}
 		
-		return "redirect:/member/IDView?userid=" + userid;		
+		
+		// 랜덤한 문자열 생성
+		int leftLimit = 48; // numeral '0'
+		int rightLimit = 122; // letter 'z'
+		int targetStringLength = 10;
+					
+		Random random = new Random();
+		
+
+		String tempPW = random.ints(leftLimit,rightLimit + 1)
+		  .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+		  .limit(targetStringLength)
+		  .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+		  .toString();
+		 
+		member.setPassword(pwdEncoder.encode(tempPW));
+		
+		service.findPWtempPW(member);
+		
+		return "redirect:/login/pwView?userID=" + member.getUserID() + "&tempPW=" + tempPW;		
 	} 
 
-	//찾은 아이디 보기
-	@RequestMapping(value="/member/IDView",method=RequestMethod.GET)
-	public void postSearchID(@RequestParam("userid") String userid, Model model) {
-		
+	//찾은 비밀번호 보기
+	@RequestMapping(value="/pwView",method=RequestMethod.GET)
+	public void postSearchPW(@RequestParam("userID") String userid,@RequestParam("tempPW") String tempPW, Model model) {
+				
 		model.addAttribute("userid", userid);
+		model.addAttribute("tempPW", tempPW);
 		
 	}
 

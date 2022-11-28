@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -16,13 +17,12 @@
 		});
 		
 		$("#btn_register").click(function(){
-			console.log($("id_chk".val));
 			//아이디
-			if($("#id").val() == '') { $("#msg_id").text("아이디를 입력해주세요."); $("#msg_id").css('display', 'block'); $("#id").focus(); return false;}
+			if($("#userID").val() == '') { $("#msg_id").text("아이디를 입력해주세요."); $("#msg_id").css('display', 'block'); $("#userID").focus(); return false;}
 			else{	$("#msg_id").css('display', 'none');}
 			
 			//이름
-			if($("#name").val() == '') { $("#msg_name").css('display', 'block'); $("#name").focus(); return false; }
+			if($("#username").val() == '') { $("#msg_name").css('display', 'block'); $("#username").focus(); return false; }
 			else{	$("#msg_name").css('display', 'none');}
 			
 			//전화번호
@@ -50,7 +50,7 @@
 		 		$("#msg_email").css('display', 'none');
 		 		}
 		 	
-			$("#findPWForm").attr("action","findPW_verify.jsp").submit();	
+			$("#findPWForm").attr("action","/login/findPW").submit();	
 		});
 	});	
 </script>
@@ -146,12 +146,12 @@ input:focus{
 	<h3>비밀번호 찾기</h3>
 	<div class="row">
 		<label class="title">아이디</label>
-		<input type="text" class="field" id="id" name="id" maxlength="50" autofocus autoComplete="off">
+		<input type="text" class="field" id="userID" name="userID" maxlength="50" autofocus autoComplete="off">
 		<div id="msg_id" class="msg"></div>
 	</div>
 	<div class="row">
 		<label class="title">이름</label>
-		<input type="text" class="field" id="name" name="name" maxlength="50" autoComplete="off">
+		<input type="text" class="field" id="username" name="username" maxlength="50" autoComplete="off">
 		<div id="msg_name" class="msg">이름을 입력해주세요.</div>
 	</div>
 	<div class="row">
@@ -165,11 +165,14 @@ input:focus{
 				<div id="msg_email" class="msg"></div>
 	</div>
 	<br>
+	<c:if test="${msg == 'USER_NOT_FOUND' }">
+         		<p style="color:red;text-align:center;">회원정보가 올바르지 않습니다.</p> 
+    </c:if>
+	</div>
+	</form>
 	<div align="center">
 		<input type="button" id="btn_register" class="button" value="비밀번호 찾기">
 	</div>
-	</div>
-	</form>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>
