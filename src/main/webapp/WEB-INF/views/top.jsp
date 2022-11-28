@@ -4,7 +4,7 @@ String session_id = (String) session.getAttribute("userID");
 String innerMenu, innerUser, innerCategory;
 
 if (session_id == null){
-	innerMenu = "<li class='menuItem' align='center'><a href=/Landing/index.jsp>[HOME]</a></li>"
+	innerMenu = "<li class='menuItem' align='center'><a href=../>[HOME]</a></li>"
 	+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
     +"<div class='dropdown-container' id='dropdown-container'>"
         +"<ul class='dropdown-class' style='margin-left: 0px;'>"
@@ -16,13 +16,13 @@ if (session_id == null){
     +"</div>"
     +"</li>";
 
-	innerUser = "<li class='userItem' align='center'><a href=/Login/login.jsp><span class='material-symbols-outlined'>login</span></a></li>"
-          + "<li class='userItem' align='center'><a href=/Login/join.jsp><span class='material-symbols-outlined'>person_add_alt</span></a></li>"
-            + "<li class='userItem' align='center'><a href=/Login/login.jsp><span class='material-symbols-outlined'>shopping_cart</span></a></li>";
+	innerUser = "<li class='userItem' align='center'><a href=/login/login><span class='material-symbols-outlined'>login</span></a></li>"
+          + "<li class='userItem' align='center'><a href=/login/join><span class='material-symbols-outlined'>person_add_alt</span></a></li>"
+            + "<li class='userItem' align='center'><a href=/login/login><span class='material-symbols-outlined'>shopping_cart</span></a></li>";
 
 }
 else if(session_id.equals("admin")){
-	innerMenu = "<li class='menuItem' align='center'><a href=/Landing/index.jsp>[HOME]</a></li>"
+	innerMenu = "<li class='menuItem' align='center'><a href=../>[HOME]</a></li>"
 			+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
 		    +"<div class='dropdown-container' id='dropdown-container'>"
 		        +"<ul class='dropdown-class' style='margin-left: 0px;'>"
@@ -44,7 +44,7 @@ else if(session_id.equals("admin")){
 
 }
 else {
-	innerMenu = "<li class='menuItem' align='center'><a href=/Landing/index.jsp>[HOME]</a></li>"
+	innerMenu = "<li class='menuItem' align='center'><a href=../>[HOME]</a></li>"
 			+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
 		    +"<div class='dropdown-container' id='dropdown-container'>"
 		        +"<ul class='dropdown-class' style='margin-left: 0px;'>"
@@ -55,7 +55,7 @@ else {
 		        +"</ul>"
 		    +"</div>"
 		    +"</li>";
-   innerUser =  "<li class='userItem' align='center'><a href=/Login/logout.jsp><span class='material-symbols-outlined'>logout</span></a></li>"
+   innerUser =  "<li class='userItem' align='center'><a href=/login/logout><span class='material-symbols-outlined'>logout</span></a></li>"
           + "<li class='userItem' align='center'><a href=/Mypage/userMain.jsp><span class='material-symbols-outlined'>person</span></a></li>"
           + "<li class='userItem' align='center'><a href=/ShopC/shoppingCart.jsp><span class='material-symbols-outlined'>shopping_cart</span></a></li>";
 }
@@ -248,7 +248,7 @@ else {
 <header>
 	<div class = "menu-backgroud-color"></div>
 	<div class="left">
-		<a href="/Landing/index.jsp"> <img class="logo"
+		<a href="../"> <img class="logo"
 			src="/resources/img/logo.png" alt="logo" width="100">
 		</a>
 	</div>

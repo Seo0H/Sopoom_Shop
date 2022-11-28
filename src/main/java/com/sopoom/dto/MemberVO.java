@@ -1,5 +1,7 @@
 package com.sopoom.dto;
 
+import java.time.LocalDateTime;
+
 //Admin - 회원 목록 보기 구현
 public class MemberVO {
 
@@ -13,7 +15,9 @@ public class MemberVO {
 	private String telno;
 	private String email;
 	
-	public MemberVO() {}
+	public MemberVO() {
+		super();
+	}
 
 	public MemberVO(String userID, String password, String username, String postcode, String address,
 			String detailAddress, String extraAddress, String telno, String email) {
