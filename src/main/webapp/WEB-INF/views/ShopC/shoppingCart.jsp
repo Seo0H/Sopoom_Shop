@@ -350,7 +350,6 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 		  }
 		console.log("checkp_id: "+ checkp_id.toString);
 		console.log("pname: "+ checkpname.toString);
-		debugger;
 		
 		$('#checkp_id').val(checkp_id);
 		$('#checkPname').val(checkpname);
