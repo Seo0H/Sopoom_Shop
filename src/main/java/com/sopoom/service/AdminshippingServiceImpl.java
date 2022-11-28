@@ -15,8 +15,15 @@ public class AdminshippingServiceImpl implements AdminshippingService {
 	
 	//게시물 목록 보기
 	@Override
-	public List<ShippingVO> shippingList() throws Exception {
+	public List<ShippingVO> shippingList(int startPoint, int endPoint, String searchType, String keyword) throws Exception {
 		
-		return dao.shippingList();
+		return dao.shippingList(startPoint,endPoint,searchType,keyword);
 	}
+	
+	//전체 게시물 갯수 계산
+	@Override
+	public int totalCount(String searchType,String keyword) throws Exception{
+		return dao.totalCount(searchType, keyword);
+	}
+
 }

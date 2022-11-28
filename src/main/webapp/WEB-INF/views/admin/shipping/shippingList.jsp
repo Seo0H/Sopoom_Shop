@@ -9,7 +9,9 @@
 <meta charset="UTF-8">
 <head>
 <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+
 <title>배송관리</title>
+
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
    rel="stylesheet" />
 <link rel="stylesheet" href="/resources/css/shipping.css">
@@ -21,13 +23,20 @@
 
 
 <script>
-
 function statusModify(ship_id, idx) {
 	   
 	   var statusSelect = document.getElementById('statusSelect'+idx).value;
 	   location.href = 'modify_shipping.jsp?ship_id=' + ship_id + '&statusSelect=' + statusSelect;
 }
+</script>
 
+<script>
+function search(){
+	
+	var searchType = $("#searchType").val();
+	var keyword =  $("#keyword").val();
+	location.href = 'list?page=1&searchType=' + searchType + '&keyword=' + encodeURI(keyword);
+}
 </script>
 
 
@@ -49,42 +58,36 @@ function statusModify(ship_id, idx) {
          <th>상태변경</th>
       </tr>
 
-<tbody>
-
-<c:forEach items="${shippingList}" var="shippingList">
-<tr id="tr">
-   <td>${shippingList.shipID}</td>
-   <td>${shippingList.orderID}</td>
-   <td>${shippingList.userID}</td>
-   <td>${shippingList.username}</td>
-   <td>${shippingList.telno}</td>
-   <td>${shippingList.address}</td>
-   <td>
-      <form name="statusForm" id="statusForm" method="post">
-         <select id="statusSelect${shippingList.idx}" name="statusSelect"
-            class="statusSelect">
-            <option value="none" disabled selected>${shippingList.status}</option>
-            <option value="결제완료">결제완료</option>
-            <option value="배송전">배송전</option>
-            <option value="배송중">배송중</option>
-            <option value="배송완료">배송완료</option>
-            <option value="주문취소">주문취소</option>
-         </select>
-      </form>
-   </td>
-   <td><input type="button" name="statusBtn" id="statusBtn"
-      value="변경" onclick="statusModify('${shippingList.shipID}', ${shippingList.idx})" /><td>
-   
-</tr>
-</c:forEach>
-
-</tbody>
-</table>
-<br>
-<div>
-
-   </div>
-</div>
+	<tbody>
+	
+	<c:forEach items="${shippingList}" var="shippingList">
+	<tr id="tr">
+	   <td>${shippingList.shipID}</td>
+	   <td>${shippingList.orderID}</td>
+	   <td>${shippingList.userID}</td>
+	   <td>${shippingList.username}</td>
+	   <td>${shippingList.telno}</td>
+	   <td>${shippingList.address}</td>
+	   <td>
+	      <form name="statusForm" id="statusForm" method="post">
+	         <select id="statusSelect${shippingList.idx}" name="statusSelect"
+	            class="statusSelect">
+	            <option value="none" disabled selected>${shippingList.status}</option>
+	            <option value="결제완료">결제완료</option>
+	            <option value="배송전">배송전</option>
+	            <option value="배송중">배송중</option>
+	            <option value="배송완료">배송완료</option>
+	            <option value="주문취소">주문취소</option>
+	         </select>
+	      </form>
+	   </td>
+	   <td><input type="button" name="statusBtn" id="statusBtn"
+	      value="변경" onclick="statusModify('${shippingList.shipID}', ${shippingList.idx})" /><td>
+	</tr>
+	</c:forEach>
+	</tbody>
+	</table>
+	<br>
 <br>
 <div class="search">
        <select id="searchType" name="searchType">
@@ -95,14 +98,18 @@ function statusModify(ship_id, idx) {
        
          <input type="text" id="keyword" name="keyword" />
        <button type="button" class="searchBtn" onclick="search()">검색</button>
-<br><div class="pageList">
-</div>
+	
+	<br>
+	<div class="pageList">
+	${pageListView}
+	</div>
 
 </div>
-
-
 <br><br>      
-       
+    <div class="bottom_menu">
+		<a href="/admin/shipping/shippingList?page=1">처음으로</a>&nbsp;&nbsp;
+	</div>
+	
 <%@include file="/WEB-INF/views/footer.jsp"%>
 
 </body>

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sopoom.util.Page;
 import com.sopoom.service.AdminshippingService;
 
 @Controller
@@ -18,8 +20,22 @@ public class AdminShippingController {
 	Logger log = LoggerFactory.getLogger(AdminShippingController.class);
 	
 	//inventory - 게시물 목록 보기
-	@GetMapping("/admin/shipping/shippingList")
-	public void GetShippingList(Model model) throws Exception{
+	@GetMapping("/admin/shipping/shippingList?page=1")
+	public void GetShippingList(Model model, @RequestParam(name="page") int pageNum, 
+			@RequestParam(name="searchType", defaultValue="orderID", required=false) String searchType, 
+			@RequestParam(name="keyword", defaultValue="", required=false) String keyword ) throws Exception{
+		
+		int listCount = 5;
+		int postNum = 5; //한 페이지에 보여질 게시물 목록 갯수
+		int startPoint = (pageNum -1)*postNum + 1; 
+		int endPoint = postNum*pageNum;
+	
+		Page page = new Page();
+		int totalCount = service.totalCount(searchType, keyword);
 				
-		model.addAttribute("shippingList", service.shippingList());
+		model.addAttribute("shippingList", service.shippingList(startPoint, endPoint, searchType, keyword));
+		model.addAttribute("page", pageNum);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("pageListView", page.getPageList(pageNum, postNum, listCount, totalCount, searchType, keyword));
 	}}
