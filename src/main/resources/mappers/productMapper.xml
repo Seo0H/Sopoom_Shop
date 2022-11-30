@@ -2,15 +2,33 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sopoom.mappers.product">
-<!-- 게시물 목록 보기 -->
-<select id="list" parameterType="HashMap" resultType="com.sopoom.dto.ProductVO">
-	select * from product
+<mapper namespace="com.sopoom.mappers.dibs">
+
+<!-- 찜하기 -->
+<select id="dibs" parameterType="HashMap">
+	select count(*) as count_dibs from dibs where p_id =#{p_id} and userID =#{userid}
 </select>
 
-<!-- 제품 상세 보기 -->
-<select id="product" resultType="com.sopoom.dto.ProductVO">
-	select * from product where p_id=#{p_id}
+<!-- 해당 상품 찜 여부 확인용 데이터 가져오기 -->
+<select id="getPrdLikeVal" resultType="edu.bit.ex.vo.PrdctLikeVO">
+    <![CDATA[            
+        SELECT * FROM prdct_like WHERE prdct_id = #{prdct_id}
+    ]]>
 </select>
+
+<!-- 상품 상세 페이지 찜하기 -->
+<insert id="setPrdctLike">
+    <![CDATA[
+        INSERT INTO prdct_like (prdct_like_number, mbr_id, prdct_id, board_id) 
+        VALUES (prdct_like_seq.nextval, #{mbr_id}, #{prdct_id}, #{board_id}) 
+    ]]>
+</insert>
+
+<!-- 상품 상세페이지 찜취소 기능 -->
+<delete id="prdctLikeCancel">
+    <![CDATA[
+        DELETE FROM prdct_like WHERE prdct_like_number = #{prdct_like_number}
+    ]]>
+</delete>
 </mapper>
 
