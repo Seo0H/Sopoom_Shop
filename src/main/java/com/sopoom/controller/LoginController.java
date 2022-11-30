@@ -63,6 +63,43 @@ public class LoginController {
 		return result;
 	}
 	
+	//이메일 인증 번호 생성 및 전송
+	@ResponseBody
+	@RequestMapping(value="/sendEmailCode",method=RequestMethod.POST)
+	public String sendEmailCode(@RequestParam("email") String email) throws Exception{
+		
+		// 랜덤한 문자열 생성
+		int leftLimit = 48; // numeral '0'
+		int rightLimit = 57; // numeral '9'
+		int targetStringLength = 6;
+					
+		Random random = new Random();
+		
+		String emailCode = random.ints(leftLimit,rightLimit + 1)
+		  .limit(targetStringLength)
+		  .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+		  .toString();
+		 
+		sendCodeMail(email, emailCode);
+		
+		return emailCode;
+	}
+	
+	
+	//인증 번호 메일 내용
+	public void sendCodeMail(String toMail, String emailCode) {
+		// 보내는 사람 EMail, 제목, 내용
+		String subject = "소품샵 인증 번호입니다.";
+		String msg = "<div style='border: 1px solid #BFBFBF; margin : auto; margin-top : 40px; margin-bottom:40px;"
+				+ "width : 600px; padding : 50px; text-align : center; font-family: sans-serif; font-size:14px; '>"
+				+ "<div style='margin: 10px;'>다음의 인증 번호를 입력해주세요</div>"
+				+ "<div style='margin: 10px;'><span style='font-weight: bold; color: blue; font-size: 18px;'>"
+				+emailCode+"</span></div>";
+		
+		sendMail(toMail, toMail, subject, msg);
+		}
+	
+	
 	//로그인 화면 보기
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public void getLogIn() { }
@@ -148,18 +185,9 @@ public class LoginController {
 		
 	}
 	
-	//임시 비밀번호 메일 전송
+	//임시 비밀번호 메일 내용
 	public void sendPWEmail(MemberVO member, String tempPW) {
-			// Mail Server 설정
-			String charSet = "utf-8";
-			String hostSMTP = "smtp.gmail.com"; //네이버 이용시 smtp.naver.com
-			String hostSMTPid = "spmshp2022@gmail.com";
-			String hostSMTPpwd = "";
-
-			// 보내는 사람 EMail, 제목, 내용
-			String fromEmail = "spmshp2022@gmail.com";
-			String fromName = "소품샵";
-			String subject = "소품샵 임시 비밀번호 입니다.";
+			String subject = "소품샵 임시 비밀번호입니다.";
 			String msg = "<div style='border: 1px solid #BFBFBF; margin : auto; margin-top : 40px; margin-bottom:40px;"
 					+ "width : 600px; padding : 50px; text-align : center; font-family: sans-serif; font-size:14px; '>"
 					+ "<div style='margin: 10px;'>"
@@ -168,29 +196,42 @@ public class LoginController {
 					+tempPW+"</span> 입니다.</div>\r\n"
 					+ "<div style='margin: 10px;'>로그인 후 비밀번호를 변경해주세요.</div>"
 					+ "</div>";
-
-			// 받는 사람 E-Mail 주소			
-			String mail = member.getEmail();
 			
-			try {
-				HtmlEmail email = new HtmlEmail();
-				email.setDebug(true);
-				email.setCharset(charSet);
-				email.setSSL(true);
-				email.setHostName(hostSMTP);
-				email.setSmtpPort(465); //네이버 이용시 587
-
-				email.setAuthentication(hostSMTPid, hostSMTPpwd);
-				email.setTLS(true);
-				email.addTo(mail, member.getUsername()+"님");
-				email.setFrom(fromEmail, fromName, charSet);
-				email.setSubject(subject);
-				email.setHtmlMsg(msg);
-				email.send();
-			} catch (Exception e) {
-				System.out.println("메일발송 실패 : " + e);
-			}
+			sendMail(member.getEmail(), member.getUsername(), subject, msg);
 		}
+
+	//메일 전송
+	public void sendMail(String toMail, String toName, String subject, String msg) {
+		// Mail Server 설정
+		String charSet = "utf-8";
+		String hostSMTP = "smtp.gmail.com"; //네이버 이용시 smtp.naver.com
+		String hostSMTPid = "spmshp2022@gmail.com";
+		String hostSMTPpwd = "";
+
+		// 보내는 사람 EMail
+		String fromEmail = "spmshp2022@gmail.com";
+		String fromName = "소품샵";
+
+		try {
+			HtmlEmail email = new HtmlEmail();
+			email.setDebug(true);
+			email.setCharset(charSet);
+			email.setSSL(true);
+			email.setHostName(hostSMTP);
+			email.setSmtpPort(465); //네이버 이용시 587
+
+			email.setAuthentication(hostSMTPid, hostSMTPpwd);
+			email.setTLS(true);
+			email.addTo(toMail, toName);
+			email.setFrom(fromEmail, fromName, charSet);
+			email.setSubject(subject);
+			email.setHtmlMsg(msg);
+			email.send();
+		} catch (Exception e) {
+			System.out.println("메일발송 실패 : " + e);
+		}		
+	}
+	
 	
 	
 	//아이디 찾기 화면 보기

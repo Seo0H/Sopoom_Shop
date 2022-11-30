@@ -39,6 +39,58 @@
 			});
 			
 		});
+		
+		$("#btn_email").click(function(){
+			//이메일
+		 	var eMail = $("#email").val();
+		 	var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+		 	if($("#email").val() == '') {
+		 		$("#msg_email").text("이메일주소를 입력하세요.");
+		 		$("#msg_email").css('display', 'block');
+		 		$("#email").focus();
+		 		return false;
+		 	}
+
+		 	else if (!regEmail.test(eMail)) {
+		 		$("#msg_email").text("이메일 형식이 올바르지 않습니다.");
+		 		$("#msg_email").css('display', 'block');
+		 		$("#email").focus();
+		 		return false;
+		      }
+		 	else{
+		 		$("#msg_email").css('display', 'none');
+		 		$("#email").attr("disabled", true);
+		 		$("#btn_email").attr("disabled", true);
+		 		
+				$.ajax({
+					url : "/login/sendEmailCode",
+					type : "post",
+					dataType : "json",
+					data : {"email" : $("#email").val()},
+					success : function(data){
+				 		$("#emailCode").attr("type", "text");
+						emailCode = data;
+					}
+				});
+				
+				$("#emailCode").change(function(){
+					if($("#emailCode").val() != emailCode){
+						$("#msg_emailCode").text("인증 번호가 일치하지 않습니다.");
+						$("#msg_emailCode").css('color', 'red');
+						$("#msg_emailCode").css('display', 'block');
+						$("#emailCode").val("").focus();			
+					}else{
+						$("#msg_emailCode").text("올바른 인증 코드입니다.");
+						$("#msg_emailCode").css('color', 'green');
+						$("#msg_emailCode").css('display', 'block');
+					}
+			});
+		 		
+		 		}
+		});
+		
+			
 
 		$("#btn_register").click(function(){
 			console.log($("id_chk".val));
@@ -107,30 +159,21 @@
 		 	if($("#telno").val() == '') { $("#msg_telno").css('display', 'block'); $("#telno").focus(); return false;}
 		 	else{	$("#msg_telno").css('display', 'none');}
 
-			//이메일
-		 	var eMail = $("#email").val();
-		 	var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-
-		 	if($("#email").val() == '') {
-		 		$("#msg_email").text("이메일주소를 입력하세요.");
-		 		$("#msg_email").css('display', 'block');
-		 		$("#email").focus();
+			//이메일 => 인증번호 입력했는지
+		 	if($("#emailCode").val() == '') {
+		 		$("#msg_emailCode").text("이메일 인증을 완료해주세요.");
+		 		$("#msg_emailCode").css('display', 'block');
+		 		$("#emailCode").focus();
 		 		return false;
 		 	}
-
-		 	else if (!regEmail.test(eMail)) {
-		 		$("#msg_email").text("이메일 형식이 올바르지 않습니다.");
-		 		$("#msg_email").css('display', 'block');
-		 		$("#email").focus();
-		 		return false;
-		      }
 		 	else{
-		 		$("#msg_email").css('display', 'none');
+		 		$("#msg_emailCode").css('display', 'none');
 		 		}
 
 		 	$("#postcode").attr("disabled", false);
 		 	$("#address").attr("disabled", false);
 		 	$("#extraAddress").attr("disabled", false);
+		 	$("#email").attr("disabled", false);
 
 			$("#registerForm").attr("action","/login/join").submit();
 
@@ -187,20 +230,7 @@
             }
         }).open();
     }
-/*
-    function validCheck(){
-	   	var idInput = document.getElementById("id");
-	   	if(idInput.value == ''){
-	   		var msg_id = document.getElementById("msg_id");
-	   		msg_id.innerHTML="아이디를 입력해주세요.";
-	   		msg_id.style.display='block';
-	   		idInput.focus();
-	   	}
-	   	else{
-	   		window.open("idCheck.jsp?id="+idInput.value,"","width=400, height=200");
-	   	}
-    }
- */
+
 </script>
 
 <style>
@@ -240,16 +270,34 @@ h3{
 }
 
 #postcode{
-	width : 72%;
+	width : 70%;
 }
 
 #address{
 	margin-bottom : 10px;
 }
 
- #btn_address{
+#email{
+	width : 75%;
+	margin-bottom : 10px;
+}
+
+#btn_email{
 	font-size : 14px;
-	margin-left : 13px;
+	margin-left : 1px;
+	padding : 10px 7px;
+	line-height: 23px;
+	display:inline;
+	border : 1px solid  #313131;
+	background-color :  #313131;
+	color : #FFFFFF;
+	cursor : pointer;
+	transition-duration: 0.4s;
+}
+
+#btn_address{
+	font-size : 14px;
+	margin-left : 10px;
 	margin-bottom : 18px;
 	padding : 10px 7px;
 	line-height: 23px;
@@ -303,7 +351,7 @@ input:focus{
 	font-size:12px;
 }
 
-#msg_pwchk, #msg_email, #msg_id, #msg_address, #msg_telno, #msg_name, #msg_pw{
+#msg_pwchk, #msg_email, #msg_id, #msg_address, #msg_telno, #msg_name, #msg_pw, #msg_emailCode{
 	display : none;
 	color: red;
 }
@@ -356,7 +404,10 @@ input:focus{
 	<div class="row">
 		<label class="title">이메일</label>
 		<input type="text" class="field" id="email" name="email" autoComplete="off" />
-				<div id="msg_email" class="msg"></div>
+		<input type="button" id="btn_email" name="btn_email" value="인증번호 받기"><br>
+		<div id="msg_email" class="msg"></div>
+		<input type="hidden" class="field" id="emailCode" name="emailCode" placeholder="인증번호 입력" autoComplete="off" />
+		<div id="msg_emailCode" class="msg" name="msg_emailCode"></div>
 	</div>
 	<br>
 	<div align="center">
