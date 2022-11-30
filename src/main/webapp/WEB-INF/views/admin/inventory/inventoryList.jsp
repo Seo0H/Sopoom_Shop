@@ -24,6 +24,15 @@ window.onload = function() {
 	}					
 };
 </script>
+
+<script>
+function search(){
+	
+	var searchType = $("#searchType").val();
+	var keyword =  $("#keyword").val();
+	location.href = '/admin/inventory/inventoryList?page=1&searchType=' + searchType + '&keyword=' + encodeURI(keyword);
+}
+</script>
 </head>
 
 <body>
@@ -54,23 +63,30 @@ window.onload = function() {
 					<td class="tdStock">${inventoryList.p_unitsInStock}</td>
 				</tr>
 				</c:forEach>
-							</tbody>
+			</tbody>
 		</table>
 		<br>
 		<div>
-			<div class="search">
-		<select id="searchType" name="searchType">
-			<option value="p_id">상품코드</option>
-			<option value="p_name">상품명</option>
-			<option value="p_unitPrice">가격</option>
-			<option value="p_unitsInStock">수량</option>
-		</select> <input type="text" id="keyword" name="keyword" />
-		<button type="button" class="searchBtn" onclick="search()">검색</button>
+<div class="search">
+	<select id="searchType" name="searchType">
+		<option value="p_id">상품코드</option>
+		<option value="p_name">상품명</option>
+		<option value="p_unitPrice">가격</option>
+		<option value="p_unitsInStock">수량</option>
+	</select>
+	
+	<input type="text" id="keyword" name="keyword" />
+	<button type="button" class="searchBtn" onclick="search()">검색</button>
 		
-		<br><div class="pageList">
-		</div>
+	<br>
+	<div class="pageList">
+	${pageListView}
+	</div>
 </div>
 <br><br>
+	<div class="bottom_menu">
+		<a href="/admin/inventory/inventoryList?page=1">처음으로</a>&nbsp;&nbsp;
+	</div>
 		</div>
 	</div>
 

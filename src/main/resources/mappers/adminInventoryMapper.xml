@@ -3,10 +3,53 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sopoom.mappers.admin.inventory">
+
+
 <!-- 게시물 목록 보기 -->
 <select id="inventoryList" parameterType="HashMap" resultType="com.sopoom.dto.InventoryVO">
-	select * from product
+	select * from product 
+	
+	<choose>
+		<when test='searchType.equals("p_id")'> 
+			where p_id like CONCAT('%',#{keyword},'%')
+		</when>
+		
+		<when test='searchType.equals("p_name")'> 
+			where p_name like CONCAT('%',#{keyword},'%')
+		</when>
+		
+		<when test='searchType.equals("p_unitPrice")'> 
+			where p_unitPrice =#{keyword}
+		</when>
+		
+		<when test='searchType.equals("p_unitsInStock")'> 
+			where p_unitsInStock=#{keyword}
+		</when>
+	</choose> 
 </select>
+
+<!-- 전체 게시물 갯수 계산 -->
+<select id="totalCount" parameterType="HashMap" resultType="int">
+	select count(*) from product 
+	
+	<choose>
+		<when test='searchType.equals("p_id")'> 
+			where p_id like CONCAT('%',#{keyword},'%')
+		</when>
+		
+		<when test='searchType.equals("p_name")'> 
+			where p_name like CONCAT('%',#{keyword},'%')
+		</when>
+		
+		<when test='searchType.equals("p_unitPrice")'> 
+			where p_unitPrice =#{keyword}
+		</when>
+		
+		<when test='searchType.equals("p_unitsInStock")'> 
+			where p_unitsInStock=#{keyword}
+		</when>
+	</choose> 
+</select> 
 
 <!-- 게시물 정보 보기 -->
 <select id="view" parameterType="String" resultType="com.sopoom.dto.InventoryVO">

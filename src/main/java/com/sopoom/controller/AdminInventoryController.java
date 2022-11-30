@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.sopoom.dto.InventoryVO;
 import com.sopoom.service.AdminInventoryService;
+import com.sopoom.util.Page;
 
 @Controller
 public class AdminInventoryController {
@@ -21,9 +22,26 @@ public class AdminInventoryController {
 	
 	//inventory - 게시물 목록 보기
 	@GetMapping("/admin/inventory/inventoryList")
-	public void GetInventoryList(Model model) throws Exception{
+	public void GetInventoryList(Model model, @RequestParam(name="page") int pageNum, 
+			@RequestParam(name="searchType", defaultValue="orderID", required=false) String searchType, 
+			@RequestParam(name="keyword", defaultValue="", required=false) String keyword ) throws Exception{
+		
+		int listCount = 5;
+		int postNum = 5; //한 페이지에 보여질 게시물 목록 갯수
+		int startPoint = (pageNum -1)*postNum + 1; //테이블에서 읽어 올 행의 위치
+		int endPoint = postNum*pageNum;
+	
+		Page page = new Page();
+		int totalCount = service.totalCount(searchType, keyword);
 				
-		model.addAttribute("inventoryList", service.inventoryList());
+		log.info(keyword);
+		
+		model.addAttribute("inventoryList", service.inventoryList(startPoint, endPoint, searchType, keyword));
+		model.addAttribute("page", pageNum);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("pageListView", page.getPageInventory(pageNum, postNum, listCount, totalCount, searchType, keyword));
+		
 	}
 
 	//inventoryInfo - 게시물 정보 보기

@@ -15,11 +15,17 @@ public class AdminInventoryServiceImpl implements AdminInventoryService {
 	
 	//게시물 목록 보기
 	@Override
-	public List<InventoryVO> inventoryList() throws Exception {
+	public List<InventoryVO> inventoryList(int startPoint, int endPoint, String searchType, String keyword) throws Exception {
 		
-		return dao.inventoryList();
+		return dao.inventoryList(startPoint,endPoint,searchType,keyword);
 	}
 	
+	//전체 게시물 갯수 계산
+	@Override
+	public int totalCount(String searchType, String keyword) throws Exception {
+		return dao.totalcount(searchType,keyword);
+	}
+		
 	//inventoryInfo - 게시물 정보 보기
 	public InventoryVO view(String p_id) throws Exception{
 		return dao.view(p_id);
@@ -34,4 +40,6 @@ public class AdminInventoryServiceImpl implements AdminInventoryService {
 	public void deleteInventory(String p_id) throws Exception{
 		dao.deleteInventory(p_id);
 	}
+
+
 }
