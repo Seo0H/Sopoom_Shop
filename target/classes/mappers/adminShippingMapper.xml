@@ -22,4 +22,15 @@
 		</choose>			
 </select> 
 
+<!-- 게시물 수정 -->
+<update id="modifyShippingStatus" parameterType="com.sopoom.dto.ShippingVO">
+	update shipping set status=#{status} where shipID=#{shipID}
+</update>
+
+<!-- 게시물 하나 보기 -->
+<select id="shippingInfo" parameterType="String" resultType="com.sopoom.dto.ShippingVO">
+	select * from shipping where shipID = #{shipID}
+</select>
+
+
 </mapper>

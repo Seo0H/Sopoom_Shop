@@ -10,5 +10,10 @@ public interface AdminshippingService {
 	
 	//전체 게시물 갯수 계산
 	public int totalCount(String searchType,String keyword) throws Exception;
+
+	//수정
+	public void modifyShippingStatus(ShippingVO shipping) throws Exception;
 		
+	//
+	public ShippingVO shippingInfo(String shipID) throws Exception;
 }

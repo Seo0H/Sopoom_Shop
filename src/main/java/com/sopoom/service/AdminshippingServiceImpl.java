@@ -26,4 +26,18 @@ public class AdminshippingServiceImpl implements AdminshippingService {
 		return dao.totalCount(searchType, keyword);
 	}
 
+	//수정
+	@Override
+	public void modifyShippingStatus(ShippingVO shipping) throws Exception{
+		dao.modifyShippingStatus(shipping);
+				
+	}
+
+	@Override
+	public ShippingVO shippingInfo(String shipID) throws Exception {
+		return dao.shippingInfo(shipID);
+	}
+	
+	
+
 }

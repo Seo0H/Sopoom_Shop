@@ -1,14 +1,19 @@
 package com.sopoom.controller;
 
+import java.io.File;
+import java.net.URLEncoder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sopoom.util.Page;
+import com.sopoom.dto.ShippingVO;
 import com.sopoom.service.AdminshippingService;
 
 @Controller
@@ -20,7 +25,7 @@ public class AdminShippingController {
 	Logger log = LoggerFactory.getLogger(AdminShippingController.class);
 	
 	//inventory - 게시물 목록 보기
-	@GetMapping("/admin/shipping/shippingList?page=1")
+	@GetMapping("/admin/shipping/shippingList")
 	public void GetShippingList(Model model, @RequestParam(name="page") int pageNum, 
 			@RequestParam(name="searchType", defaultValue="orderID", required=false) String searchType, 
 			@RequestParam(name="keyword", defaultValue="", required=false) String keyword ) throws Exception{
@@ -38,4 +43,23 @@ public class AdminShippingController {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pageListView", page.getPageList(pageNum, postNum, listCount, totalCount, searchType, keyword));
-	}}
+	}
+
+	//게시물 수정
+	@GetMapping("/admin/shipping/modifyShippingStatus")
+	public String PostModifyShippingList( 
+			@RequestParam("ship_id") String shipID,
+			@RequestParam("statusSelect") String status) throws Exception{
+	
+		log.info(shipID);
+		log.info(status);
+		
+		ShippingVO ship = service.shippingInfo(shipID);
+		ship.setStatus(status);
+		
+		log.info(ship.getStatus());
+		service.modifyShippingStatus(ship);
+		return "redirect:/admin/shipping/shippingList?page=1";
+			
+	}
+}

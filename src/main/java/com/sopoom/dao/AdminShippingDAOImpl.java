@@ -24,13 +24,24 @@ public class AdminShippingDAOImpl implements AdminShippingDAO {
 		return sql.selectList(namespace + ".shippingList"); 
 	}
 
-	@Override
 	//전체 게시물 갯수 계산
+	@Override
 	public int totalCount(String searchType,String keyword) throws Exception{
 		
 		Map<String,String> data = new HashMap<>();
 		data.put("searchType", searchType);
 		data.put("keyword", keyword);
 		return sql.selectOne(namespace + ".totalCount", data);
+	}
+
+	//수정
+	@Override
+	public void modifyShippingStatus(ShippingVO shipping) throws Exception {
+		sql.update(namespace + ".modifyShippingStatus", shipping);		
+	}
+
+	@Override
+	public ShippingVO shippingInfo(String shipID) throws Exception {
+		return sql.selectOne(namespace + ".shippingInfo", shipID);
 	}
 }

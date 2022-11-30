@@ -26,7 +26,7 @@
 function statusModify(ship_id, idx) {
 	   
 	   var statusSelect = document.getElementById('statusSelect'+idx).value;
-	   location.href = 'modify_shipping.jsp?ship_id=' + ship_id + '&statusSelect=' + statusSelect;
+	   location.href = '/admin/shipping/modifyShippingStatus?page=1&ship_id=' + ship_id + '&statusSelect=' + statusSelect;
 }
 </script>
 
@@ -35,7 +35,7 @@ function search(){
 	
 	var searchType = $("#searchType").val();
 	var keyword =  $("#keyword").val();
-	location.href = 'list?page=1&searchType=' + searchType + '&keyword=' + encodeURI(keyword);
+	location.href = '/admin/shipping/shippingList?page=1&searchType=' + searchType + '&keyword=' + encodeURI(keyword);
 }
 </script>
 

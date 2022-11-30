@@ -53,6 +53,7 @@ public class AdminInventoryController {
 		return "redirect:/admin/inventory/inventoryInfo?p_id="+p_id;
 	}
 	
+	//삭제
 	@PostMapping("/admin/inventory/deleteInventoryInfo")
 	public String GetDeleteInventory(@RequestParam("p_id") String p_id) throws Exception{
 
