@@ -7,7 +7,7 @@
 #chkIcon{
   font-variation-settings:
   'FILL' 0,
-  'wght' 400,
+  'wght' 600,
   'GRAD' 0,
   'opsz' 48;
   font-size : xx-large;
@@ -32,7 +32,6 @@ h3{
 	margin-bottom : 70px;
 	min-width : 600px;
 	padding : 50px;
-	padding-bottom: 70px;
 	text-align : center;
 
 }
@@ -95,8 +94,10 @@ h3{
 	<div class="wrap">
 	<h3>비밀번호 찾기</h3>
 	<div class="resultBox">
-	<div class="row"><span class='material-symbols-outlined' id="chkIcon">mail</span></div>
-	<div class="rowMsg">${userid}님의 메일로 임시비밀번호가 발급되었습니다. </div>	</div>
+	<div class="row"><span class='material-symbols-outlined' id="chkIcon">check</span></div>
+	<div class="rowMsg">찾고계신 아이디는 </div>
+	<div class="rowMsg"><span id="infoMsg">${userid}</span> 입니다.</div>
+	</div>
 	<div align="center">
 	<br>
 	<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='../'">

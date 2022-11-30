@@ -45,6 +45,11 @@ public class LoginServiceImpl implements LoginService {
 		// TODO Auto-generated method stub		
 		dao.findPWtempPW(member);
 	}
-
+	
+	//사용자 아이디 찾기
+	@Override
+	public String searchID(MemberVO member) {
+		return dao.searchID(member);
+	}
 	
 }

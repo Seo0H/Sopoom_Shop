@@ -6,28 +6,11 @@
 <script>
 
 	$(document).ready(function(){
-		
-		$("#telno").keypress(function(){
-			if ((event.keyCode < 48) || (event.keyCode > 57))	event.returnValue = false;
-		});
-		
-		
-		$("#telno").keyup(function(){
-			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
-		});
-		
+				
 		$("#btn_register").click(function(){
-			//아이디
-			if($("#userID").val() == '') { $("#msg_id").text("아이디를 입력해주세요."); $("#msg_id").css('display', 'block'); $("#userID").focus(); return false;}
-			else{	$("#msg_id").css('display', 'none');}
-			
 			//이름
 			if($("#username").val() == '') { $("#msg_name").css('display', 'block'); $("#username").focus(); return false; }
 			else{	$("#msg_name").css('display', 'none');}
-			
-			//전화번호
-		 	if($("#telno").val() == '') { $("#msg_telno").css('display', 'block'); $("#telno").focus(); return false;}
-		 	else{	$("#msg_telno").css('display', 'none');}
 			
 			//이메일
 		 	var eMail = $("#email").val();
@@ -50,13 +33,13 @@
 		 		$("#msg_email").css('display', 'none');
 		 		}
 		 	
-			$("#findPWForm").attr("action","/login/findPW").submit();	
+			$("#findIDForm").attr("action","/login/findID").submit();	
 		});
 	});	
 </script>
 
 <style>
-#joinForm{
+#findIDForm{
 	margin : auto;
 	min-width : 700px;
 }
@@ -128,7 +111,7 @@ input:focus{
 	font-size:12px;
 }
 
-#msg_email, #msg_id, #msg_telno, #msg_name{
+#msg_email, #msg_name{
 	display : none;
 	color: red;
 }
@@ -141,23 +124,13 @@ input:focus{
 </head>
 <body>
 	<%@include file="/WEB-INF/views/top.jsp"%>
-	<form name="findPWForm" id="findPWForm" method="post"> 
+	<form name="findIDForm" id="findIDForm" method="post"> 
 	<div id="innerForm">
-	<h3>비밀번호 찾기</h3>
-	<div class="row">
-		<label class="title">아이디</label>
-		<input type="text" class="field" id="userID" name="userID" maxlength="50" autofocus autoComplete="off">
-		<div id="msg_id" class="msg"></div>
-	</div>
+	<h3>아이디 찾기</h3>
 	<div class="row">
 		<label class="title">이름</label>
 		<input type="text" class="field" id="username" name="username" maxlength="50" autoComplete="off">
 		<div id="msg_name" class="msg">이름을 입력해주세요.</div>
-	</div>
-	<div class="row">
-		<label class="title">전화번호</label>
-		<input type="text" class="field" id="telno" name="telno" maxlength="13" autoComplete="off"  />
-		<div id="msg_telno" class="msg">전화번호를 입력해주세요.</div>
 	</div>
 	<div class="row">
 		<label class="title">이메일</label>
@@ -166,12 +139,12 @@ input:focus{
 	</div>
 	<br>
 	<c:if test="${msg == 'USER_NOT_FOUND' }">
-         		<p style="color:red;text-align:center;">회원정보가 올바르지 않습니다.</p> 
+         		<p style="color:red;text-align:center;">정보에 일치하는 회원이 존재하지 않습니다.</p> 
     </c:if>
 	</div>
 	</form>
 	<div align="center">
-		<input type="button" id="btn_register" class="button" value="비밀번호 찾기">
+		<input type="button" id="btn_register" class="button" value="아이디 찾기">
 	</div>
 	<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
