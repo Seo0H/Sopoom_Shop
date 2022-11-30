@@ -6,18 +6,42 @@
 
 <!-- 게시물 목록 보기 -->
 <select id="shippingList" parameterType="HashMap" resultType="com.sopoom.dto.ShippingVO">
-	select row_number() over(order by shipID desc) 
-	as idx, s.shipID, o.orderID, u.userID, u.username, u.telno, s.address, s.status 
-	from shipping s, `order` o, user u 
-	where s.orderID = o.orderID AND u.userID = o.userID order by shipID desc
+	select * from shipping s, `order` o, user u 
+	where s.orderID = o.orderID AND u.userID = o.userID 
+	
+	<choose>
+			<when test='searchType.equals("orderID")'> 
+				AND s.orderID like CONCAT('%',#{keyword},'%')
+			</when>
+			
+			<when test='searchType.equals("userID")'> 
+				AND u.userID like CONCAT('%',#{keyword},'%')
+				
+			</when>
+			
+			<when test='searchType.equals("status")'> 
+				AND s.status like CONCAT('%',#{keyword},'%')
+			</when>
+		</choose> 
+	
 </select>
 
 <!-- 전체 게시물 갯수 계산 -->
 <select id="totalCount" parameterType="HashMap" resultType="int">
-	select count(*) from shipping 
+	select count(*) from shipping s, user u, `order` o 
+	where s.orderID = o.orderID AND u.userID = o.userID 
 		<choose>
-			<when test='searchType.equals("orderID")'>
-				where orderID like '%'||#{keyword}||'%' 
+			<when test='searchType.equals("orderID")'> 
+				AND s.orderID like CONCAT('%',#{keyword},'%')
+			</when>
+			
+			<when test='searchType.equals("userID")'> 
+				AND u.userID like CONCAT('%',#{keyword},'%')
+				
+			</when>
+			
+			<when test='searchType.equals("status")'> 
+				AND s.status like CONCAT('%',#{keyword},'%')
 			</when>
 		</choose>			
 </select> 

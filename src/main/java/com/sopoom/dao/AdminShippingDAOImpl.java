@@ -21,7 +21,14 @@ public class AdminShippingDAOImpl implements AdminShippingDAO {
 	//배송 목록보기
 	@Override
 	public List<ShippingVO> shippingList(int startPoint, int endPoint, String searchType,String keyword) throws Exception {
-		return sql.selectList(namespace + ".shippingList"); 
+		
+		Map<String,Object> data = new HashMap<>();
+		data.put("startPoint", startPoint);
+		data.put("endPoint", endPoint);
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+		
+		return sql.selectList(namespace + ".shippingList", data); 
 	}
 
 	//전체 게시물 갯수 계산
