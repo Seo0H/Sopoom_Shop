@@ -21,4 +21,7 @@ public interface LoginService {
 		//사용자 비밀번호 찾기 - 임시 비밀번호 발급
 		public void findPWtempPW(MemberVO member);
 		
+		//사용자 아이디 찾기
+		public String searchID(MemberVO member);
+		
 }

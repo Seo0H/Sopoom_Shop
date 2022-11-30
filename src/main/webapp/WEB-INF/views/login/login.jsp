@@ -56,6 +56,11 @@ input:focus{
 	margin-bottom : 20px;
 }
 
+.rowFind{
+	margin : 20px 0px 30px;
+	text-align : right;
+}
+
 .title{
 	display : block;
 	margin-bottom : 12px;
@@ -112,9 +117,9 @@ input:focus{
 }
 
 .findPW{
+	display : inline;
     font-size: 13px;
     line-height: 17px;
-    text-align : right;
     margin: 20px 6px 30px;
     color: #666666;
     cursor:pointer;
@@ -154,8 +159,10 @@ input:focus{
 			<div id="msg_password" class="msg">잘못된 패스워드 입니다.</div>
 			</c:if>
 		</div>
-
+		<div class="rowFind">
+		<div class="findPW" onClick="location.href='/login/findID'"> 아이디 찾기</div>	
         <div class="findPW" onClick="location.href='/login/findPW'"> 비밀번호 찾기</div>		
+		</div>
 		</div>
 		</form>
 		<div class="btn_box">
