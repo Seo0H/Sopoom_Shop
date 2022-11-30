@@ -240,7 +240,7 @@ h3{
 }
 
 #postcode{
-	width : 70%;
+	width : 72%;
 }
 
 #address{
@@ -249,7 +249,7 @@ h3{
 
  #btn_address{
 	font-size : 14px;
-	margin-left : 8px;
+	margin-left : 13px;
 	margin-bottom : 18px;
 	padding : 10px 7px;
 	line-height: 23px;
