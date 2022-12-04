@@ -119,3 +119,8 @@ float:left;
   background-color: #313131 !important;
   border-color: #313131 !important;
 }
+
+.msg{
+	font-size:12px;
+	color: red;
+}

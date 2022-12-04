@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -9,6 +10,7 @@
 <link rel="stylesheet" href="userInfo.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+<link rel="stylesheet" href="/resources/css/userInfo.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
@@ -23,8 +25,6 @@ $(document).ready(function(){
 			//비밀번호
 			var Pass = $("#password").val();
 			var Pass1 = $("#passwordchk").val();
-			
-			console.log(Pass,Pass1);
 	
 			// 암호유효성 검사
 			var num = Pass.search(/[0-9]/g);
@@ -46,12 +46,12 @@ $(document).ready(function(){
 				return false;
 			}
 		else if(Pass.search(/\s/) != -1){
-			$("#msg_pw").text("비밀번호는 공백 없이 입력해주세요.");
+				$("#msg_pw").text("비밀번호는 공백 없이 입력해주세요.");
 				$("#msg_pw").css('display', 'block');
 				return false;
 			}
 		else if(num < 0 || eng < 0 || spe < 0 ){
-			$("#msg_pw").text("비밀번호는 영문/숫자/특수문자를 혼합해야 합니다.");
+				$("#msg_pw").text("비밀번호는 영문/숫자/특수문자를 혼합해야 합니다.");
 				$("#msg_pw").css('display', 'block');
 				return false;
 		}
@@ -67,8 +67,11 @@ $(document).ready(function(){
 			$("#passwordchk").focus();
 			return false;
 		}
-		else{	$("#msg_pwchk").css('display', 'none');}
-		$("#pwchange").attr("action","change_pw.jsp").submit();
+		else{
+			alert("비밀번호가 변경되었습니다.");
+			$("#msg_pwchk").css('display', 'none');
+			$("#pwchange").attr("action","/myPage/changePw").submit();
+		}
 	})
 	
 	
@@ -85,12 +88,67 @@ $(document).ready(function(){
 			$("#msg_pw").css('display', 'block');
 			return false;
 		}
-		else { $("#msg_pwchk").css('display', 'none');
-		$("#infochange").attr("action","change_info.jsp").submit();
-		}
+		else {
+			$("#msg_pwchk").css('display', 'none');
+			
+			let selForm = document.querySelector("#infochange");
+			
+			// Getting an FormData 
+			let data = new FormData(selForm);
+			
+			// Getting a Serialize Data from FormData
+			let serializedFormData = serialize(data);
+			
+			// Log 
+			console.log(JSON.stringify(serializedFormData));
+			
+			$.ajax({
+					url : "/myPage/changeInfo",
+					type : "post",
+					dataType : "json",
+					contentType : "application/json",
+					data : JSON.stringify(serializedFormData),
+					async: false,
+					success : function(data){
+						//이후 새로고침 없이 데이터 불러오기 구현
+// 						var html = jQuery('<div>').html(data);
+// 						$("#postcode").html(contents1);
+// 						$("#replyCount").html(contents2);
+					},
+					error : function(){
+			               alert("통신실패");
+			           },
+					complete : function(){
+						alert("개인정보 변경이 완료되었습니다.");
+						
+					}
+				});
+ 		}
 
+	})
 })
-})
+
+function serialize (rawData) {
+	
+	let rtnData = {};
+	for (let [key, value] of rawData) {
+		let sel = document.querySelectorAll("[name=" + key + "]");
+	
+		// Array Values
+		if (sel.length > 1) {
+			if (rtnData[key] === undefined) {
+				rtnData[key] = [];				
+			}
+			rtnData[key].push(value);
+		} 
+		// Other 
+		else {
+			rtnData[key] = value;
+		}
+	}
+	
+	return rtnData;
+}
 
 function resignCheck(userid) {
 	if(confirm("정말로 탈퇴하시겠습니까?") == true) {
@@ -171,55 +229,6 @@ function execDaumPostcode() {
 	alert("로그인이 필요한 서비스입니다."); location.href = "./login.jsp";
 	<%
 	}
-
-	if (userid == null) {
-	response.sendRedirect("index.jsp");
-	}
-
-	String username = "";
-	String password = "";
-	String telno = "";
-	String postcode = "";
-	String address = "";
-	String detailAddress = "";
-	String extraAddress = "";
-	String email = "";
-
-	//DB에서 사용자 정보
-	String url = "jdbc:mariadb://127.0.0.1:3306/inventory";
-	String uid = "root";
-	String pwd = "1234";
-	String query = "select * from user where userid ='" + userid + "'";
-
-	Connection con = null;
-	Statement stmt = null;
-	ResultSet rs = null;
-
-	try {
-
-	Class.forName("org.mariadb.jdbc.Driver");
-	con = DriverManager.getConnection(url, uid, pwd);
-	stmt = con.createStatement();
-	rs = stmt.executeQuery(query); // 쿼리문 실행 코드
-
-	while (rs.next()) {
-		username = rs.getString("username");
-		password = rs.getString("password");
-		telno = rs.getString("telno");
-		postcode = rs.getString("postcode");
-		address = rs.getString("address");
-		detailAddress = rs.getString("detailAddress");
-		extraAddress = rs.getString("extraAddress");
-		email = rs.getString("email");
-
-	}
-	stmt.close();
-	con.close();
-	rs.close();
-
-	} catch (Exception e) {
-	e.printStackTrace();
-	}
 	%>
 
 	<div id="display-canvas">
@@ -232,7 +241,7 @@ function execDaumPostcode() {
 					</div>
 					<div class="logout-btn">
 						<span onMouseover='this.style.textDecoration="underline"'
-						onmouseout="this.style.textDecoration='none';" onclick="resignCheck('<%=userid%>')">회원탈퇴</span>
+						onmouseout="this.style.textDecoration='none';" onclick="resignCheck('${memberVO.getUserID()}')">회원탈퇴</span>
 					</div>
 				</div>
 
@@ -240,11 +249,11 @@ function execDaumPostcode() {
 					<div class="left-container">
 						<div class="row">
 							<label class="title">로그인 아이디</label>
-							<input type="text" class="field" readonly="readonly" value="<%=userid%>">
+							<input type="text" class="field" readonly="readonly" name ="userID" value="${memberVO.getUserID()}">
 						</div>
 						<div class="row">
 							<label class="title">회원 이메일</label>
-							<input type="text" class="field" readonly="readonly" value="<%=email%>">
+							<input type="text" class="field" readonly="readonly" name ="email" value="${memberVO.getEmail()}">
 						</div>
 						<div class="row">
 							<label class="title">비밀번호</label>
@@ -261,32 +270,32 @@ function execDaumPostcode() {
 					</div>
 				</form>
 
-				<form name=infochange id=infochange method="post">
+				<form name=infochange id=infochange method="post" >
 					<div class="right-container">
 						<div class="row">
 							<label class="title">이름</label>
-							<input type="text" class="field" readonly="readonly" value="<%=username%>">
+							<input type="text" class="field" readonly="readonly" name ="username" value="${memberVO.getUsername()}">
 						</div>
 						<div class="row">
 							<label class="title">휴대폰 번호</label>
-							<input type="text" class="field" value="<%=telno%>">
+							<input type="text" name="telno" class="field" value="${memberVO.getTelno()}">
 							<!-- 나중에 번호인증하는 api 받아와서 적용하면 더 좋을거같아요. -->
 						</div>
 						<div class="row">
 							<label class="title" id="postcodeTitle">우편 번호</label>
 							<input type="button" id="btn_address" onclick="execDaumPostcode()" value="우편번호 찾기">
-							<input type="text" name="postcode" id="postcode" class="field" readonly="readonly" value="<%=postcode%>">
+							<input type="text" name="postcode" id="postcode" class="field" readonly="readonly" value="${memberVO.getPostcode()}">
 							
 						</div>
 						<div class="row">
 							<label class="title">주소</label>
-							<input type="text" name="address" id="address" class="field " readonly="readonly" value="<%=address%>">
-							<input type="text" name="extraAddress" id="extraAddress" class="field" readonly="readonly" value="<%=detailAddress%>">
-							<input type="text" name="detailAddress" id="detailAddress" class="field" placeholder="<%=extraAddress%>">
+							<input type="text" name="address" id="address" class="field " readonly="readonly" value="${memberVO.getAddress()}">
+							<input type="text" name="extraAddress" id="extraAddress" class="field" readonly="readonly" value="${memberVO.getExtraAddress()}">
+							<input type="text" name="detailAddress" id="detailAddress" class="field"  placeholder="${memberVO.getDetailAddress()}">
 							<p id="msg_pwchk" class="msg"></p>
 						</div>
 						<div class="row">
-							<input type="submit" id="btn_register_info" class="field user-info-modify-btn" value="회원정보 수정">
+							<input type="button" id="btn_register_info" class="field user-info-modify-btn" value="회원정보 수정">
 						</div>
 					</div>
 					</form>

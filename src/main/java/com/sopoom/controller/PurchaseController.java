@@ -98,6 +98,8 @@ public class PurchaseController {
 		//배송 번호 생성(랜덤) 및 중복 검사
 		shipCode = RandomStringUtils.randomNumeric(10);
 		
+		//주문 아이템 저장
+		
 		orderedItemVO.setCount(sCodeCount);
 		orderedItemVO.setOrderID(orderID);
 		orderedItemVO.setpID(shipCode);

@@ -10,4 +10,30 @@
 	select * from user where userid=#{userid}
 </select>
 
+<!-- 유저 비번 불러오기  -->
+<select id="pwCheck" parameterType="String" resultType="String">
+	select password from user where userid=#{userid}
+</select>
+
+<!-- 마이페이지: 기본 정보 수정 -->
+<update id="changeInfo" parameterType="Hashmap" >
+	UPDATE user SET postcode = #{postcode}, address = #{address}, extraAddress = #{extraAddress},
+		detailAddress = #{detailAddress} WHERE userid = #{userid}
+</update>
+
+<!-- 마이페이지: 비번 변경 -->
+<update id="pwModify" parameterType="Hashmap">
+	UPDATE user SET password = #{password} WHERE userid =  #{userid}
+</update>
+
+<!-- 마이페이지: 회원 탈퇴 -->
+<delete id="withdrawal">
+</delete>
+
+<!-- 마이페이지: 배송 조회 -->
+<select id="myOrder" parameterType="String" resultType="Hashmap">
+	select p.p_id, p.p_fileName, s.shipID, p.p_name, o.totalPrice, DATE_FORMAT(o.orderDate, '%Y.%m.%d') as orderDate, s.`status`, o.userID from product p, `order` o, ordereditem i, shipping s "
+		where s.orderID = o.orderID AND o.orderID = i.orderID AND i.pID = p.p_id AND o.userID = #{userid}
+</select>
+
 </mapper>

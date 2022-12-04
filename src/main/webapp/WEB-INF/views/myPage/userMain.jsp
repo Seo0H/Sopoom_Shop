@@ -13,6 +13,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
 <link rel="stylesheet" href="/resources/css/userMain.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <body>
 	<script>
@@ -22,8 +23,9 @@
 			if (btn == "") {
 				alert("패스워드를 입력하세요.");
 				return false;
+			
 			} else {
-				document.userbasic.action = "pwCheck.jsp";
+				document.userbasic.action = "/myPage/pwCheck";
 				document.userbasic.action.submit;
 			}
 
@@ -38,8 +40,7 @@
 
 
 	<%
-		//String userid = (String)session.getAttribute("userID");
-		String userid = "admin";
+		String userid = (String)session.getAttribute("userID");
 
 	if (userid == null) {
 	%>
@@ -83,7 +84,7 @@
 					</div>
 
 					<div class="row">
-						<button class="field shipping-conf-btn" onclick="location.href='myOrder.jsp?userID=${memberVO.getUserID()}'">배송 정보</button>
+						<button class="field shipping-conf-btn" onclick="location.href='/myPage/myOrder?userID=${memberVO.getUserID()}'">배송 정보</button>
 						<button class="field shipping-conf-btn" onclick="location.href='/ShopC/dibsList.jsp?userID=${memberVO.getUserID()}'">찜목록</button>
 					</div>
 				</div>
@@ -107,6 +108,9 @@
 						</div>
 						<div class="row" id="pw-check">
 							<input type="password" name="password" id="password" class="field" placeholder="개인정보를 변경하려면 비밀번호를 입력해주세요" value="" onkeydown="press()">
+							<c:if test="${msg == 'PASSWORD_NOT_FOUND' }">
+							<div id="msg_id" class="msg"> 비밀번호가 일치하지 않습니다.</div>
+							</c:if>
 						</div>
 						<div class="row">
 							<input type="submit" id="pwconfigBtn" class="field user-info-modify-btn" onclick="pwConfig()" value="비밀번호 확인">

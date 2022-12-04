@@ -18,6 +18,12 @@
 	values (#{orderID},#{userID},#{totalPrice})
 </insert>
 
+<!-- 주문 아이템 데이터 저장 -->
+<insert id="saveOrderedItem" parameterType="com.sopoom.dto.OrderedItemVO">
+	insert into `ordereditem`(orderID, pID, count) 
+	values (#{orderID},#{pID},#{count})
+</insert>
+
 <!-- 배송 데이터 저장 -->
 <insert id="saveShipping" parameterType="com.sopoom.dto.ShippingVO">
 	insert into `shipping`(shipID,orderID,name, postcode, address, detailAddress, extraAddress, telno, status)
