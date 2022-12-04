@@ -17,4 +17,8 @@ public interface AdminMemberDAO {
 	
 	//회원 정보 수정
 	public void modifyMember(MemberVO member);
+
+	//전체 게시물 갯수 계산
+	public int totalCount(String searchType,String keyword) throws Exception;
+	
 }

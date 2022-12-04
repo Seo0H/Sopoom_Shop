@@ -34,4 +34,10 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public void modifyMemberInfo(MemberVO member){
 		dao.modifyMember(member);
 	}
+
+	//전체 게시물 갯수 계산
+		@Override
+		public int totalCount(String searchType,String keyword) throws Exception{
+			return dao.totalCount(searchType, keyword);
+		}
 }

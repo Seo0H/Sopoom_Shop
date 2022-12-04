@@ -1,7 +1,5 @@
 package com.sopoom.controller;
 
-import java.io.File;
-import java.net.URLEncoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sopoom.util.Page;
@@ -38,13 +35,15 @@ public class AdminShippingController {
 		Page page = new Page();
 		int totalCount = service.totalCount(searchType, keyword);
 				
-		log.info(keyword);
+		log.info("keyword "+keyword);
+		log.info("page " + pageNum);
+		log.info("post " + startPoint + " " + endPoint);
 		
 		model.addAttribute("shippingList", service.shippingList(startPoint, endPoint, searchType, keyword));
 		model.addAttribute("page", pageNum);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("keyword", keyword);
-		model.addAttribute("pageListView", page.getPageList(pageNum, postNum, listCount, totalCount, searchType, keyword));
+		model.addAttribute("pageListView", page.getPageShipping(pageNum, postNum, listCount, totalCount, searchType, keyword));
 	}
 
 	//게시물 수정
@@ -53,8 +52,8 @@ public class AdminShippingController {
 			@RequestParam("ship_id") String shipID,
 			@RequestParam("statusSelect") String status) throws Exception{
 	
-		log.info(shipID);
-		log.info(status);
+		log.info("shipID " + shipID);
+		log.info("status " + status);
 		
 		ShippingVO ship = service.shippingInfo(shipID);
 		ship.setStatus(status);

@@ -18,4 +18,8 @@ public interface AdminMemberService {
 	
 	//사용자 정보 수정
 	public void modifyMemberInfo(MemberVO member);
+
+	//전체 게시물 갯수 계산
+	public int totalCount(String searchType,String keyword) throws Exception;
+
 }

@@ -1,6 +1,9 @@
 package com.sopoom.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,4 +36,14 @@ public class AdminMemberDAOImpl implements AdminMemberDAO{
 	public void modifyMember(MemberVO member){
 		sql.update(namespace + ".modifyMember", member);
 	}
+	
+	//전체 게시물 갯수 계산
+		@Override
+		public int totalCount(String searchType,String keyword) throws Exception{
+			
+			Map<String,String> data = new HashMap<>();
+			data.put("searchType", searchType);
+			data.put("keyword", keyword);
+			return sql.selectOne(namespace + ".totalCount", data);
+		}
 }

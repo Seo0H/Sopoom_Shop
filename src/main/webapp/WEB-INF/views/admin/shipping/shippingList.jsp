@@ -82,7 +82,7 @@ function search(){
 	      </form>
 	   </td>
 	   <td><input type="button" name="statusBtn" id="statusBtn"
-	      value="변경" onclick="statusModify('${shippingList.shipID}', ${shippingList.idx})" /><td>
+	      value="변경" onclick="statusModify('${shippingList.shipID}', '${shippingList.idx}')" /><td>
 	</tr>
 	</c:forEach>
 	</tbody>
@@ -96,7 +96,7 @@ function search(){
            <option value="status">배송상태</option>
        </select>
        
-         <input type="text" id="keyword" name="keyword" />
+       <input type="text" id="keyword" name="keyword" />
        <button type="button" class="searchBtn" onclick="search()">검색</button>
 	
 	<br>

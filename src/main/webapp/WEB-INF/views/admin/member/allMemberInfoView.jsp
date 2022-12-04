@@ -22,6 +22,14 @@
 	int idx = 1;
 	%>
 
+<script>
+function search(){
+	
+	var searchType = $("#searchType").val();
+	var keyword =  $("#keyword").val();
+	location.href = '/admin/member/allMemberInfoView?page=1&searchType=' + searchType + '&keyword=' + encodeURI(keyword);
+}
+</script>
 
 	<br>
 	<h1 class="memberTitle">회원목록</h1>
@@ -51,9 +59,6 @@
 			</tbody>
 		</table>
 		<br>
-		<div>
-			<!-- 페이지 -->
-		</div>
 	</div>
 	<br>
 	<div class="search">
@@ -61,19 +66,19 @@
 			<option value="userID">회원아이디</option>
 			<option value="username">회원명</option>
 			<option value="telno">전화번호</option>
-			<option value="username_telno">이름+번호</option>
-
-		</select> <input type="text" id="keyword" name="keyword" />
+			</select>
+			
+		<input type="text" id="keyword" name="keyword" />
 		<button type="button" class="searchBtn" onclick="search()">검색</button>
 
 		<br>
+		
 		<div class="pageList">
-			<!-- page 임의로 삭제 후에 추가하기! -->
+		${pageListView}
 		</div>
 	</div>
-	<br>
-	<br>
+<br><br>
 
-	<%@include file="/WEB-INF/views/footer.jsp"%>
+<%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>
