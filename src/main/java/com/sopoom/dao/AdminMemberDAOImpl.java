@@ -18,8 +18,16 @@ public class AdminMemberDAOImpl implements AdminMemberDAO{
 	
 	private static String namespace = "com.sopoom.mappers.admin.member";
 
-	public List<MemberVO> allMemberInfoView() {
-		return sql.selectList(namespace + ".allMemberInfoView"); 
+	public List<MemberVO> allMemberInfoView(int postNum, int startPoint, int endPoint, String searchType, String keyword) throws Exception{
+		
+		Map<String,Object> data = new HashMap<>();
+		data.put("postNum", postNum);
+		data.put("startPoint", startPoint);
+		data.put("endPoint", endPoint);
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+		
+		return sql.selectList(namespace + ".allMemberInfoView", data); 
 	}
 	
 	//사용자 개인 정보 보기

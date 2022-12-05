@@ -7,26 +7,27 @@
 
 <!-- 사용자 목록 보기 -->
 <select id="allMemberInfoView" parameterType="HashMap" resultType="com.sopoom.dto.MemberVO">
-	select * from user  
-		<!-- <choose>
+	select * from user 
+		<choose>
 			<when test='searchType.equals("userID")'> 
-				where userID like CONCAT('%',#{keyword},'%')
+				where userID like CONCAT('%',#{keyword},'%') 
 			</when>
 			
 			<when test='searchType.equals("username")'> 
-				where username like CONCAT('%',#{keyword},'%')
+				where username like CONCAT('%',#{keyword},'%') 
 			</when>
 			
 			<when test='searchType.equals("telno")'> 
-				where telno like CONCAT('%',#{keyword},'%')
+				where telno like CONCAT('%',#{keyword},'%') 
 			</when>
-		</choose> -->
+		</choose>
+		order by userID desc limit #{startPoint}, #{postNum}
 </select>
 
 <!-- 전체 게시물 갯수 계산 -->
 <select id="totalCount" parameterType="HashMap" resultType="int">
 	select count(*) from user  
-		<!-- <choose>
+		<choose>
 			<when test='searchType.equals("userID")'> 
 				where userID like CONCAT('%',#{keyword},'%')
 			</when>
@@ -38,7 +39,7 @@
 			<when test='searchType.equals("telno")'> 
 				where telno like CONCAT('%',#{keyword},'%')
 			</when>
-		</choose> 	 -->
+		</choose>
 </select> 
 
 <!-- 사용자 정보 보기 -->

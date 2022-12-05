@@ -6,7 +6,7 @@ import com.sopoom.dto.InventoryVO;
 public interface AdminInventoryService {
 
 	//게시물 목록보기
-	public List<InventoryVO> inventoryList(int startPoint, int endPoint, String searchType, String keyword) throws Exception;
+	public List<InventoryVO> inventoryList(int postNum, int startPoint, int endPoint, String searchType, String keyword) throws Exception;
 	
 	//전체 게시물 갯수 계산
 	public int totalCount(String searchType, String keyword) throws Exception;

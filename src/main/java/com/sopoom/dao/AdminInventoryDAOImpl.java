@@ -20,9 +20,10 @@ public class AdminInventoryDAOImpl implements AdminInventoryDAO {
 	
 	//게시물 목록 보기
 	@Override
-	public List<InventoryVO> inventoryList(int startPoint, int endPoint, String searchType, String keyword) throws Exception {
+	public List<InventoryVO> inventoryList(int postNum, int startPoint, int endPoint, String searchType, String keyword) throws Exception {
 		
 		Map<String,Object> data = new HashMap<>();
+		data.put("postNum", postNum);
 		data.put("startPoint", startPoint);
 		data.put("endPoint", endPoint);
 		data.put("searchType", searchType);

@@ -11,21 +11,22 @@
 	
 	<choose>
 		<when test='searchType.equals("p_id")'> 
-			where p_id like CONCAT('%',#{keyword},'%')
+			where p_id like CONCAT('%',#{keyword},'%') 
 		</when>
 		
 		<when test='searchType.equals("p_name")'> 
-			where p_name like CONCAT('%',#{keyword},'%')
+			where p_name like CONCAT('%',#{keyword},'%') 
 		</when>
 		
 		<when test='searchType.equals("p_unitPrice")'> 
-			where p_unitPrice =#{keyword}
+			where p_unitPrice =#{keyword} 
 		</when>
 		
 		<when test='searchType.equals("p_unitsInStock")'> 
-			where p_unitsInStock=#{keyword}
+			where p_unitsInStock=#{keyword} 
 		</when>
-	</choose> 
+	</choose>
+	order by p_id desc limit #{startPoint}, #{postNum}
 </select>
 
 <!-- 전체 게시물 갯수 계산 -->
@@ -34,21 +35,21 @@
 	
 	<choose>
 		<when test='searchType.equals("p_id")'> 
-			where p_id like CONCAT('%',#{keyword},'%')
+			where p_id like CONCAT('%',#{keyword},'%') 
 		</when>
 		
 		<when test='searchType.equals("p_name")'> 
-			where p_name like CONCAT('%',#{keyword},'%')
+			where p_name like CONCAT('%',#{keyword},'%') 
 		</when>
 		
 		<when test='searchType.equals("p_unitPrice")'> 
-			where p_unitPrice =#{keyword}
+			where p_unitPrice =#{keyword} 
 		</when>
 		
 		<when test='searchType.equals("p_unitsInStock")'> 
-			where p_unitsInStock=#{keyword}
+			where p_unitsInStock=#{keyword} 
 		</when>
-	</choose> 
+	</choose>
 </select> 
 
 <!-- 게시물 정보 보기 -->

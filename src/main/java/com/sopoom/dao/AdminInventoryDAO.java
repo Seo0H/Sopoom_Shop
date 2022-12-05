@@ -7,7 +7,7 @@ import com.sopoom.dto.InventoryVO;
 public interface AdminInventoryDAO {
 
 	//게시물 목록보기
-	public List<InventoryVO> inventoryList(int startPoint, int endPoint, String searchType,String keyword) throws Exception;
+	public List<InventoryVO> inventoryList(int postNum, int startPoint, int endPoint, String searchType,String keyword) throws Exception;
 	
 	//inventoryInfo - 게시물 정보 보기
 	public InventoryVO view(String p_id) throws Exception;

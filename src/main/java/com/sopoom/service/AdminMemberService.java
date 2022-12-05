@@ -8,7 +8,7 @@ import com.sopoom.dto.MemberVO;
 public interface AdminMemberService {
 
 	//사용자 전부 목록 가져오기
-	public List<MemberVO> allMemberInfoView();
+	public List<MemberVO> allMemberInfoView(int postNum, int startPoint, int endPoint, String searchType, String keyword) throws Exception;
 	
 	//사용자 개인 정보 보기
 	public MemberVO memberInfoView(String userID);
@@ -21,5 +21,4 @@ public interface AdminMemberService {
 
 	//전체 게시물 갯수 계산
 	public int totalCount(String searchType,String keyword) throws Exception;
-
 }

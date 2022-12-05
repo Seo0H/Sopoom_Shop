@@ -20,9 +20,10 @@ public class AdminShippingDAOImpl implements AdminShippingDAO {
 
 	//배송 목록보기
 	@Override
-	public List<ShippingVO> shippingList(int startPoint, int endPoint, String searchType,String keyword) throws Exception {
+	public List<ShippingVO> shippingList(int postNum, int startPoint, int endPoint, String searchType,String keyword) throws Exception {
 		
 		Map<String,Object> data = new HashMap<>();
+		data.put("postNum", postNum);
 		data.put("startPoint", startPoint);
 		data.put("endPoint", endPoint);
 		data.put("searchType", searchType);

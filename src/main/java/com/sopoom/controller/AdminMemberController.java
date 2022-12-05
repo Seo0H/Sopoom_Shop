@@ -30,16 +30,16 @@ public class AdminMemberController {
 		
 		int listCount = 5;
 		int postNum = 5; //한 페이지에 보여질 게시물 목록 갯수
-		int startPoint = (pageNum -1)*postNum + 1; //테이블에서 읽어 올 행의 위치
+		int startPoint = (pageNum -1)*postNum; //테이블에서 읽어 올 행의 위치
 		int endPoint = postNum*pageNum;
 	
 		Page page = new Page();
 		int totalCount = service.totalCount(searchType, keyword);
 				
 		log.info("keyword "+keyword);
+		log.info(startPoint + "  " + endPoint);
 		
-		
-		model.addAttribute("allMemberInfoView", service.allMemberInfoView());
+		model.addAttribute("allMemberInfoView", service.allMemberInfoView(postNum, startPoint, endPoint, searchType, keyword));
 		model.addAttribute("page", pageNum);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("keyword", keyword);

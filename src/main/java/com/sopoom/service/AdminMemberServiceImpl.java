@@ -15,8 +15,8 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	AdminMemberDAO dao; 
 	
 	@Override
-	public List<MemberVO> allMemberInfoView() {
-		return dao.allMemberInfoView();
+	public List<MemberVO> allMemberInfoView(int postNum, int startPoint, int endPoint, String searchType, String keyword) throws Exception {
+		return dao.allMemberInfoView(postNum, startPoint,endPoint,searchType,keyword);
 	}
 	
 	//사용자 개인 정보 보기

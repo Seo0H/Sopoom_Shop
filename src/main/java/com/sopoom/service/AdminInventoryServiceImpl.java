@@ -15,9 +15,9 @@ public class AdminInventoryServiceImpl implements AdminInventoryService {
 	
 	//게시물 목록 보기
 	@Override
-	public List<InventoryVO> inventoryList(int startPoint, int endPoint, String searchType, String keyword) throws Exception {
+	public List<InventoryVO> inventoryList(int postNum, int startPoint, int endPoint, String searchType, String keyword) throws Exception {
 		
-		return dao.inventoryList(startPoint,endPoint,searchType,keyword);
+		return dao.inventoryList(postNum, startPoint,endPoint,searchType,keyword);
 	}
 	
 	//전체 게시물 갯수 계산
