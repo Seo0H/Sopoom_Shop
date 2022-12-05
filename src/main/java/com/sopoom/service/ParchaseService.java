@@ -15,7 +15,7 @@ public interface ParchaseService {
 	public void saveOrder(OrderVO orderVO);
 	
 	//주문 목록 데이터 저장(주문번호, 품목id, 수량)
-	public void saveOrderedItem(OrderedItemVO orderVO);
+	public void saveOrderedItem(OrderedItemVO orderedItemVO);
 	
 	//배송 번호 생성(랜덤) 및 중복 검사
 	public boolean createShipCode(String shipCode);
