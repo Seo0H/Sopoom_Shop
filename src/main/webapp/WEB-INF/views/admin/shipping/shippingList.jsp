@@ -26,6 +26,7 @@
 function statusModify(ship_id, idx) {
 	   
 	   var statusSelect = document.getElementById('statusSelect'+idx).value;
+	   console.log(idx);
 	   location.href = '/admin/shipping/modifyShippingStatus?page=1&ship_id=' + ship_id + '&statusSelect=' + statusSelect;
 }
 </script>

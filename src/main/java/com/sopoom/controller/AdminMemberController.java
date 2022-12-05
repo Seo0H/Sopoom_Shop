@@ -37,8 +37,6 @@ public class AdminMemberController {
 		int totalCount = service.totalCount(searchType, keyword);
 				
 		log.info("keyword "+keyword);
-		log.info("page " + pageNum);
-		log.info("post " + startPoint + " " + endPoint);
 		
 		
 		model.addAttribute("allMemberInfoView", service.allMemberInfoView());

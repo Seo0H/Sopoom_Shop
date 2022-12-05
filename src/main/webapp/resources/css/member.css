@@ -100,3 +100,26 @@ a {
 	font-size: 12px !important;
 	font-weight: 700;
 }
+
+.bottom_menu {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.bottm_menu>a {
+	border-radius: 50px !important;
+}
+
+.bottom_menu>a:link, .bottom_menu>a:visited {
+	background-color: black;
+	color: white;
+	padding: 15px 25px;
+	text-align: center;
+	display: inline-block;
+	text-decoration: none;
+	border-radius: 50px;
+}
+
+.bottom_menu>a:hover, .bottom_menu>a:active {
+	text-decoration: none;
+}

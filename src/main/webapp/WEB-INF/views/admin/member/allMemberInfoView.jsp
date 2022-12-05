@@ -78,7 +78,10 @@ function search(){
 		</div>
 	</div>
 <br><br>
-
+	<div class="bottom_menu">
+		<a href="/admin/member/allMemberInfoView?page=1">처음으로</a>&nbsp;&nbsp;
+	</div>
+	
 <%@include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>
