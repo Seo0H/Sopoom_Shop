@@ -20,4 +20,11 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductVO> list() throws Exception {
 		return sql.selectList(namespace + ".list"); 
 	}
+	
+	//카테고리 보기
+	@Override
+	public List<ProductVO> selCategory(String category) {
+		System.out.println("category:"+category);
+		return sql.selectList(namespace + ".selCategory", category);
+	}
 }

@@ -11,6 +11,10 @@ public class ProductVO {
 	private String p_condition;
 	private String p_fileName;
 
+	public ProductVO() {
+	
+	}
+
 	public String getP_id() {
 		return p_id;
 	}

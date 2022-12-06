@@ -31,9 +31,35 @@
 </delete>
 
 <!-- 마이페이지: 배송 조회 -->
-<select id="myOrder" parameterType="String" resultType="Hashmap">
-	select p.p_id, p.p_fileName, s.shipID, p.p_name, o.totalPrice, DATE_FORMAT(o.orderDate, '%Y.%m.%d') as orderDate, s.`status`, o.userID from product p, `order` o, ordereditem i, shipping s "
+<select id="myOrder" parameterType="String" resultType="map">
+	select p.p_id, p.p_fileName, s.shipID, p.p_name, o.totalPrice, DATE_FORMAT(o.orderDate, '%Y.%m.%d') as orderDate, s.`status`, o.userID from product p, `order` o, ordereditem i, shipping s
 		where s.orderID = o.orderID AND o.orderID = i.orderID AND i.pID = p.p_id AND o.userID = #{userid}
 </select>
+
+
+
+<!-- 마이페이지: 배송 수정 : 재고 상태 변경 -->
+<!-- 1. ship_id를 통해 orderedItem table에서 pID(상품번호), count(주문수량) 가져오기 -->
+<select id="selectOrderedItem" parameterType="String" resultType="java.util.HashMap">
+	SELECT o.pID, o.orderID,d.userID,o.`count` FROM shipping s, ordereditem o, `order` d 
+		WHERE s.orderID = o.orderID and d.orderID = o.orderID and s.shipID = #{shipID}
+</select>
+
+<!-- 2. product table에서 재고값 가져오기 -->
+<select id="selectP_unitsInStock" parameterType="String" resultType="int" >
+	SELECT p_unitsInStock FROM `product` WHERE p_id = #{p_id}
+</select>
+
+<!-- 3. product table 재고 변경 -->
+<update id="modifyStock" parameterType="com.sopoom.dto.ProductVO">
+	update product set p_unitsInStock = #{p_unitsInStock} WHERE p_id = #{p_id}
+</update>
+
+<!-- 4.  배송 상태 변경 -->
+<update id="modifyOrder" parameterType="com.sopoom.dto.ShippingVO">
+	update shipping set status = #{status} where shipID = #{shipID}
+</update>
+
+
 
 </mapper>

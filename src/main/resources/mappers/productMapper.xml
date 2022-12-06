@@ -7,5 +7,12 @@
 <select id="list" parameterType="HashMap" resultType="com.sopoom.dto.ProductVO">
 	select * from product
 </select>
-</mapper>
 
+<!-- 카테고리 보기 -->
+<select id="selCategory" parameterType="String" resultType="com.sopoom.dto.ProductVO">
+	select p_id, p_fileName, p_name, p_unitPrice from product where p_category = #{category}
+</select>
+
+
+
+</mapper>

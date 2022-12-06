@@ -3,15 +3,17 @@
 String session_id = (String) session.getAttribute("userID");
 String innerMenu, innerUser, innerCategory;
 
+String category = "<li class='menuItem dropdown'><a class='dropdown-text' href='/product/category?category=frame'>[FRAME]</a></li>"
+        +"<li class='menuItem dropdown'><a class='dropdown-text' href='/product/category?category=object'>[OBJECT]</a></li>"
+        +"<li class='menuItem dropdown'><a class='dropdown-text' href='/product/category?category=homeware'>[HOMEWARE]</a></li>"
+        +"<li class='menuItem dropdown'><a class='dropdown-text' href='/product/category?category=textile'>[TEXTILE]</a></li>";
+
 if (session_id == null){
 	innerMenu = "<li class='menuItem' align='center'><a href=/product/list>[HOME]</a></li>"
 	+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
     +"<div class='dropdown-container' id='dropdown-container'>"
         +"<ul class='dropdown-class' style='margin-left: 0px;'>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME'>[FRAME]</a></li>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT'>[OBJECT]</a></li>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE'>[HOMEWARE]</a></li>"
-            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE'>[TEXTILE]</a></li>"
+            + category
         +"</ul>"
     +"</div>"
     +"</li>";
@@ -26,10 +28,7 @@ else if(session_id.equals("admin")){
 			+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
 		    +"<div class='dropdown-container' id='dropdown-container'>"
 		        +"<ul class='dropdown-class' style='margin-left: 0px;'>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME'>[FRAME]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT'>[OBJECT]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE'>[HOMEWARE]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE'>[TEXTILE]</a></li>"
+		            +category
 		        +"</ul>"
 		    +"</div>"
 		    +"</li>"
@@ -48,10 +47,7 @@ else {
 			+"<li class='menuItem dropdown-btn' id='dropdown-btn' style = 'text-align: center' margin-left='0'><a style ='margin-left: 20px' href='#' >[Category]</a>"
 		    +"<div class='dropdown-container' id='dropdown-container'>"
 		        +"<ul class='dropdown-class' style='margin-left: 0px;'>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/FRAME'>[FRAME]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/OBJECT'>[OBJECT]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/HOMEWARE'>[HOMEWARE]</a></li>"
-		            +"<li class='menuItem dropdown'><a class='dropdown-text' href='/Category/TEXTILE'>[TEXTILE]</a></li>"
+		            +category
 		        +"</ul>"
 		    +"</div>"
 		    +"</li>";

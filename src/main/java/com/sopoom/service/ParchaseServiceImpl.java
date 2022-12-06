@@ -30,8 +30,8 @@ public class ParchaseServiceImpl implements ParchaseService {
 	
 	//주문 목록 데이터 저장(주문번호, 품목id, 수량)
 	@Override
-	public void saveOrderedItem(OrderedItemVO orderVO) {
-		// TODO Auto-generated method stub
+	public void saveOrderedItem(OrderedItemVO orderedItemVO) {
+		dao.saveOrderedItem(orderedItemVO);
 		
 	}
 	

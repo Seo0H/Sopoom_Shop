@@ -53,24 +53,7 @@ public class PurchaseController {
 		String[] count = request.getParameterValues("count");
 		
 		String status = "주문 완료";
-		
-		//getParameterValues NULL보정 부분
-		String dummy1 = "";
-		String dummy2 = "";
 
-		if (pID == null) {
-			pID = new String[0];
-			}
-			for (int i = 0; i < pID.length; i++) {
-			dummy1 += pID[i] + "&nbsp";
-			}
-
-		if (count == null) {
-			count = new String[0];
-			}
-			for (int i = 0; i < count.length; i++) {
-			dummy2 += count[i] + "&nbsp";
-			}
 			
 		System.out.println("PRODUCT ID 입니다: " + Arrays.toString(pID));
 		System.out.println("count 입니다: " + Arrays.toString(count));
@@ -85,7 +68,6 @@ public class PurchaseController {
 		
 		while (isExist == true) {
 			orderID = RandomStringUtils.randomAlphanumeric(10);
-			System.out.println("orderCode :"+ orderID);
 			isExist = service.orderCodeDuplCheck(orderID);
 		}
 		
@@ -95,15 +77,19 @@ public class PurchaseController {
 		orderVO.setTotalPrice(intPrice);
 		service.saveOrder(orderVO);
 		
-		//배송 번호 생성(랜덤) 및 중복 검사
-		shipCode = RandomStringUtils.randomNumeric(10);
+		
 		
 		//주문 아이템 저장
+		for(int i=0; i<pID.length ; i++){
+			orderedItemVO.setCount(Integer.parseInt(count[i]));
+			orderedItemVO.setOrderID(orderID);
+			orderedItemVO.setpID(pID[i]);
+			service.saveOrderedItem(orderedItemVO);
+			System.out.println("count:" + Integer.parseInt(count[i]) + " / " + "pID: "+  pID[i] + " / " + "orderID: " + orderID );
+		}
 		
-		orderedItemVO.setCount(sCodeCount);
-		orderedItemVO.setOrderID(orderID);
-		orderedItemVO.setpID(shipCode);
-		service.saveOrderedItem(orderedItemVO);
+		//배송 번호 생성(랜덤) 및 중복 검사
+		shipCode = RandomStringUtils.randomNumeric(10);
 		
 		//배송 데이터 저장
 		shippingVO.setShipID(shipCode);
