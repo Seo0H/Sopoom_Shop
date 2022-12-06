@@ -19,4 +19,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		return dao.list();
 	}
+	
+	//카테고리 보기
+	@Override
+	public List<ProductVO> selCategory(String category) {
+		return dao.selCategory(category);
+	}
 }

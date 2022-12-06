@@ -19,14 +19,19 @@
 		<div class="content" align="center">
 
 			<div class="w3-content slideContent">
-				<img class="mySlides" src="/resources/img/Frame51.png"> <img class="mySlides" src="/resources/img/Frame52.png"> <img class="mySlides" src="/resources/img/Frame53.png">
+				<img class="mySlides" src="/resources/img/${category}.jpg">
 			</div>
+			<hr>
 
 			<div class="products">
-
 				<div class="section">
 					<c:forEach items="${list}" var="list">
-						<a href="/Category/product?id=${list.p_id}"> <img src="/resources/upload/${list.p_fileName}"><br> <b><span id="productName">${list.p_name}</span></b><br> <br> <b><span id="productPrice">${list.p_unitPrice}원</span></b>
+						<a href="/Category/product?id=${list.p_id}">
+						<img src="/resources/upload/${list.p_fileName}"><br>
+							<b><span id="productName">${list.p_name}</span></b>
+							<br>
+							<br>
+							<b><span id="productPrice">${list.p_unitPrice}원</span></b>
 						</a>
 					</c:forEach>
 				</div>
