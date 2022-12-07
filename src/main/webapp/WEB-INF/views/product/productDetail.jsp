@@ -94,6 +94,7 @@
 	<div class="content" align="center">
 		<div class="product_view" align="center">
 			<h2 style="display: inline-block">${product.p_name}</h2>
+					<img style='vertical-align: bottom; margin-left: 10px; padding-bottom: 5px;' id="btn_like" name="btn_like" src="${btn_src}" alt="heart">
 			<div style="display: inline-block"></div>
 			<hr>
 			<table>
@@ -127,7 +128,7 @@
 					src="/resources/upload/${product.p_fileName}"
 					alt="" />
 			</div>
-			<img id="btn_like" name="btn_like" src="${btn_src}" alt="heart">
+	
 			
 			<form name="addForm" id="addForm" class="btns" method="post"
 				action="/ShopC/addCart?id=${product.p_id}">

@@ -74,6 +74,7 @@ function search(){
 	         <select id="statusSelect${shippingList.idx}" name="statusSelect"
 	            class="statusSelect">
 	            <option value="none" disabled selected>${shippingList.status}</option>
+	            <option value="주문완료">주문완료</option>
 	            <option value="결제완료">결제완료</option>
 	            <option value="배송전">배송전</option>
 	            <option value="배송중">배송중</option>
