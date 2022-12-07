@@ -162,9 +162,9 @@ String session_id = (String) session.getAttribute("userID");
 
 
 			<div>
-				<button id="btn_order" class=" btn_order" value="상품주문" />
+				<input type="button" id="btn_order" class=" btn_order" value="상품주문" />
 					<INPUT type="hidden" ID="productID" NAME="Submit" VALUE='${product.p_id}'>
-				<button id="btn_bucket" class="btn_bucket" value="장바구니" />
+				<input type="button" id="btn_bucket" class="btn_bucket" value="장바구니" />
 			</div>
 		</div>
 	</div>
