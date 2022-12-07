@@ -24,8 +24,8 @@
 			<hr>
 
 			<div class="products">
-				<div class="section">
 					<c:forEach items="${list}" var="list">
+					<div class="section">
 						<a href="/Category/product?id=${list.p_id}">
 						<img src="/resources/upload/${list.p_fileName}"><br>
 							<b><span id="productName">${list.p_name}</span></b>
@@ -33,8 +33,8 @@
 							<br>
 							<b><span id="productPrice">${list.p_unitPrice}원</span></b>
 						</a>
+						</div>
 					</c:forEach>
-				</div>
 			</div>
 		</div>
 	</div>
