@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" isELIgnored="false"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -42,7 +41,7 @@
 	});
 	
 	function purchaseNow2() {
-		document.addForm.submit();
+		document.location.href = ''
 	}
 
 	function addToCart() {
@@ -94,7 +93,7 @@
 	<div class="content" align="center">
 		<div class="product_view" align="center">
 			<h2 style="display: inline-block">${product.p_name}</h2>
-					<img style='vertical-align: bottom; margin-left: 10px; padding-bottom: 5px;' id="btn_like" name="btn_like" src="${btn_src}" alt="heart">
+			<img style='vertical-align: bottom; margin-left: 10px; padding-bottom: 5px;' id="btn_like" name="btn_like" src="${btn_src}" alt="heart">
 			<div style="display: inline-block"></div>
 			<hr>
 			<table>
@@ -117,28 +116,21 @@
 					</tr>
 					<tr>
 						<th>판매가</th>
-						<td class="price"><b><fmt:formatNumber
-									value="${product.p_unitPrice}" pattern="###,###,###" /></b>원</td>
+						<td class="price"><b><fmt:formatNumber value="${product.p_unitPrice}" pattern="###,###,###" /></b>원</td>
 					</tr>
 				</tbody>
 			</table>
-			<input type="hidden" id="p_id" value="${product.p_id}"/>
+			<input type="hidden" id="p_id" value="${product.p_id}" />
 			<div class="img">
-				<img
-					src="/resources/upload/${product.p_fileName}"
-					alt="" />
+				<img src="/resources/upload/${product.p_fileName}" alt="" />
 			</div>
-	
-			
-			<form name="addForm" id="addForm" class="btns" method="post"
-				action="/ShopC/addCart?id=${product.p_id}">
-				<a href="/Purchase/purchase_now?id=${product.p_id} class="
-					btn_order"
-						onclick="purchaseNow2()">상품주문</a> <INPUT
-					type="hidden" ID="productID" NAME="Submit" VALUE='${product.p_id}'>
-				<a href="/ShopC/addCart?id=${product.p_id}" class="btn_bucket"
-					onclick="addToCart()">장바구니</a>
-			</form>
+
+
+			<div>
+				<a href="/Purchase/purchaseNow?id=${product.p_id}" class=" btn_order"> 상품주문</a>
+				<INPUT type="hidden" ID="productID" NAME="Submit" VALUE='${product.p_id}'>
+				<a href="/ShopC/addCart?id=${product.p_id}" class="btn_bucket" onclick="addToCart()">장바구니</a>
+			</div>
 		</div>
 	</div>
 	</div>

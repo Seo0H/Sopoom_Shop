@@ -52,6 +52,8 @@ public class PurchaseController {
 		String[] pID = request.getParameterValues("p_id");
 		String[] count = request.getParameterValues("count");
 		
+		System.out.println(pID);
+		
 		String status = "주문 완료";
 
 			

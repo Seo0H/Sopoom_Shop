@@ -35,7 +35,7 @@ public class AdminProductController {
 	@PostMapping("/admin/Product/productReg")
 	public String PostProductReg(ProductVO board, MultipartHttpServletRequest request) throws Exception{
 		
-		String path = "c:\\projectWorkSpace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Sopoom_Shop\\resources\\upload\\";
+		String path = "D:\\workspace-spring-tool-suite-4-4.15.3.RELEASE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\sopoom\\resources\\upload\\";
 		File dir;
 		
 		Iterator<String> iterator = request.getFileNames(); //업로드된 파일정보 수집

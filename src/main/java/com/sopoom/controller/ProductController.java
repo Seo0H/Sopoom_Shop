@@ -1,5 +1,6 @@
 package com.sopoom.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -18,8 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sopoom.dto.LikeVO;
+import com.sopoom.dto.MemberVO;
 import com.sopoom.service.LikeService;
-
+import com.sopoom.service.MemberService;
 import com.sopoom.service.ProductService;
 
 @Controller
@@ -27,6 +29,10 @@ public class ProductController {
 
 	@Autowired
 	ProductService service; //의존성 주입
+	
+	@Autowired
+	MemberService memberService;
+	
 	@Autowired
 	LikeService likeService; // 의존성 주입
 	
@@ -107,6 +113,26 @@ public class ProductController {
 		
 		model.addAttribute("dibsList", dibsList);
 	}
+	
+	   // 상품 바로주문
+	   @GetMapping("/Purchase/purchaseNow")
+	   public void GetList(Model model, @RequestParam("id") String p_id, HttpSession session) throws Exception {
+		   DecimalFormat df = new DecimalFormat("###,###");
+		   String userid = (String) session.getAttribute("userID");
+
+	      // p id로 product 정보 가져오기
+	      ProductVO product = service.product(p_id);
+
+	      // 유저 아이디로 유저 정보 가져오기
+	      MemberVO member = memberService.userInfoView(userid);
+
+	      System.out.println("유저 이름: " + member.getUsername());
+	      String strPrice=df.format(product.getP_unitPrice());
+	      
+	      model.addAttribute("strPrice", strPrice);
+	      model.addAttribute("member", member);
+	      model.addAttribute("product", product);
+	   }
 	
 }
 

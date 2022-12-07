@@ -38,18 +38,11 @@
 		}
 	</script>
 
-
-	<%
-		String userid = (String)session.getAttribute("userID");
-
-	if (userid == null) {
-	%>
+	<c:if  test="${idchk == 'id_null'}"> 
 	<script>
 	alert("로그인이 필요한 서비스입니다."); location.href = "./login.jsp";
 	</script>
-	<%
-	}
-	%>
+	</c:if>
 
 	<%@include file="/WEB-INF/views/top.jsp"%>
 	

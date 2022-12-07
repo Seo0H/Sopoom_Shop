@@ -41,11 +41,18 @@ public class MyPageController {
 	public void getUserMain(Model model, HttpSession session, RedirectAttributes rttr,
 			@RequestParam(value = "msg", required = false, defaultValue = "") String msg) {
 		String userid = (String) session.getAttribute("userID");
+		String idchk = null;
+		
+		if(userid == null) {
+			idchk = "id_null";
+			model.addAttribute("idchk", idchk);
+		} else {
 		MemberVO member = service.userInfoView(userid);
 
 		rttr.addFlashAttribute("msg", msg);
 		member.setUserID(userid);
 		model.addAttribute("memberVO", member);
+		}
 	}
 
 	// 마이페이지 비밀번호 확인
