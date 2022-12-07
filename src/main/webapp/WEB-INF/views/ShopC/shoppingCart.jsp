@@ -226,19 +226,21 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	});
       
      //전체 체크
-	$(document).on('change', '#allCheck', function(e) {
+	$('#allCheck').change(function(){
+		var checkItem = $("input:checkbox[name^='checkP']");
+		$("input:checkbox[id='ID']").is(":checked");
+		
 	   if($(this).prop("checked")) {
-	      for(let i=0; i<totalCount; i++){
-	         var checkItem = $("input[name=checkP]"+i);
+		   let sum = 0;
 	         checkItem.prop("checked",true);
-	         totalPrice += parseInt(document.getElementById("total"+i).value);
-	      }
+	         for(let i=0; i < totalCount; i++){
+	        	 console.log($("input[name=total]").eq(i).val());
+	        	 sum += parseInt($("input[name=total]").eq(i).val());
+	        	}
+	         totalPrice += sum;
 	   } else {
-	      for(let i=0; i<totalCount; i++){
-	      var checkItem = $("input[name=checkP]"+i);
 	      checkItem.prop("checked",false);
 	      totalPrice = 0;
-	   	}
 	   }
 	   
 	   console.log("totalPrice : " + totalPrice);
@@ -246,13 +248,12 @@ int totalCount = (Integer)request.getAttribute("totalCount");
 	   
 	 //바뀐 금액으로 결제 예정 금액 변경
 	   $('#vis_selectedTotal').val(commaInsurt(totalPrice));
-	   $('#selectedTotal').val(totalPrice); 
+	   $('#selectedTotal').val(totalPrice);
 	});
                
 	//개별 체크
 	//체크박스가 선택되어 있는 부분의 전체 가격의 합계
-	for(let i=0; i<totalCount; i++){
-		  
+	for(let i=0; i<totalCount; i++){ 
 	   $(document).on('click','input:checkbox[name^="checkP"]',function(e){
 	  	 
 	      let totalPrice = parseInt(document.getElementById("selectedTotal").value);
