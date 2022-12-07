@@ -27,7 +27,7 @@ String session_id = (String) session.getAttribute("userID");
 		
 		$("#btn_order").click(function(e) {
 			
-			if(userId == ""){
+			if(userId == ""|| userid == 'null'){
 				alert("로그인이 필요한 서비스입니다.");
 				location.href = "/login/login";
 			} else {
@@ -36,11 +36,14 @@ String session_id = (String) session.getAttribute("userID");
 		});
 		
 		$("#btn_bucket").click(function(e) {
-			if(userId == ""){
+			if(userId == "" || userid == 'null'){
 				alert("로그인이 필요한 서비스입니다.");
 				location.href = "/login/login";
 			}else {
-				location.href="/ShopC/addCart?id="+ p_id;
+				if (confirm("상품을 장바구니에 추가하시겠습니까?")) {
+					location.href="/ShopC/addCart?id="+ p_id;
+				} 
+				
 			}
 		});
 		
@@ -123,7 +126,7 @@ String session_id = (String) session.getAttribute("userID");
 
 	<jsp:include page="/WEB-INF/views/top.jsp" />
 	
-	<input type="hidden" id="userid" value = "${session_id}">
+	<input type="hidden" id="userid" value = "<%=session_id%>">
 
 	<div class="content" align="center">
 		<div class="product_view" align="center">

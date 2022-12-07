@@ -140,7 +140,7 @@ input:focus{
 <body>
 	<%@include file="/WEB-INF/views/top.jsp"%>
 	<% //로그인 된 상태에서 로그인 창으로 넘어가기 방지
-	if (session_id != null)	response.sendRedirect("../");
+	if (session_id != null)	response.sendRedirect("/product/list");
 	%>
 		<form method="post" id="loginForm" name="loginForm">
 		<div id="innerForm">

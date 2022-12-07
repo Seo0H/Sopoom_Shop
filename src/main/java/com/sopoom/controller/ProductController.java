@@ -133,6 +133,7 @@ public class ProductController {
 	      
 	      model.addAttribute("strPrice", strPrice);
 	      model.addAttribute("member", member);
+	      model.addAttribute("product", product);
 
 	   }
 	
