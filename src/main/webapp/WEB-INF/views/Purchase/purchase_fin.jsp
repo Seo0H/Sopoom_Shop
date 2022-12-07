@@ -94,7 +94,7 @@ h3 {
 		</div>
 		<div align="center">
 			<br>
-			<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='/'">
+			<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='/product/list'">
 			<br>
 		</div>
 	</div>
