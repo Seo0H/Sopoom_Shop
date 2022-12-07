@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sopoom.mappers.dibs">
+
+<!-- 찜 여부 알아보기 -->
+<select id="dibs" parameterType="com.sopoom.dto.LikeVO" resultType="int">
+	select count(*) from dibs where p_id =#{p_id} and userID =#{userid}
+</select>
+
+<!-- 찜 목록 불러오기 -->
+<select id="getPrdLikeVal" parameterType="String" resultType="HashMap">         
+    SELECT * FROM dibs, product WHERE userID = #{userid} and dibs.p_id=product.p_id
+</select>
+
+<!-- 상품 상세 페이지 찜하기 -->
+<insert id="setPrdctLike" parameterType="com.sopoom.dto.LikeVO">
+    INSERT INTO dibs VALUES (#{userid}, #{p_id}) 
+</insert>
+
+<!-- 상품 상세페이지 찜취소 기능 -->
+<delete id="prdctLikeCancel" parameterType="com.sopoom.dto.LikeVO">
+    DELETE FROM dibs WHERE p_id = #{p_id} AND userID = #{userid}
+</delete>
+
+</mapper>
+

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sopoom.dto.CartVO;
+import com.sopoom.dto.DibsVO;
 import com.sopoom.dto.ProductVO;
 
 @Repository
@@ -45,5 +46,12 @@ public class CartDAOImpl implements CartDAO {
 	public void allDel(String userid) throws Exception {
 		sql.delete(namespace+".allDel", userid);
 	}
+
+	@Override
+	public void addCart(CartVO cart) {
+		sql.insert(namespace+".addCart", cart);
+		
+	}
+
 	
 }
