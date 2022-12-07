@@ -24,7 +24,8 @@ public class AdminMemberController {
 	
 	//사용자 목록 보기
 	@GetMapping("/admin/member/allMemberInfoView")
-	public void GetAllMemberInfoView(Model model, @RequestParam(name="page") int pageNum, 
+	public void GetAllMemberInfoView(Model model, 
+			@RequestParam(name="page", defaultValue="1", required=false) int pageNum, 
 			@RequestParam(name="searchType", defaultValue="orderID", required=false) String searchType, 
 			@RequestParam(name="keyword", defaultValue="", required=false) String keyword ) throws Exception{
 		
