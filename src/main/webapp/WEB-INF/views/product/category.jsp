@@ -26,7 +26,7 @@
 			<div class="products">
 					<c:forEach items="${list}" var="list">
 					<div class="section">
-						<a href="/Category/product?id=${list.p_id}">
+						<a href="/product/productDetail?id=${list.p_id}">
 						<img src="/resources/upload/${list.p_fileName}"><br>
 							<b><span id="productName">${list.p_name}</span></b>
 							<br>

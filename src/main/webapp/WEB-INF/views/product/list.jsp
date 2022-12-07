@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.sql.*"%>
-<%@page import="java.text.DecimalFormat"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,11 +21,11 @@
 			</div>
 			<div class="products">
 				<c:forEach items="${list}" var="list">
-					<div class="section">
-						<a href="/Category/product?id=${list.p_id}"> <img
-							src="/resources/upload/${list.p_fileName}"><br> <b><span
-								id="productName">${list.p_name}</span></b><br> <br> <b><span
-								id="productPrice">${list.p_unitPrice}원</span></b>
+				<div class="section">
+						<a href="/product/productDetail?id=${list.p_id}">
+						<img src="/resources/upload/${list.p_fileName}"><br>
+							<b><span id="productName">${list.p_name}</span></b><br><br>
+							<b><span id="productPrice"><fmt:formatNumber value="${list.p_unitPrice}" pattern="###,###,###" />원</span></b>
 						</a>
 					</div>
 				</c:forEach>
