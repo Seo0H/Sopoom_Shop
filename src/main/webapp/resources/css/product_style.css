@@ -72,7 +72,7 @@ hr{
 	text-align: center;
 }
 
-.product_view .btns>a {
+.product_view .btns>a .btn_order .btn_bucket {
 	display: inline-block;
 	width: 140px;
 	height: 50px;
@@ -82,6 +82,47 @@ hr{
 	line-height: 50px;
 	text-decoration-line: none;
 }
+
+.btn_order {
+	font-size: 18px;
+	color: black;
+	border-radius: 50px;
+	line-height: 50px;
+	text-decoration-line: none;
+	
+	color: #FFFFFF !important;
+    background-color: #313131 !important;
+    
+    display: inline-block;
+	width: 140px;
+	height: 50px;
+	font-size: 18px;
+	color: black;
+	border-radius: 50px;
+	line-height: 50px;
+	text-decoration-line: none;
+}
+
+.btn_bucket {
+	font-size: 18px;
+	color: black;
+	border-radius: 50px;
+	line-height: 50px;
+	text-decoration-line: none;
+	
+	border: 1px solid black;
+	background: rgb(255, 255, 255);
+	
+	 display: inline-block;
+	width: 140px;
+	height: 50px;
+	font-size: 18px;
+	color: black;
+	border-radius: 50px;
+	line-height: 50px;
+	text-decoration-line: none;
+}
+
 
 .product_view .btns>a.btn_order {
 	color: #FFFFFF !important;
