@@ -92,7 +92,7 @@ h3{
 <body>
 	<%@include file="/WEB-INF/views/top.jsp"%>
 	<div class="wrap">
-	<h3>비밀번호 찾기</h3>
+	<h3>아이디 찾기</h3>
 	<div class="resultBox">
 	<div class="row"><span class='material-symbols-outlined' id="chkIcon">check</span></div>
 	<div class="rowMsg">찾고계신 아이디는 </div>
@@ -100,7 +100,7 @@ h3{
 	</div>
 	<div align="center">
 	<br>
-	<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='../'">
+	<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='/product/list'">
 	<br>
 	</div>
 	</div>

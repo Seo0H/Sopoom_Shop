@@ -22,7 +22,8 @@ public class AdminInventoryController {
 	
 	//inventory - 게시물 목록 보기
 	@GetMapping("/admin/inventory/inventoryList")
-	public void GetInventoryList(Model model, @RequestParam(name="page") int pageNum, 
+	public void GetInventoryList(Model model,
+			@RequestParam(name="page", defaultValue="1", required=false) int pageNum, 
 			@RequestParam(name="searchType", defaultValue="orderID", required=false) String searchType, 
 			@RequestParam(name="keyword", defaultValue="", required=false) String keyword ) throws Exception{
 		

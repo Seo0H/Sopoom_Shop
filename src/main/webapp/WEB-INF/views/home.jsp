@@ -1,63 +1,22 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@page import="java.text.DecimalFormat"%>
-
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
-
 <head>
-<link rel="stylesheet" href="/resources/css/index_style.css">
-<title>소품샵프로젝트</title>
+<meta charset="UTF-8">
+<title>SOPOOM</title>
 </head>
-
 <body>
-	<%@include file="./top.jsp"%>
-	<div class="body">
-		<div class="content" align="center">
-
-			<div class="w3-content slideContent">
-				<img class="mySlides" src="resources/img/Frame51.png"> <img
-					class="mySlides" src="resources/img/Frame52.png"> <img
-					class="mySlides" src="resources/img/Frame53.png">
-			</div>
-
-			<div class="products">
-
-				<div class="section">
-				<c:forEach items="${list}" var="list">
-					<a href="/Category/product.jsp?id=${list.p_id}"> <img
-						src="/resources/upload/${list.p_fileName}"><br> <b><span
-							id="productName">${list.p_name}</span></b><br> <br>
-						<b><span id="productPrice">${list.p_unitPrice}원</span></b>
-					</a>
-				</c:forEach>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<%@include file="./footer.jsp"%>
-	
-<script>
-	var myIndex = 0;
-	carousel();
-	
-	function carousel() {
-		var i;
-		var x = document.getElementsByClassName("mySlides");
-		for (i = 0; i < x.length; i++) {
-			x[i].setAttribute("style", "display:none");
-		}
-		myIndex++;
-		if (myIndex > x.length) {
-			myIndex = 1
-		}
-		x[myIndex - 1].setAttribute("style", "display:block");
-		setTimeout(carousel, 2000); // Change image every 2 seconds
-	}
+<script type="text/javascript">
+window.onload = function () {
+	setTimeout(function() {
+		location.href="/product/list";	}, 4000);
+}
 </script>
+
+<div style="text-align : center;">
+	<img alt="" src="/resources/img/loading.gif" width=60%; style="display: block; margin: auto; margin-top: 200px;">
+</div>
+
 </body>
 </html>

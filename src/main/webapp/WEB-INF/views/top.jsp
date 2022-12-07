@@ -37,9 +37,9 @@ else if(session_id.equals("admin")){
 	           + "<li class='menuItem' align='center'><a href=/admin/member/allMemberInfoView?page=1>회원관리</a></li>"
 	           + "<li class='menuItem' align='center'><a href=/admin/shipping/shippingList?page=1>배송관리</a></li>";
 
-   	innerUser = "<li class='userItem' align='center'><a href=/login/logout><span class='material-symbols-outlined'>logout</span></a></li>"
-	          + "<li class='userItem' align='center'><a href=/Mypage/userMain.jsp><span class='material-symbols-outlined'>person</span></a></li>"
-	          + "<li class='userItem' align='center'><a href=/ShopC/shoppingCart.jsp><span class='material-symbols-outlined'>shopping_cart</span></a></li>";
+	   innerUser =  "<li class='userItem' align='center'><a href=/login/logout><span class='material-symbols-outlined'>logout</span></a></li>"
+		          + "<li class='userItem' align='center'><a href=/myPage/userMain><span class='material-symbols-outlined'>person</span></a></li>"
+		          + "<li class='userItem' align='center'><a href=/ShopC/shoppingCart><span class='material-symbols-outlined'>shopping_cart</span></a></li>";
 
 }
 else {

@@ -51,7 +51,7 @@ public class LoginController {
 		member.setPassword(pwd);			
 
 		service.memberInfoRegistry(member);
-		return "redirect:/";
+		return "redirect:/product/list";
 	}
 	
 	//사용자 등록 시 아이디 중복 확인
@@ -128,7 +128,7 @@ public class LoginController {
 			session.setAttribute("userID", member.getUserID());
 			session.setAttribute("username", member.getUsername());
 			
-			return "redirect:../";
+			return "redirect:/product/list";
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class LoginController {
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public String getLogout(HttpSession session) {		
 		session.invalidate(); //모든 세션 종료--> 로그아웃...
-		return "redirect:../";
+		return "redirect:/product/list";
 	}
 	
 	//사용자 비밀번호 찾기 보기

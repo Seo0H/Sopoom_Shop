@@ -99,7 +99,7 @@ h3{
 	<div class="rowMsg">${userid}님의 메일로 임시비밀번호가 발급되었습니다. </div>	</div>
 	<div align="center">
 	<br>
-	<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='../'">
+	<input type="button" class="button" id="btn_home" value="HOME" onClick="location.href='/product/list'">
 	<br>
 	</div>
 	</div>
