@@ -11,7 +11,37 @@
 
 <title>상품 상세 정보</title>
 <link rel="stylesheet" href="/resources/css/product_style.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+	
+	$(document).ready(function(){
+		$("#btn_like").click(function(){
+			console.log($("#p_id").val());
+			$.ajax({
+				url : "/ShopC/addLike",
+				type : "post",
+				dataType : "json",
+				data : {"p_id" : $("#p_id").val()},
+				success : function(data){
+					message = data;
+					console.log("message = " + message);
+					
+					if(message == "empty"){
+						$("#btn_like").attr("src", "/resources/img/beforeDibs.png");
+					}
+					else if(message == "full"){
+						$("#btn_like").attr("src", "/resources/img/afterDibs.png");
+					}
+				} ,
+				 error: function(map) {
+						alert("서버오류 문제로 찜 등록이 실패 했습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+			  	    	return false;
+					}
+				
+			});
+		});
+	});
+	
 	function purchaseNow2() {
 		document.addForm.submit();
 	}
@@ -23,9 +53,10 @@
 			document.addForm.reset();
 		}
 	}
-	<script>
 	
-	 async function addToDibs(uid) {
+	
+	
+/* 	 async function addToDibs(uid) {
 		   if(uid != "null") {
 			    //찜목록에 저장
 			    await showConfirm();
@@ -52,7 +83,7 @@
 	   
 	   function showConfirm(){
 		   document.dibsAddForm.submit();
-	   }
+	   } */
 </script>
 
 </head>
@@ -91,44 +122,25 @@
 					</tr>
 				</tbody>
 			</table>
+			<input type="hidden" id="p_id" value="${product.p_id}"/>
 			<div class="img">
 				<img
 					src="${pageContext.request.contextPath}/resources/upload/${product.p_fileName}"
 					alt="" />
 			</div>
-			<div>
-				<div style="display:inline-block">
-			<%-- <c:if>
-			<c:set var=rs_dibs.next() value="0" scope="session"/> --%>
-			<c:if test="${rs_dibs.getInt("count_dibs") == 0}">
-			</c:if>
-					<form style="display:inline-block; margin-left:20px;" name="dibsAddForm" id="dibsAddForm" class="btns" method="post"
-						action="/ShopC/addDibs?id=${product.p_id}">
-						<img style="display:inline-block; margin-bottom:-15px;" id="emptyHeart" src="/img/beforeDibs.png" onclick="addToDibs(<%-- ${userid} --%>)"/>
-					</form>
-					<%
-					} else {
-					%>
-					<form style="display:inline-block; margin-left:20px;" name="dibsDeleteForm" id="dibsDeleteForm" class="btns" method="post"
-						action="/ShopC/deleteDibs?id=${product.p_id}">
-						<img style="display:inline-block; margin-bottom:-15px;" id="fullHeart" src="/img/afterDibs.png"  onclick="deleteToDibs()"/>
-					</form>
-					<%
-					}
-				} 
-				%>
-			</div>
-				<form name="addForm" id="addForm" class="btns" method="post"
-					action="/ShopC/addCart?id=${product.p_id}">
-					<a href="/Purchase/purchase_now?id=${product.p_id} class="
-						btn_order"
+			<img id="btn_like" name="btn_like" src="${btn_src}" alt="heart">
+			
+			<form name="addForm" id="addForm" class="btns" method="post"
+				action="/ShopC/addCart?id=${product.p_id}">
+				<a href="/Purchase/purchase_now?id=${product.p_id} class="
+					btn_order"
 						onclick="purchaseNow2()">상품주문</a> <INPUT
-						type="hidden" ID="productID" NAME="Submit" VALUE='${product.p_id}'>
-					<a href="/ShopC/addCart?id=${product.p_id}" class="btn_bucket"
-						onclick="addToCart()">장바구니</a>
-				</form>
-			</div>
+					type="hidden" ID="productID" NAME="Submit" VALUE='${product.p_id}'>
+				<a href="/ShopC/addCart?id=${product.p_id}" class="btn_bucket"
+					onclick="addToCart()">장바구니</a>
+			</form>
 		</div>
+	</div>
 	</div>
 
 	<jsp:include page="/WEB-INF/views/footer.jsp" />

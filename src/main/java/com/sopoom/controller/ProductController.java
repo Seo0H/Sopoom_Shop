@@ -1,22 +1,26 @@
 package com.sopoom.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sopoom.dto.ProductVO;
+import com.sopoom.dto.LikeVO;
+import com.sopoom.service.LikeService;
 import com.sopoom.service.ProductService;
 
 @Controller
@@ -24,6 +28,8 @@ public class ProductController {
 
 	@Autowired
 	ProductService service; //의존성 주입
+	@Autowired
+	LikeService likeService; // 의존성 주입
 	
 	Logger log = LoggerFactory.getLogger(ProductController.class);
 	
@@ -44,7 +50,7 @@ public class ProductController {
 	
 	//상품 상세 보기
 	@GetMapping("/product/productDetail")
-	public ModelAndView seeProduct(Model model, @RequestParam("id") String p_id, ProductVO ProductVO, ModelAndView mav) throws Exception{
+	public ModelAndView seeProduct(Model model, @RequestParam("id") String p_id, ModelAndView mav , HttpSession session) throws Exception{
 		log.info("p_id "+p_id);
 		ProductVO product = service.product(p_id);
 		model.addAttribute("product", product);
@@ -52,44 +58,50 @@ public class ProductController {
 		// 해당 상품 찜 여부 확인용 데이터 가져오기
 	    log.info("prdLikeVal...");
 	    mav.addObject("prdLikeVal");
+	    
+	    LikeVO likeVO = new LikeVO();
+	    likeVO.setP_id(product.getP_id());
+
+//	    likeVO.setUserid((String) session.getAttribute("userID"));
+	    likeVO.setUserid("user");
+	    if( likeService.dibs(likeVO) == 1 ) {
+	    	log.info("찜 함");
+	    	model.addAttribute("btn_src", "/resources/img/afterDibs.png");
+		}
+		else {
+			log.info("찜 안함");
+			log.info(likeVO.getP_id());
+			model.addAttribute("btn_src", "/resources/img/beforeDibs.png");
+		}
 
 	    return mav;
 	}
 	
-	// 상품 상세페이지 찜하기 기능
-	@Transactional(rollbackFor = Exception.class)
-	@PostMapping("/product/productDetail/")
-	public ResponseEntity<String> prdctLike(@RequestBody ProductVO ProductVO) {
-	    ResponseEntity<String> entity = null;
+	//찜 관리
+		@ResponseBody
+		@PostMapping(value = "/ShopC/addLike")
+		public String addLike(@RequestParam("p_id") String pID, HttpSession session) throws Exception {
+			
+			//String userID = (String) session.getAttribute("userID");
+			String userID ="user";			
+			LikeVO likeVO = new LikeVO();
+			
+			likeVO.setP_id(pID);
+			likeVO.setUserid(userID);
 
-	    log.info("prdctLike...");
-	    try {
-	        ProductService.setPrdctLike(ProductVO);
-	        entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
-
-	    return entity;
+			if( likeService.dibs(likeVO) == 1 ) {
+				
+				likeService.prdctLikeCancel(likeVO);
+				System.out.println("EMPTY");
+				return ("empty");
+			}
+			else {
+				likeService.setPrdctLike(likeVO);
+				System.out.println("FULL");
+				//return("full");
+				return null;
+			}
 	}
-
-	// 상품 상세페이지 찜취소 기능
-	@Transactional(rollbackFor = Exception.class)
-	@DeleteMapping("/prdct/{prdct_id}")
-	public ResponseEntity<String> prdctLikeCancel(ProductVO ProductVO) {
-	    ResponseEntity<String> entity = null;
-
-	    log.info("prdctLikeCancel...");
-	    try {
-	        ProductService.prdctLikeCancel(ProductVO);
-	        entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
-
-	    return entity;
-	}
+	
 }
 

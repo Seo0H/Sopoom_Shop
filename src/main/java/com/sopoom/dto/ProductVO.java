@@ -10,22 +10,7 @@ public class ProductVO {
 	private int p_unitsInStock;
 	private String p_condition;
 	private String p_fileName;
-	
-	
-	
-	public String getUserid() {
-		return userid;
-	}
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-	
-	public String getPrdLikeVal() {
-		return prdLikeVal;
-	}
-	public void setPrdLikeVal(String prdLikeVal) {
-		this.prdLikeVal = prdLikeVal;
-	}
+
 
 	public String getP_id() {
 		return p_id;

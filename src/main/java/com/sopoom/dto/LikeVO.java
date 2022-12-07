@@ -4,7 +4,6 @@ public class LikeVO {
 	
 	private String p_id;
 	private String userid;
-	private String prdLikeVal;
 	
 	
 	public String getUserid() {
@@ -12,13 +11,6 @@ public class LikeVO {
 	}
 	public void setUserid(String userid) {
 		this.userid = userid;
-	}
-	
-	public String getPrdLikeVal() {
-		return prdLikeVal;
-	}
-	public void setPrdLikeVal(String prdLikeVal) {
-		this.prdLikeVal = prdLikeVal;
 	}
 
 	public String getP_id() {
