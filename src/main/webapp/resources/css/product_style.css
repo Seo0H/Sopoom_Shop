@@ -83,7 +83,7 @@ hr{
 	text-decoration-line: none;
 }
 
-.product_view .btns>a.btn_order {
+.product_view .btns>a.btn_order,{
 	color: #FFFFFF !important;
     background-color: #313131 !important;
 }

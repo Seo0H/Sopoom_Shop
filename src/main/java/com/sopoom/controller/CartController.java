@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sopoom.dto.CartVO;
@@ -26,6 +27,23 @@ public class CartController {
 	@Autowired
 	CartService service;
 
+	@GetMapping("/ShopC/addCart")
+	public void getAddCart(Model model, HttpSession session, @RequestParam("id") String p_id) throws Exception {
+		
+		//String userid = (String)session.getAttribute("userID");
+		String userid = (String)session.getAttribute("userID");
+		int quantity = 1;
+		
+		CartVO cart = new CartVO();
+		cart.setP_id(p_id);
+		cart.setquantity(quantity);
+		cart.setUserid(userid);
+		
+		//카트에 담기. 수량은 1개
+		service.addCart(cart);	
+	}
+	
+	
 	@GetMapping(value ="/ShopC/shoppingCart")
 	public void getShoppingCart(Model model, HttpSession session) throws Exception {
 		String userid = (String)session.getAttribute("userID");
@@ -82,6 +100,7 @@ public class CartController {
 		
 		String userid = request.getParameter("userid");
 		service.allDel(userid);
-		
 	}
+	
+	
 }

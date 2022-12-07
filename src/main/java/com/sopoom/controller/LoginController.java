@@ -102,7 +102,8 @@ public class LoginController {
 	
 	//로그인 화면 보기
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public void getLogIn() { }
+	public void getLogIn() {
+	}
 	
 	//로그인 처리
 	@RequestMapping(value="/loginCheck",method=RequestMethod.POST)

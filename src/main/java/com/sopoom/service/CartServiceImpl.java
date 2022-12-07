@@ -42,5 +42,11 @@ public class CartServiceImpl implements CartService {
 		dao.allDel(userid);
 		
 	}
+	
+	//카트에 상품 추가
+	@Override
+	public void addCart(CartVO cart) {
+		dao.addCart(cart);
+	}
 
 }

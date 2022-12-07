@@ -22,5 +22,8 @@ public interface CartService {
 	
 	//유저 카트 비우기
 	public void allDel(String userid) throws Exception;
+	
+	//카트에 상품 추가
+	public void addCart(CartVO cart);
 
 }
