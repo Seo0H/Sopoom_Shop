@@ -47,5 +47,11 @@ public class CartDAOImpl implements CartDAO {
 		sql.delete(namespace+".allDel", userid);
 	}
 
+	@Override
+	public void addCart(CartVO cart) {
+		sql.insert(namespace+".addCart", cart);
+		
+	}
+
 	
 }

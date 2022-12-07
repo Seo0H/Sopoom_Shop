@@ -44,5 +44,11 @@ public class CartServiceImpl implements CartService {
 		
 	}
 
+	@Override
+	public void addCart(CartVO cart) {
+		dao.addCart(cart);
+		
+	}
+
 
 }

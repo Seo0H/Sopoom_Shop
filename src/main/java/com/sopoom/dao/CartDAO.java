@@ -20,5 +20,7 @@ public interface CartDAO {
 	
 	//유저 카트 비우기
 	public void allDel(String userid) throws Exception;
+
+	public void addCart(CartVO cart);
 	
 }

@@ -31,6 +31,11 @@
 		DELETE FROM cart where userid=#{userid}
 	</delete>
 	
+	<!-- 카트에 상품 추가 -->
+   <insert id="addCart" parameterType ="com.sopoom.dto.CartVO">
+      INSERT INTO cart (userid, p_id, quantity) VALUES (#{userid}, #{p_id}, #{quantity})
+   </insert>
+	
 </mapper>
 
     
