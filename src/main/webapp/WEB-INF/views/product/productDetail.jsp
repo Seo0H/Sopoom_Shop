@@ -12,8 +12,38 @@
 <link rel="stylesheet" href="/resources/css/product_style.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+<%
+String session_id = (String) session.getAttribute("userID"); 
+%>
+
 	
 	$(document).ready(function(){
+		
+		let userId = $("#userid").val();
+		let p_id = $("#productID").val();
+		
+		console.log(p_id);
+		
+		$("#btn_order").click(function(e) {
+			
+			if(userId == ""){
+				alert("로그인이 필요한 서비스입니다.");
+				location.href = "/login/login";
+			} else {
+				location.href="/Purchase/purchaseNow?id=" + p_id;
+			}
+		});
+		
+		$("#btn_bucket").click(function(e) {
+			if(userId == ""){
+				alert("로그인이 필요한 서비스입니다.");
+				location.href = "/login/login";
+			}else {
+				location.href="/ShopC/addCart?id="+ p_id;
+			}
+		});
+		
 		$("#btn_like").click(function(){
 			console.log($("#p_id").val());
 			$.ajax({
@@ -39,6 +69,7 @@
 			});
 		});
 	});
+
 	
 	function purchaseNow2() {
 		document.location.href = ''
@@ -51,6 +82,8 @@
 			document.addForm.reset();
 		}
 	}
+	
+
 	
 	
 	
@@ -89,6 +122,8 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/top.jsp" />
+	
+	<input type="hidden" id="userid" value = "${session_id}">
 
 	<div class="content" align="center">
 		<div class="product_view" align="center">
@@ -127,9 +162,9 @@
 
 
 			<div>
-				<a href="/Purchase/purchaseNow?id=${product.p_id}" class=" btn_order"> 상품주문</a>
-				<INPUT type="hidden" ID="productID" NAME="Submit" VALUE='${product.p_id}'>
-				<a href="/ShopC/addCart?id=${product.p_id}" class="btn_bucket" onclick="addToCart()">장바구니</a>
+				<button id="btn_order" class=" btn_order" value="상품주문" />
+					<INPUT type="hidden" ID="productID" NAME="Submit" VALUE='${product.p_id}'>
+				<button id="btn_bucket" class="btn_bucket" value="장바구니" />
 			</div>
 		</div>
 	</div>

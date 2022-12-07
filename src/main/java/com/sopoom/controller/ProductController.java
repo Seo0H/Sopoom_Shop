@@ -117,9 +117,11 @@ public class ProductController {
 	   // 상품 바로주문
 	   @GetMapping("/Purchase/purchaseNow")
 	   public void GetList(Model model, @RequestParam("id") String p_id, HttpSession session) throws Exception {
-		   DecimalFormat df = new DecimalFormat("###,###");
+		   
+		   
 		   String userid = (String) session.getAttribute("userID");
-
+		   
+		   DecimalFormat df = new DecimalFormat("###,###");
 	      // p id로 product 정보 가져오기
 	      ProductVO product = service.product(p_id);
 
@@ -131,7 +133,7 @@ public class ProductController {
 	      
 	      model.addAttribute("strPrice", strPrice);
 	      model.addAttribute("member", member);
-	      model.addAttribute("product", product);
+
 	   }
 	
 }
