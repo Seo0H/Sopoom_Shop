@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sopoom.dto.CartVO;
+import com.sopoom.dto.DibsVO;
 import com.sopoom.dto.ProductVO;
 import com.sopoom.service.CartService;
 
@@ -84,4 +85,5 @@ public class CartController {
 		service.allDel(userid);
 		
 	}
+	
 }

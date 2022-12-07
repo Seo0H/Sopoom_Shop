@@ -85,7 +85,7 @@
 
 					<div class="row">
 						<button class="field shipping-conf-btn" onclick="location.href='/myPage/myOrder?userID=${memberVO.getUserID()}'">배송 정보</button>
-						<button class="field shipping-conf-btn" onclick="location.href='/ShopC/dibsList.jsp?userID=${memberVO.getUserID()}'">찜목록</button>
+						<button class="field shipping-conf-btn" onclick="location.href='/ShopC/dibList?userID=${memberVO.getUserID()}'">찜목록</button>
 					</div>
 				</div>
 

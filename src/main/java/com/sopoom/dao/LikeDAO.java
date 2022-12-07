@@ -1,6 +1,9 @@
 package com.sopoom.dao;
 
+import java.util.List;
+
 import com.sopoom.dto.LikeVO;
+import com.sopoom.dto.ProductVO;
 
 public interface LikeDAO {
 	
@@ -8,7 +11,7 @@ public interface LikeDAO {
 	public int dibs(LikeVO likeVO);
 
 	// 해당 상품 찜 여부 확인용 데이터 가져오기
-	public LikeVO getPrdLikeVal(String p_id);
+	public List<ProductVO> getPrdLikeVal(String userid);
 
 	// 상품 상세 페이지 찜하기
 	public void setPrdctLike(LikeVO LikeVO);

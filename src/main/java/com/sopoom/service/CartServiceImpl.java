@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sopoom.dao.CartDAO;
 import com.sopoom.dto.CartVO;
+import com.sopoom.dto.DibsVO;
 import com.sopoom.dto.ProductVO;
 
 @Service
@@ -42,5 +43,6 @@ public class CartServiceImpl implements CartService {
 		dao.allDel(userid);
 		
 	}
+
 
 }

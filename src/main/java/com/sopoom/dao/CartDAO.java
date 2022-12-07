@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.sopoom.dto.CartVO;
+import com.sopoom.dto.DibsVO;
 import com.sopoom.dto.ProductVO;
 
 public interface CartDAO {
@@ -19,7 +20,5 @@ public interface CartDAO {
 	
 	//유저 카트 비우기
 	public void allDel(String userid) throws Exception;
-	
-	
 	
 }

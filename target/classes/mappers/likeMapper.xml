@@ -10,8 +10,8 @@
 </select>
 
 <!-- 찜 목록 불러오기 -->
-<select id="getPrdLikeVal" parameterType="String" resultType="com.sopoom.dto.ProductVO">         
-    SELECT * FROM dibs WHERE userID = #{userid}
+<select id="getPrdLikeVal" parameterType="String" resultType="HashMap">         
+    SELECT * FROM dibs, product WHERE userID = #{userid} and dibs.p_id=product.p_id
 </select>
 
 <!-- 상품 상세 페이지 찜하기 -->

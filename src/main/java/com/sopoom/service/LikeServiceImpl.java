@@ -1,10 +1,13 @@
 package com.sopoom.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sopoom.dao.LikeDAO;
 import com.sopoom.dto.LikeVO;
+import com.sopoom.dto.ProductVO;
 
 @Service
 public class LikeServiceImpl implements LikeService {
@@ -18,8 +21,8 @@ public class LikeServiceImpl implements LikeService {
 	}
 	
 	@Override
-	public LikeVO getPrdLikeVal(String p_id, String userid) throws Exception {
-		return dao.getPrdLikeVal(p_id);
+	public List<ProductVO> getPrdLikeVal(String userid) throws Exception {
+		return dao.getPrdLikeVal(userid);
 	}
 
 	@Override

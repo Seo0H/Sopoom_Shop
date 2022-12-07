@@ -33,10 +33,9 @@
 						$("#btn_like").attr("src", "/resources/img/afterDibs.png");
 					}
 				} ,
-				 error: function(map) {
-						alert("서버오류 문제로 찜 등록이 실패 했습니다. 잠시 후 다시 시도해주시기 바랍니다.");
-			  	    	return false;
-					}
+				complete: function(){
+					document.location.href = '/product/productDetail?id='+ $("#p_id").val();
+				}
 				
 			});
 		});
@@ -125,7 +124,7 @@
 			<input type="hidden" id="p_id" value="${product.p_id}"/>
 			<div class="img">
 				<img
-					src="${pageContext.request.contextPath}/resources/upload/${product.p_fileName}"
+					src="/resources/upload/${product.p_fileName}"
 					alt="" />
 			</div>
 			<img id="btn_like" name="btn_like" src="${btn_src}" alt="heart">

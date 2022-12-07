@@ -61,8 +61,8 @@ public class ProductController {
 	    LikeVO likeVO = new LikeVO();
 	    likeVO.setP_id(product.getP_id());
 
-//	    likeVO.setUserid((String) session.getAttribute("userID"));
-	    likeVO.setUserid("user");
+	    likeVO.setUserid((String) session.getAttribute("userID"));
+//	    likeVO.setUserid("user");
 	    if( likeService.dibs(likeVO) == 1 ) {
 	    	log.info("찜 함");
 	    	model.addAttribute("btn_src", "/resources/img/afterDibs.png");
@@ -81,8 +81,8 @@ public class ProductController {
 		@PostMapping(value = "/ShopC/addLike")
 		public String addLike(@RequestParam("p_id") String pID, HttpSession session) throws Exception {
 			
-			//String userID = (String) session.getAttribute("userID");
-			String userID ="user";			
+			String userID = (String) session.getAttribute("userID");
+			//String userID ="user";			
 			LikeVO likeVO = new LikeVO();
 			
 			likeVO.setP_id(pID);
@@ -97,9 +97,15 @@ public class ProductController {
 			else {
 				likeService.setPrdctLike(likeVO);
 				System.out.println("FULL");
-				//return("full");
 				return null;
 			}
+	}
+		
+	@GetMapping(value ="/ShopC/dibList")
+	public void getDibsList(Model model, HttpSession session, @RequestParam("userID") String userid) throws Exception {
+		List<ProductVO> dibsList = likeService.getPrdLikeVal(userid);
+		
+		model.addAttribute("dibsList", dibsList);
 	}
 	
 }

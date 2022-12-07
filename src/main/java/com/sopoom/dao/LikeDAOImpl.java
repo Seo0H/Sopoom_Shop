@@ -1,10 +1,13 @@
 package com.sopoom.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sopoom.dto.LikeVO;
+import com.sopoom.dto.ProductVO;
 
 @Repository
 public class LikeDAOImpl implements LikeDAO {
@@ -20,8 +23,8 @@ public class LikeDAOImpl implements LikeDAO {
 	}
 	
 	@Override
-	public LikeVO getPrdLikeVal(String p_id) {
-		return sql.selectOne(namespace + ".getPrdLikeVal", p_id);
+	public List<ProductVO> getPrdLikeVal(String userid) {
+		return sql.selectList(namespace + ".getPrdLikeVal", userid);
 	}
 
 	@Override
